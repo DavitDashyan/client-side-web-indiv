@@ -12,7 +12,9 @@ export class MealListComponent implements OnInit, OnDestroy {
     meals: IMeal[] | null = null;
     subscription: Subscription | undefined = undefined;
 
-    constructor(private mealService: MealService) {}
+    constructor(private mealService: MealService
+               // private route: ActivatedRoute
+                ) {}
 
     ngOnInit(): void {
         this.subscription = this.mealService.list().subscribe((results) => {
