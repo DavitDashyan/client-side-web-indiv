@@ -19,9 +19,9 @@ export const httpOptions = {
  */
 @Injectable()
 export class UserService {
-   // endpoint = 'http://localhost:3000/api/user';
+    endpoint = 'http://localhost:3000/api/user';
 
-   endpoint = ' https://demonodeapp42.azurewebsites.net/api/user';
+   //endpoint = ' https://demonodeapp42.azurewebsites.net/api/user';
     constructor(private readonly http: HttpClient) {}
 
     /**
