@@ -19,8 +19,9 @@ export const httpOptions = {
  */
 @Injectable()
 export class UserService {
-    endpoint = 'http://localhost:3000/api/user';
+   // endpoint = 'http://localhost:3000/api/user';
 
+   endpoint = ' https://demonodeapp42.azurewebsites.net/api/user';
     constructor(private readonly http: HttpClient) {}
 
     /**
@@ -66,7 +67,7 @@ export class UserService {
     //     console.log(`create ${this.endpoint}`);
         
     //     // Implementeer de logica om een nieuwe gebruiker te maken en retourneer de Observable
-    //     return this.http.post<IUser>(this.endpoint, /* nieuwe gebruiker data */, httpOptions)
+    //     return this.http.post<IUser>(this.endpoint, null, httpOptions)
     //         .pipe(
     //             tap(console.log),
     //             catchError(this.handleError)
@@ -75,18 +76,38 @@ export class UserService {
 
 // ---------
 
-    // public create(newUserData: any): Observable<IUser> {
+    public create(newUserData: any): Observable<IUser> {
+        console.log(`create ${this.endpoint}`);
+        
+        return this.http.post<IUser>(this.endpoint, newUserData,  {
+                    observe: 'body' as const,
+                    responseType: 'json' as const,
+                })
+            .pipe(
+                tap(console.log),
+                catchError(this.handleError)
+            );
+    }
+
+
+
+    //================
+
+    // public create(): Observable<IUser> {
     //     console.log(`create ${this.endpoint}`);
         
-    //     return this.http.post<IUser>(this.endpoint, newUserData, httpOptions)
-    //         .pipe(
-    //             tap(console.log),
-    //             catchError(this.handleError)
-    //         );
+    //     // Implementeer de logica om een nieuwe gebruiker te maken en retourneer de Observable
+    //     return this.http.post<IUser>(this.endpoint, user.number, {
+    //         observe: 'body' as const,
+    //         responseType: 'json' as const,
+    //     })
+    //     .pipe(
+    //         tap(console.log),
+    //         catchError(this.handleError)
+    //     );
     // }
-    /**
-     * Handle errors.
-     */
+    
+
     public handleError(error: HttpErrorResponse): Observable<any> {
         console.log('handleError in UserService', error);
 
