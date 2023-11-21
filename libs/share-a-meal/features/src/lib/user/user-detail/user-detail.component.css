@@ -1,0 +1,14 @@
+#flex-container {
+    /* display: flex; */
+    flex-direction: row;
+    justify-content: space-between;
+    width: 350px;
+    padding: 5px;
+    margin: 0 auto; /* Dit zorgt ervoor dat het in het midden van het scherm wordt geplaatst */
+}
+.flex-item {
+    width: 100px;
+    height: 200px;
+    border: 1px black solid;
+    background: #369;
+}

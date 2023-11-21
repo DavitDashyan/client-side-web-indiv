@@ -7,6 +7,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 @Component({
   selector: 'avans-nx-workshop-user-detail',
   templateUrl: './user-edit.component.html',
+  styleUrls: ['./user-edit.component.css'],
 })
 export class UserEditComponent implements OnInit, OnDestroy {
   user: IUser | null = null;

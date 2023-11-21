@@ -3,7 +3,11 @@ import {
     IsString,
     IsBoolean,
     IsOptional,
-    IsDate
+    IsDate,
+    IS_EMAIL,
+    IsEmail,
+    IsInt,
+    IsIn
 } from 'class-validator';
 import {
     ICreateUser,
@@ -30,11 +34,11 @@ export class CreateUserDto implements ICreateUser {
     @IsNotEmpty()
     id!: Id;
 
-    @IsBoolean()
+    @IsInt()
     @IsNotEmpty()
     number!: number;
 
-    @IsDate()
+    @IsEmail()
     @IsNotEmpty()
     email!: string;
 
@@ -60,11 +64,11 @@ export class UpsertUserDto implements IUpsertUser {
     @IsNotEmpty()
     id!: Id;
 
-    @IsBoolean()
+    @IsInt()
     @IsNotEmpty()
     number!: number;
 
-    @IsDate()
+    @IsEmail()
     @IsNotEmpty()
     email!: string;
 
@@ -86,19 +90,19 @@ export class UpdateUserDto implements IUpdateUser {
     @IsOptional()
     address!: string;
 
-    @IsBoolean()
+    @IsEmail()
     @IsOptional()
     email!: string;
 
-    @IsBoolean()
+    @IsString()
     @IsOptional()
     password!: string;
 
-    @IsBoolean()
+    @IsString()
     @IsOptional()
     bday!: Date;
 
-    @IsBoolean()
+    @IsInt()
     @IsOptional()
     number!: number;
 }
