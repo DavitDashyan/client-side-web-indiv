@@ -1,7 +1,3 @@
-// import { Controller } from '@nestjs/common';
-
-// @Controller('user')
-// export class UserController {}
 import { Controller } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Get, Param, Post, Body } from '@nestjs/common';

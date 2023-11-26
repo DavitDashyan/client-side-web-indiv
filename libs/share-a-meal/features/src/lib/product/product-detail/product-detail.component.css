@@ -1,0 +1,15 @@
+#flex-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Voeg hier de gewenste ruimte tussen de elementen toe */
+    max-width: 350px; /* Zorg ervoor dat de container niet breder wordt dan 350px */
+    margin: 0 auto;
+}
+
+.flex-item {
+    width: calc(33.33% - 10px); /* 33.33% - 10px zorgt voor drie items in een rij met ruimte ertussen */
+    margin-bottom: 10px; /* Voeg hier de gewenste ruimte toe tussen de items */
+    height: 200px;
+    border: 1px black solid;
+    background: #369;
+}

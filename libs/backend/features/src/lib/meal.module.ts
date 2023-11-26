@@ -6,6 +6,7 @@ import { UserService } from './user/user.service';
 import { ProductController } from './product/product.controller';
 import { ProductService } from './product/product.service';
 
+
 @Module({
   controllers: [MealController, UserController, ProductController],
   providers: [MealService,UserService, ProductService],

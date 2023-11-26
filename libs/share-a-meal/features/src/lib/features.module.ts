@@ -12,6 +12,7 @@ import { RouterLink } from '@angular/router';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ProductEditComponent } from './product/product-edit/product-edit.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
+import { ProductService } from './product/product.service';
 
 @NgModule({
   imports: [CommonModule, HttpClientModule, RouterLink],
@@ -23,16 +24,20 @@ import { ProductListComponent } from './product/product-list/product-list.compon
     UserDetailComponent,
 
     ProductDetailComponent,
-    ProductEditComponent,
+   // ProductEditComponent,
     ProductListComponent,
   ],
-  providers: [MealService, UserService],
+  providers: [MealService, UserService, ProductService],
   exports: [
     MealListComponent,
     MealDetailComponent,
     AboutComponent,
+    
     UserComponent,
     UserDetailComponent,
+
+    ProductDetailComponent,
+    ProductListComponent
   ],
 })
 export class FeaturesModule {}

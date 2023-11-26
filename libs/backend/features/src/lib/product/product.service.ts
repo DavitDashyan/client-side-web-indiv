@@ -15,6 +15,28 @@ export class ProductService {
             price: 567,
             condition: Conditie.Nieuw,
         },
+        {
+            id: '1',
+            nameProduct: 'iphone 15',
+            description: 'rood',
+            price: 997,
+            condition: Conditie.Nieuw,
+        },
+        {
+            id: '2',
+            nameProduct: 'iphone 14',
+            description: 'wit',
+            price: 857,
+            condition: Conditie.Zo_Goed_Als_Nieuw,
+        },
+        {
+            id: '3',
+            nameProduct: 'iphone 11',
+            description: 'paars',
+            price: 857,
+            condition: Conditie.Zichtbaar_Gebruikt,
+        },
+
     ]);
 
     private productSubject = new BehaviorSubject<IProduct[]>(this.product$.value);
