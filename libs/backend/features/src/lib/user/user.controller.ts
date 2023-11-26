@@ -25,7 +25,5 @@ export class UserController {
     @Post('')
     create(@Body() data: CreateUserDto): IUser {
         return this.userService.create(data);
-    }
-
-    
+    } 
 }

@@ -3,11 +3,12 @@ import { IUser } from '@avans-nx-workshop/shared/api';
 import { UserService } from '../user.service';
 import { Subscription, delay, switchMap, tap } from 'rxjs';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { initModals} from 'flowbite';
 
 @Component({
   selector: 'avans-nx-workshop-user-detail',
   templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.css'],
+ // styleUrls: ['./user-edit.component.css'],
 })
 export class UserEditComponent implements OnInit, OnDestroy {
   user: IUser | null = null;
@@ -60,6 +61,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
 
 ngOnInit(): void {
+    initModals();
     this.route.paramMap
       .pipe(
         tap((params: ParamMap) => console.log('user.id = ', params.get('id'))),

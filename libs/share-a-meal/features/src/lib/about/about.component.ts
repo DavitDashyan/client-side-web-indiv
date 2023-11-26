@@ -10,6 +10,6 @@ export class AboutComponent implements OnInit{
   title = 'avans-nx-workshop-about';
   imagePath?: string;
   ngOnInit(): void {
-      this.imagePath = '/assets/erd.png';
+      this.imagePath = '/assets/erd2.png';
   }
 }

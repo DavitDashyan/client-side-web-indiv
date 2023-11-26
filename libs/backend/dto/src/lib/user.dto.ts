@@ -7,7 +7,6 @@ import {
     IS_EMAIL,
     IsEmail,
     IsInt,
-    IsIn
 } from 'class-validator';
 import {
     ICreateUser,
@@ -26,7 +25,7 @@ export class CreateUserDto implements ICreateUser {
     @IsNotEmpty()
     name!: string;
 
-    @IsString()
+    @IsDate()
     @IsNotEmpty()
     address!: string;
 
@@ -76,7 +75,7 @@ export class UpsertUserDto implements IUpsertUser {
     @IsNotEmpty()
     password!: string;
 
-    @IsString()
+    @IsDate()
     @IsNotEmpty()
     bday!: Date;
 }
@@ -98,7 +97,7 @@ export class UpdateUserDto implements IUpdateUser {
     @IsOptional()
     password!: string;
 
-    @IsString()
+    @IsDate()
     @IsOptional()
     bday!: Date;
 
@@ -106,6 +105,3 @@ export class UpdateUserDto implements IUpdateUser {
     @IsOptional()
     number!: number;
 }
-
-
-

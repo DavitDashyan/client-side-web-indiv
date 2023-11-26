@@ -26,6 +26,15 @@ export class UserService {
             password: 'password',
             bday: new Date(),
         },
+        {
+            id: '2',
+            name: 'kees',
+            address: 'Rotterdam',
+            number: 94567883,
+            email: 'water@gmail.com',
+            password: 'password',
+            bday: new Date(),
+        },
     ]);
 
     private userSubject = new BehaviorSubject<IUser[]>(this.user$.value);
