@@ -10,12 +10,26 @@ import { UserService } from './user/user.service';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { RouterLink } from '@angular/router';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
-import { ProductEditComponent } from './product/product-edit/product-edit.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { ProductService } from './product/product.service';
+import { StarRatingModule } from 'angular-star-rating';
+import { CartListComponent } from './cart/cart-list/cart-list.component';
+import { ShopListComponent } from './shop/shop-list/shop-list.component';
+import { FormsModule } from '@angular/forms';
+//import { SearchComponent } from '../../../ui/src/lib/search/search.component'; // Zorg ervoor dat het juiste pad wordt gebruikt
+import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './auth/login/login.component';
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
-  imports: [CommonModule, HttpClientModule, RouterLink],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    RouterLink,
+    StarRatingModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   declarations: [
     MealListComponent,
     MealDetailComponent,
@@ -24,20 +38,29 @@ import { ProductService } from './product/product.service';
     UserDetailComponent,
 
     ProductDetailComponent,
-   // ProductEditComponent,
     ProductListComponent,
+
+    CartListComponent,
+    ShopListComponent,
+
+    // SearchComponent,
+    LoginComponent,
   ],
-  providers: [MealService, UserService, ProductService],
+  providers: [MealService, UserService, ProductService, AuthService],
   exports: [
     MealListComponent,
     MealDetailComponent,
     AboutComponent,
-    
+
     UserComponent,
     UserDetailComponent,
 
     ProductDetailComponent,
-    ProductListComponent
+    ProductListComponent,
+
+    CartListComponent,
+
+    LoginComponent,
   ],
 })
 export class FeaturesModule {}

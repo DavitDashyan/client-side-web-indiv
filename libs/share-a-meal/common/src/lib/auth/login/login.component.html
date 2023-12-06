@@ -1,8 +1,8 @@
-<div class="container login-container">
+<!-- <div class="container login-container">
     <div class="row justify-content-center">
       <div class="col-sm-10 col-md-8 col-lg-6 my-5">
         <div class="card card-auth shadow-lg p-3 px-md-5 py-md-4">
-          <!--  -->
+         
           <h2>Login</h2>
           <form
             class="form-signin"
@@ -82,4 +82,71 @@
       </div>
     </div>
   </div>
-  
+   -->
+
+
+
+
+<!-- <app-title title="Login"> </app-title> -->
+
+
+<!-- <div class="container">
+  <div class="detaild">
+    
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
+      <div class="input-container">
+        <label>Email</label>
+        <div>
+          <input type="email" placeholder="Email" formControlName="email" />
+        </div>
+      </div>
+
+      <div class="input-container">
+        <label>Password</label>
+        <div>
+          <input type="password" placeholder="Password" formControlName="password" />
+        </div>
+      </div>
+      <div class="button">
+        <button type="submit">Login</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Login</div>
+        <div class="card-body">
+          <form [formGroup]="loginForm" (ngSubmit)="submit()">
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" formControlName="email"
+                placeholder="Enter your email">
+              <div *ngIf="fc['email'].invalid && (fc['email'].dirty || isSubmitted)" class="text-danger">
+                <div *ngIf="fc['email'].errors?.['required']">Email is required</div>
+                <div *ngIf="fc['email'].errors?.['email']">Invalid email address</div>
+              </div>
+            </div>
+
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" formControlName="password"
+                placeholder="Enter your password">
+              <div *ngIf="fc['password'].invalid && (fc['password'].dirty || isSubmitted)" class="text-danger">
+                <div *ngIf="fc['password'].errors?.['required']">Password is required</div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

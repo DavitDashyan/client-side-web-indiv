@@ -18,6 +18,11 @@ export class ProductController {
         return this.productService.getOne(id);
     }
 
+    //voor search
+    @Get('search/:nameProduct')
+    getAllProductsBySearchTerm(@Param('nameProduct') nameProduct: string): IProduct[] {
+        return this.productService.getAllProductsBySearchTerm(nameProduct);
+    }
     @Post('')
     create(@Body() data: CreateProductDto): IProduct {
         return this.productService.create(data);

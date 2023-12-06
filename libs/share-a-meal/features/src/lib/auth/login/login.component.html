@@ -1,0 +1,143 @@
+<!-- <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Login</h2>
+    </div>
+
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form class="space-y-6" [formGroup]="loginForm" (ngSubmit)="submit()">
+            <div class="mb-3">
+                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+                <div class="mt-2">
+                    <input id="email" name="email" type="email" autocomplete="email" required
+                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        formControlName="email" placeholder="Enter your email">
+                    <div *ngIf="fc['email'].invalid && (fc['email'].dirty || isSubmitted)" class="error-list">
+                        <div *ngIf="fc['email'].errors?.['required']">Email is required</div>
+                        <div *ngIf="fc['email'].errors?.['email']">Invalid email address</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="flex items-center justify-between">
+                    <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+                    <div class="text-sm">
+                        <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <input id="password" name="password" type="password" autocomplete="current-password" required
+                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        formControlName="password" placeholder="Enter your password">
+                    <div *ngIf="fc['password'].invalid && (fc['password'].dirty || isSubmitted)" class="error-list">
+                        <div *ngIf="fc['password'].errors?.['required']">Password is required</div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <button type="submit"
+                    class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
+                    in</button>
+            </div>
+        </form>
+    </div>
+</div> -->
+
+
+
+ <div class="container-fluid w-50">
+    <div class="mt-5">
+
+        <h2 class="text-center">Login</h2>
+
+        <form class="form-signin" [formGroup]='loginForm' (ngSubmit)="onSubmit()">
+
+            <div class="form-group mt-5 mb-5">
+                <label for="inputEmail">E-mailadres</label><br>
+                <input type="email" class="form-control" formControlName="email" id="inputEmail"
+                    aria-describedby="emailHelp"
+                    [ngClass]="{'is-invalid': loginForm.get('email')?.invalid && loginForm.get('email')?.touched}" />
+                <span *ngIf="loginForm.get('email')?.hasError('invalidEmail') && loginForm.get('email')?.touched"
+                    class="invalid-feedback">
+                    <p id="email-invalid">Voer een geldig e-mailadres in</p>
+                </span>
+            </div>
+
+            <div class="form-group mt-5 mb-5">
+                <label for="inputPassword">Wachtwoord</label>
+                <div class="input-group">
+                    <input type="{{ hidePassword ? 'password' : 'text' }}" class="form-control"
+                        formControlName="password" id="inputPassword" [ngClass]="{
+              'is-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched
+            }" />
+                    <div class="input-group-append">
+                        <button class="btn btn-info" type="button" (click)="togglePasswordVisibility()">
+                            {{ hidePassword ? 'Weergeven' : 'Verbergen' }}
+                        </button>
+                    </div>
+                    <span
+                        *ngIf="loginForm.get('password')?.hasError('invalidPassword')  && loginForm.get('password')?.touched"
+                        class="invalid-feedback">
+                        <p id="password-invalid">Voer een geldig wachtwoord in</p>
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="form-group text-center">
+                <button id="submitbutton" class="inlog btn" type="submit">Inloggen</button>
+                <div *ngIf="loginError" class="error-message">Ongeldige gebruikersnaam of wachtwoord.</div>
+            </div>
+
+        </form>
+    </div>
+</div> 
+
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Login</h2>
+    </div>
+
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form class="space-y-6" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+                <div class="mt-2">
+                    <input id="email" name="email" type="email" autocomplete="email" required
+                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        formControlName="email" placeholder="Enter your email">
+                    <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || submitted)" class="error-list">
+                        <div *ngIf="loginForm.get('email')?.hasError('required')">Email is required</div>
+                        <div *ngIf="loginForm.get('email')?.hasError('invalidEmail')">Invalid email address</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="flex items-center justify-between">
+                    <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+                    <div class="text-sm">
+                        <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <input id="password" name="password" type="password" autocomplete="current-password" required
+                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        formControlName="password" placeholder="Enter your password">
+                    <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || submitted)" class="error-list">
+                        <div *ngIf="loginForm.get('password')?.hasError('required')">Password is required</div>
+                        <div *ngIf="loginForm.get('password')?.hasError('invalidPassword')">Invalid password</div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <button type="submit"
+                    class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
+                    in</button>
+            </div>
+        </form>
+    </div>
+</div>

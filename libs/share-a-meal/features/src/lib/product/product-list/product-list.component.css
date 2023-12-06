@@ -1,10 +1,10 @@
-#flex-container {
+/* #flex-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 900px;
     padding: 5px;
-    /* border: 1px black solid; */
+    
     margin: 0 auto;
 }
 
@@ -13,4 +13,102 @@
     height: 200px;
     border: 1px black solid;
     background: #369;
+} */
+
+/* ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
 }
+
+li a{
+    height: 22.5rem;
+    width: 20rem;
+    border: 1px solid whitesmoke;
+    border-radius: 1rem;
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: black;
+}
+
+li a:hover{
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+li a img{
+    object-fit: cover;
+    height: 14.5rem;
+}
+
+.content{
+    margin-top: 0.3rem;
+    padding: 0.5rem 1rem;
+    position: relative;
+    height: 7rem;
+}
+
+.favorite{
+    position:absolute;
+     top: 0.5rem;
+    right: 1rem; 
+    font-size: 1.2rem; 
+}
+
+.favorite.not{
+    color: green;
+} */
+
+ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li a{
+    height: 22.5rem;
+    width: 20rem;
+    border: 1px solid whitesmoke;
+    border-radius: 1rem;
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: #b92c2c;
+  }
+  
+  li a:hover{
+    opacity: 0.9;
+    cursor: pointer;
+  }
+  
+  li a img{
+    object-fit: cover;
+    height: 14.5rem;
+  }
+  
+  .content{
+    margin-top: 0.3rem;
+    padding: 0.5rem 1rem;
+    position: relative;
+    height: 7rem;
+  }
+  
+  .favorite{
+    position: absolute;
+    /* top: 0.5rem;
+    right: 1rem; */
+    font-size: 2.5rem;
+  }
+  
+  .favorite.not{
+    color: grey;
+  }

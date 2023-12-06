@@ -1,13 +1,3 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'avans-nx-workshop-product-detail',
-//   templateUrl: './product-detail.component.html',
-//   styleUrls: ['./product-detail.component.css'],
-// })
-// export class ProductDetailComponent {}
-
-
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IProduct } from '@avans-nx-workshop/shared/api';
 import { ProductService } from '../product.service';

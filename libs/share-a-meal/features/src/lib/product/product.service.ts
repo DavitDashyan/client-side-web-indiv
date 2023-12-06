@@ -6,9 +6,13 @@ import { Injectable } from '@angular/core';
 import {environment}from '@avans-nx-workshop/shared/util-env'
 
 
+// export const httpOptions = {
+//     observe: 'body',
+//     responseType: 'json',
+// };
 export const httpOptions = {
-    observe: 'body',
-    responseType: 'json',
+    observe: 'body' as const,
+    responseType: 'json' as const,
 };
 
 
@@ -32,6 +36,51 @@ export class ProductService {
                 tap(console.log),
                 catchError(this.handleError)
             );
+      }
+
+    //   public getAllFoodsBySearchTerm(searchTerm: string): Observable<IProduct[]> {
+    //     const url = `${this.endpoint}/search?term=${searchTerm}`;
+    //     console.log(`getAllFoodsBySearchTerm ${url}`);
+    
+    //     return this.http
+    //       .get<ApiResponse<IProduct[]>>(url, {
+    //         ...httpOptions,
+    //       })
+    //       .pipe(
+    //         map((response: any) => response.results as IProduct[]),
+    //         tap(console.log),
+    //         catchError(this.handleError)
+    //       );
+    //   }
+
+    // public search(nameProduct: string | null, options?: any): Observable<IProduct> {
+    //     const url = this.endpoint + '/' + nameProduct;
+    //     console.log(`read ${url}`);
+    //     return this.http
+    //         .get<ApiResponse<IProduct>>(url, {
+    //             ...options,
+    //             ...httpOptions,
+    //         })
+    //         .pipe(
+    //             tap(console.log),
+    //             map((response: any) => response.results as IProduct),
+    //             catchError(this.handleError)
+    //         );
+    // }
+
+    public searchByName(nameProduct: string | null, options?: any): Observable<IProduct[]> {
+        const url = `${this.endpoint}/search/${nameProduct}`;
+        console.log(`searchByName ${url}`);
+        return this.http
+          .get<ApiResponse<IProduct[]>>(url, {
+            ...options,
+            ...httpOptions,
+          })
+          .pipe(
+            tap(console.log),
+            map((response: any) => response.results as IProduct[]),
+            catchError(this.handleError)
+          );
       }
 
     public read(id: string | null, options?: any): Observable<IProduct> {

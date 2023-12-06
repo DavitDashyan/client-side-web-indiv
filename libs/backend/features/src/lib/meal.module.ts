@@ -9,7 +9,7 @@ import { ProductService } from './product/product.service';
 
 @Module({
   controllers: [MealController, UserController, ProductController],
-  providers: [MealService,UserService, ProductService],
-  exports: [MealService,UserService, ProductService],
+  providers: [MealService, UserService, ProductService],
+  exports: [MealService, UserService, ProductService],
 })
 export class MealModule {}

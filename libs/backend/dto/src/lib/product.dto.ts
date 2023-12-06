@@ -3,6 +3,7 @@ import {
     IsString,
     IsInt,
     IsEnum,
+    IsBoolean,
 } from 'class-validator';
 import {
     Id,
@@ -34,6 +35,14 @@ export class CreateProductDto implements ICreateProduct {
     @IsNotEmpty()
     price!: number;
 
+    @IsString()
+    @IsNotEmpty()
+    productImageUrl!: string;
+
+    @IsBoolean()
+    @IsNotEmpty()
+    favorite!: boolean;
+
     @IsEnum(Conditie)
     @IsNotEmpty()
     condition!: Conditie;
@@ -57,6 +66,14 @@ export class UpsertProductDto implements IUpsertProduct {
     @IsNotEmpty()
     price!: number;
 
+    @IsString()
+    @IsNotEmpty()
+    productImageUrl!: string;
+
+    @IsBoolean()
+    @IsNotEmpty()
+    favorite!: boolean;
+
     @IsEnum(Conditie)
     @IsNotEmpty()
     condition!: Conditie;
@@ -74,6 +91,14 @@ export class UpdateProductDto implements IUpdateProduct {
     @IsInt()
     @IsNotEmpty()
     price!: number;
+
+    @IsString()
+    @IsNotEmpty()
+    productImageUrl!: string;
+
+    @IsBoolean()
+    @IsNotEmpty()
+    favorite!: boolean;
 
     @IsEnum(Conditie)
     @IsNotEmpty()
