@@ -3,9 +3,9 @@
  * This is only a minimal backend to get started.
  */
 
-import { Logger, ValidationPipe} from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import {ApiResponseInterceptor} from '@avans-nx-workshop/backend/dto'
+import { ApiResponseInterceptor } from '@avans-nx-workshop/backend/dto';
 import { AppModule } from './app/app.module';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 
@@ -14,11 +14,15 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
 
-const CorsOptions: CorsOptions = {};
-app.enableCors(CorsOptions);
+  const corsOptions: CorsOptions = {
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  };
+  app.enableCors(corsOptions);
 
-app.useGlobalInterceptors(new ApiResponseInterceptor());
-app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalInterceptors(new ApiResponseInterceptor());
+  app.useGlobalPipes(new ValidationPipe());
 
   const port = process.env.PORT || 3000;
   await app.listen(port);
