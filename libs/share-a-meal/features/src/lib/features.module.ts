@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MealListComponent } from './meal/meal-list/meal-list.component';
-import { MealDetailComponent } from './meal/meal-detail/meal-detail.component';
+//import { MealListComponent } from './meal/meal-list/meal-list.component';
+//import { MealDetailComponent } from './meal/meal-detail/meal-detail.component';
 import { AboutComponent } from './about/about.component';
-import { MealService } from './meal/meal.service';
+//import { MealService } from './meal/meal.service';
 import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './user/user-list/user.component';
 import { UserService } from './user/user.service';
@@ -31,8 +31,8 @@ import { AuthService } from './auth/auth.service';
     ReactiveFormsModule,
   ],
   declarations: [
-    MealListComponent,
-    MealDetailComponent,
+   // MealListComponent,
+   // MealDetailComponent,
     AboutComponent,
     UserComponent,
     UserDetailComponent,
@@ -46,10 +46,10 @@ import { AuthService } from './auth/auth.service';
     // SearchComponent,
     LoginComponent,
   ],
-  providers: [MealService, UserService, ProductService, AuthService],
+  providers: [UserService, ProductService, AuthService], //MealService
   exports: [
-    MealListComponent,
-    MealDetailComponent,
+   // MealListComponent,
+   // MealDetailComponent,
     AboutComponent,
 
     UserComponent,
