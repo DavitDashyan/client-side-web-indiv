@@ -63,7 +63,7 @@ import { UserEditComponent } from './user/user-edit/user-edit.component';
     ShopNewComponent,
     ShopEditComponent,
     UserNewComponent,
-    UserEditComponent
+    UserEditComponent,
   ],
   providers: [UserService, ProductService, AuthService], //MealService
   exports: [
