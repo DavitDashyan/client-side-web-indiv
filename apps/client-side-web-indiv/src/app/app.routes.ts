@@ -10,10 +10,14 @@ import { ProductEditComponent } from 'libs/share-a-meal/features/src/lib/product
 import { ProductDetailComponent } from 'libs/share-a-meal/features/src/lib/product/product-detail/product-detail.component';
 import { ShopListComponent } from 'libs/share-a-meal/features/src/lib/shop/shop-list/shop-list.component';
 import { LoginComponent } from 'libs/share-a-meal/features/src/lib/auth/login/login.component';
+import { RegisterComponent } from 'libs/share-a-meal/features/src/lib/auth/register/register.component';
+import { ProductNewComponent } from 'libs/share-a-meal/features/src/lib/product/product-new/product-new.component';
+import { ShopNewComponent } from 'libs/share-a-meal/features/src/lib/shop/shop-new/shop-new.component';
 // import { LoginComponent } from 'libs/share-a-meal/features/src/lib/login/login.component';
 // import { CommonModule } from '@angular/common';
 
 export const appRoutes: Route[] = [
+  //overig
   {
     path: '',
     redirectTo: 'dashboard',
@@ -24,6 +28,18 @@ export const appRoutes: Route[] = [
     pathMatch: 'full',
     component: AboutComponent,
     // redirectTo: 'dashboard',
+  },
+
+  {
+    path: 'login',
+    pathMatch: 'full',
+    component: LoginComponent,
+  },
+
+  {
+    path: 'register',
+    pathMatch: 'full',
+    component: RegisterComponent,
   },
 
   //search
@@ -43,7 +59,8 @@ export const appRoutes: Route[] = [
   //   pathMatch: 'full',
   //   component: MealDetailComponent,
   // },
-  
+
+  //users
   {
     path: 'user',
     pathMatch: 'full',
@@ -61,6 +78,8 @@ export const appRoutes: Route[] = [
     pathMatch: 'full',
     component: UserEditComponent,
   },
+
+  //products
   {
     path: 'product',
     pathMatch: 'full',
@@ -69,7 +88,7 @@ export const appRoutes: Route[] = [
   {
     path: 'product/new',
     pathMatch: 'full',
-    component: ProductEditComponent,
+    component: ProductNewComponent,
   },
   {
     path: 'product/:id',
@@ -81,31 +100,31 @@ export const appRoutes: Route[] = [
     pathMatch: 'full',
     component: ProductEditComponent,
   },
+
+  //shop
   {
     path: 'shop',
     pathMatch: 'full',
     component: ShopListComponent,
   },
+
   {
-    path: 'login',
+    path: 'shop/new',
     pathMatch: 'full',
-    component: LoginComponent,
+    component: ShopNewComponent,
   },
-  // {
-  //     path: 'shop/new',
-  //     pathMatch: 'full',
-  //     component: ShopEditComponent
-  // },
-  // {
-  //     path: 'shop/:id',
-  //     pathMatch: 'full',
-  //     component: ProductDetailComponent
-  // },
-  // {
-  //     path: 'shop/:id/edit',
-  //     pathMatch: 'full',
-  //     component: ProductEditComponent
-  // },
+  {
+    path: 'shop/:id',
+    pathMatch: 'full',
+    component: ProductDetailComponent,
+  },
+  {
+    path: 'shop/:id/edit',
+    pathMatch: 'full',
+    component: ProductEditComponent,
+  },
+
+  // mss component veranderen door home ofzo
   {
     path: '**',
     pathMatch: 'full',

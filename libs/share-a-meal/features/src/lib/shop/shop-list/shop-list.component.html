@@ -1,1 +1,28 @@
-<p>shop-list works!</p>
+<div class="container-fluid p-5">
+
+    <div class="new shop d-flex justify-content-end mt-4 mb-5">
+        <button type="button" class="btn btn-info" [routerLink]="['/shop/new']">
+            Nieuwe Schrijver
+        </button>
+    </div>
+
+    <div class="cards p-5">
+        <ng-container *ngFor="let shop of shops">
+            <div class="card">
+                <div class="display">
+
+                    <img src="{{ shop.shopImageUrl }}" class="card-img-top me-5 ms-5 mt-3 mb-3" alt="Book Image"
+                        onerror="this.src='/assets/placeholder-person.png'">
+
+                    <div class="card-body me-5 ms-5 mt-5">
+                        <h5 class="card-title"><a routerLink="{{ shop.id }}"
+                                class="text text-dark text-decoration-none">{{ shop.name }}</a></h5>
+                        <p class="card-text mt-5"><span>Telefoon number </span>{{ shop.telNumber}}</p>
+                    </div>
+
+                </div>
+            </div>
+        </ng-container>
+    </div>
+
+</div>

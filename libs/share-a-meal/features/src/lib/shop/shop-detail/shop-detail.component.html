@@ -1,0 +1,62 @@
+<div class="container-fluid">
+
+    <div class="row mt-5">
+      <!-- Left Column -->
+      <div class="column-left col-12 col-lg-5 align-items-center justify-content-center">
+  
+        <div class="img-container text-center">
+          <img src="{{ shop.shopImageUrl }}" alt="Profile Image" class="round-image" onerror="this.src='/assets/placeholder-person.png'">
+        </div>
+      </div>
+  
+      <!-- Right Column -->
+      <div class="column-right col-12 col-lg-7 d-flex align-items-center justify-content-center pe-5">
+  
+        <div class="title-container">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <h2 class="writer-name mb-3">{{shop.name}}</h2>
+            </li>
+            <li class="list-group-item">
+              <span class="fw-bold">Email:</span>
+              <p>{{shop.email}}</p>
+            </li>
+            <li class="list-group-item">
+              <span class="fw-bold">Telefoon number:</span>
+              <p>{{shop.telNumber }}</p>
+            </li>
+          </ul>
+        </div>
+        
+      </div>
+  
+  
+      <div class="button-container text-center">
+        <button type="button" class="btn text-center me-4" (click)="goBack()">
+          <span class="text-dark text-decoration-none">Terug</span>
+        </button>
+  
+        <button type="button" class="btn text-center" *ngIf="showButton" [routerLink]="['shop/edit']">
+          Edit 
+        </button>
+      </div>
+  
+        <div class="button-container text-center" *ngIf="showButton">
+          <!-- Show the "Verwijder Schrijver" button if the confirmation dialog is not shown -->
+          <ng-container *ngIf="!showDeleteConfirmation; else confirmationDialog">
+            <button type="button" class="btn text-center" (click)="showDeleteConfirmation = true">
+              <a class="text-dark text-decoration-none">Delete</a>
+            </button>
+          </ng-container>
+        </div>
+        
+        <!-- To display the confirmation dialog when needed -->
+        <ng-template #confirmationDialog>
+          <div class="confirmation-dialog mt-1">
+            <p>Weet u zeker dat u deze shop wilt verwijderen?</p>
+            <button type="button" (click)="deleteShop()" class="btn text-center me-3">Yes, delete</button>
+            <button type="button" (click)="showDeleteConfirmation = false" class="btn text-center">No, Cancel</button>
+          </div>
+        </ng-template>
+    </div>
+  </div>

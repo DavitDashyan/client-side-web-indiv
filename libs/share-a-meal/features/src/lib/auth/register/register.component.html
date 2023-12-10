@@ -1,111 +1,78 @@
-<!-- 
-
 <div class="container-fluid w-50">
-    <div class="mt-5">
-      <h2 class="mb-5 text-center">Register</h2>
-  
-      <form class="form-signin" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <div class="form-row">
-            <label for="inputNaam">Naam</label><br>
-            <input type="text" class="form-control" formControlName="naam" id="inputNaam" [ngClass]="{
-                'is-invalid':
-                  registerForm.get('naam')?.invalid &&
-                  registerForm.get('naam')?.touched
-              }" />
-            <span *ngIf="!registerForm.get('naam')?.valid && registerForm.get('naam')?.touched" class="invalid-feedback">
-              <p id="naam-invalid">Name is niet geldig.</p>
-            </span>
-          </div>
-  
-        <div class="form-row">
-          <div class="form-group">
-            <label for="inputGeboortedatum">Geboortedatum</label><br>
-            <input type="date" class="form-control" formControlName="geboortedatum" id="inputGeboortedatum" [ngClass]="{
-                'is-invalid':
-                  registerForm.get('geboortedatum')?.invalid &&
-                  registerForm.get('geboortedatum')?.touched
-              }" />
-            <span *ngIf="!registerForm.get('geboortedatum')?.valid && registerForm.get('geboortedatum')?.touched" class="invalid-feedback">
-              <p id="geboortedatum-invalid">Geboortedatum is niet geldig.</p>
-            </span>
-          </div>
-  
-          <div class="form-group">
-            <label for="inputStraatnaam">Straatnaam</label><br>
-            <input type="text" class="form-control" formControlName="straatnaam" id="inputStraatnaam" [ngClass]="{
-                'is-invalid':
-                  registerForm.get('straatnaam')?.invalid &&
-                  registerForm.get('straatnaam')?.touched
-              }" />
-            <span *ngIf="
-              !registerForm.get('straatnaam')?.valid && registerForm.get('straatnaam')?.touched" class="invalid-feedback">
-              <p id="straatnaam-invalid">Straatnaam is niet geldig.</p>
-            </span>
-          </div>
-  
-          <div class="form-group">
-            <label for="inputStraatnaam">Huisnummer</label><br>
-            <input type="number" class="form-control" formControlName="huisnummer" id="inputHuisnummer" [ngClass]="{
-                'is-invalid':
-                  registerForm.get('huisnummer')?.invalid &&
-                  registerForm.get('huisnummer')?.touched
-              }" />
-            <span *ngIf="!registerForm.get('huisnummer')?.valid && registerForm.get('huisnummer')?.touched" class="invalid-feedback">
-              <p id="huisnummer-invalid">Huisnummer is niet geldig.</p>
-            </span>
-          </div>
-  
-          <div class="form-group">
-            <label for="inputStad">Stad</label><br>
-            <input type="text" class="form-control" formControlName="stad" id="inputStad" [ngClass]="{
-                'is-invalid':
-                  registerForm.get('stad')?.invalid &&
-                  registerForm.get('stad')?.touched
-              }" />
-            <span *ngIf="!registerForm.get('stad')?.valid && registerForm.get('stad')?.touched" class="invalid-feedback">
-              <p id="stad-invalid">Stad is niet geldig.</p>
-            </span>
-          </div>
-  
-        </div>
-  
-        <div class="form-group">
-          <label for="inputEmail">Emailadres</label><br>
-          <input type="email" class="form-control" formControlName="email" id="inputEmail" aria-describedby="emailHelp" [ngClass]="{
+  <div class="mt-5">
+    <h2 class="mb-5 text-center">Registeren</h2>
+
+    <form class="form-signin" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <label for="inputNaam">Name</label><br>
+        <input type="text" class="form-control" formControlName="naam" id="inputNaam" [ngClass]="{
               'is-invalid':
-                registerForm.get('email')?.invalid &&
-                registerForm.get('email')?.touched
+                registerForm.get('name')?.invalid &&
+                registerForm.get('name')?.touched
             }" />
-            <span *ngIf="registerForm.get('email')?.hasError('invalidEmail') && registerForm.get('email')?.touched" class="invalid-feedback">
-              <p id="email-invalid">Voer een geldig e-mailadres in</p>
-            </span>
-        </div>
-  
+        <span *ngIf="!registerForm.get('name')?.valid && registerForm.get('name')?.touched" class="invalid-feedback">
+          <p id="naam-invalid">Name is not valid.</p>
+        </span>
+      </div>
+
+      <div class="form-row">
         <div class="form-group">
-          <label for="inputPassword">Wachtwoord</label>
-          <div class="input-group">
-            <input type="{{ hidePassword ? 'password' : 'text' }}" class="form-control" formControlName="password" id="inputPassword" [ngClass]="{
-                'is-invalid':
-                  registerForm.get('password')?.invalid &&
-                  registerForm.get('password')?.touched
-              }" />
-            <div class="input-group-append">
-              <button class="btn btn-info" type="button" (click)="togglePasswordVisibility()">
-                {{ hidePassword ? 'Weergeven' : 'Verbergen' }}
-              </button>
-            </div>
-          </div>
-          <span *ngIf="registerForm.get('password')?.hasError('invalidPassword')  && registerForm.get('password')?.touched" class="invalid-feedback">
-            <p id="password-invalid">Voer een geldig wachtwoord in</p>
+          <label for="inputBirthday">Birthday</label><br>
+          <input type="date" class="form-control" formControlName="birthday" id="inputBirthday" [ngClass]="{
+              'is-invalid':
+                registerForm.get('birthday')?.invalid &&
+                registerForm.get('birthday')?.touched
+            }" />
+          <span *ngIf="!registerForm.get('birthday')?.valid && registerForm.get('birthday')?.touched"
+            class="invalid-feedback">
+            <p id="birthday-invalid">Birthday is not valid.</p>
           </span>
         </div>
-        
-        <div class="form-group text-center">
-          <button id="submitbutton" class="register btn" type="submit">Registreren</button>
-          <div *ngIf="loginError" class="error-message">Ongeldige gegevens.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="inputEmail">Email</label><br>
+        <input type="email" class="form-control" formControlName="email" id="inputEmail" aria-describedby="emailHelp"
+          [ngClass]="{
+            'is-invalid':
+              registerForm.get('email')?.invalid &&
+              registerForm.get('email')?.touched
+          }" />
+        <span *ngIf="registerForm.get('email')?.hasError('invalidEmail') && registerForm.get('email')?.touched"
+          class="invalid-feedback">
+          <p id="email-invalid">Voer een geldig e-mailadres in</p>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="inputPassword">Password</label><br>
+        <label class="rule">Password must contain at least one uppercase letter, one lowercase letter and one number and
+          be at least 8 characters long.</label>
+        <div class="input-group">
+          <input type="{{ hidePassword ? 'password' : 'text' }}" class="form-control" formControlName="password"
+            id="inputPassword" [ngClass]="{
+              'is-invalid':
+                registerForm.get('password')?.invalid &&
+                registerForm.get('password')?.touched
+            }" />
+          <div class="input-group-append">
+            <button class="btn btn-info" type="button" (click)="togglePasswordVisibility()">
+              {{ hidePassword ? 'Show' : 'Hide' }}
+            </button>
+          </div>
         </div>
-  
-      </form>
-    </div>
+        <span
+          *ngIf="registerForm.get('password')?.hasError('invalidPassword')  && registerForm.get('password')?.touched"
+          class="invalid-feedback">
+          <p id="password-invalid">Enter a valid password.</p>
+        </span>
+      </div>
+
+      <div class="form-group text-center">
+        <button id="submitbutton" class="register btn" type="submit">Register</button>
+        <div *ngIf="loginError" class="error-message">Invalid data.</div>
+      </div>
+
+    </form>
   </div>
-   -->
+</div>

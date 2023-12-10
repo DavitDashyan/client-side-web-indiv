@@ -4,93 +4,81 @@ import { UserService } from '../user.service';
 import { Subscription, delay, switchMap, tap } from 'rxjs';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { initModals} from 'flowbite';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'avans-nx-workshop-user-detail',
   templateUrl: './user-edit.component.html',
  // styleUrls: ['./user-edit.component.css'],
 })
-export class UserEditComponent implements OnInit, OnDestroy {
-  user: IUser | null = null;
-  subscription: Subscription | undefined = undefined;
+export class UserEditComponent implements OnInit {
+  user = {} as IUser;
+  users: IUser[] | null = null;
+  userId: string | null = null;
 
-  constructor(
+  constructor( 
+    private route: ActivatedRoute, 
     private userService: UserService,
-    private route: ActivatedRoute
-  ) {}
+    private authService: AuthService,
+    ) {}
 
-//   ngOnInit(): void {
-//     this.route.paramMap
-//       .pipe(
-//         tap((params: ParamMap) => console.log('user.id = ', params.get('id'))),
-//         switchMap((params: ParamMap) => {
-//           if (params.get('id') === null) {
-//            return this.userService.create();
-//            //this.user = new IUser();
-//           }
-//           return this.userService.read(params.get('id'));
-//         }),
-//         tap(console.log)
-//       )
-//       .subscribe((results) => {
-//         this.user = results;
-//       });
-//   }
+  ngOnInit(): void {
 
-// ngOnInit(): void {
-//     this.route.paramMap
-//       .pipe(
-//         tap((params: ParamMap) => console.log('user.id = ', params.get('id'))),
-//         switchMap((params: ParamMap) => {
-//           if (params.get('id') === null) {
-//             // You should pass the necessary data to create a new user
-//             const newUserData = {
-//               // provide the necessary properties for creating a new user
-//             };
-//             return this.userService.create(newUserData);
-//           }
-//           return this.userService.read(params.get('id'));
-//         }),
-//         tap(console.log)
-//       )
-//       .subscribe((results) => {
-//         this.user = results;
-//       });
-//   }
+    this.route.paramMap.subscribe((params) => {
+      this.userId = params.get('id');
+      
+        // Bestaande user
+        this.userService.read(this.userId).subscribe((observable) => 
+        this.user = observable);
+    });
 
-
-
-ngOnInit(): void {
-    initModals();
-    this.route.paramMap
-      .pipe(
-        tap((params: ParamMap) => console.log('user.id = ', params.get('id'))),
-        switchMap((params: ParamMap) => {
-          if (params.get('id') === null) {
-            // You should pass the necessary data to create a new user
-            const newUserData = {
-              // provide the necessary properties for creating a new user
-            };
-            return this.userService.create(newUserData);
+      // Retrieve user ID from AuthService
+      this.authService.currentUser$.subscribe({
+        next: (user: IUser | null) => {
+          if (user) {
+            this.userId = user.id;
           }
-        //   return this.userService.read(params.get('id'));
-
-        return this.userService.read(params.get('id')).pipe(
-            tap((user) => {
-              // Update the user$ array with the new user data
-              // this.userService.updateUserArray(user);
-            })
-          );
-        }),
-        tap(console.log)
-      )
-      .subscribe((results) => {
-        this.user = results;
+        },
+        error: (error) => {
+          console.error('Error getting user information:', error);
+        },
       });
-}
+  }
+
+  updateUser() {
+    if (this.userId !== this.user?.id) {
+      console.error('Current user is not the creator of the user. Updating is not allowed.');
+      return;
+    }
+
+    console.log('Updating user:', this.user);
+    
+    this.userService.update(this.user).subscribe({
+      next: (updatedUser) => {
+        console.log('User updated successfully:', updatedUser);
+        window.history.back();
+      },
+      error: (error) => {
+        console.error('Error updating user:', error);
+      }
+    });
+    
+  }
+  
+  goBack(): void {
+    window.history.back();
+  }
 
 
-  ngOnDestroy(): void {
-    if (this.subscription) this.subscription.unsubscribe();
+  checkFutureUserDate(): boolean {
+    const currentDate = new Date();
+    const inputDate = new Date(this.user.bday);
+    return inputDate > currentDate && inputDate.getFullYear() > 1900;
+  }
+  
+
+  isValidEmail(email: string): boolean {
+    const regexp = /^[a-zA-Z]+\d*@([a-zA-Z]+\.)+[a-zA-Z]+$/;
+    return regexp.test(email);
   }
 }

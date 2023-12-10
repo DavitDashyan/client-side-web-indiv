@@ -1,0 +1,52 @@
+<div class="container-fluid">
+    <form class="m-5"  #shopEditForm="ngForm" (submit)="updateShop()">
+  
+      <div class="form-group mb-4">
+        <label for="InputFoto" class="fw-bold">Foto</label>
+        <input type="text" class="form-control" id="InputFoto" [(ngModel)]="shop.shopImageUrl"  name="profielFoto" placeholder="Profielfoto URL" required minlength="5">
+        <div *ngIf="shopEditForm.controls['profielFoto'].touched && shopEditForm.controls['profielFoto'].hasError('required')" class="text-danger">
+          Profielfoto is verplicht.
+        </div>
+        <div *ngIf="shopEditForm.controls['profielFoto'].touched && shopEditForm.controls['profielFoto'].hasError('minlength')" class="text-danger">
+          Profielfoto moet minimaal 5 tekens lang zijn.
+        </div>
+      </div>
+      
+  
+      <div class="form-group mb-4">
+        <label for="InputName" class="fw-bold">Naam</label>
+        <input type="text" class="form-control" id="InputName" [(ngModel)]="shop.name"  name="name" placeholder="name" required>
+        <div *ngIf="shopEditForm.controls['name'].touched && shopEditForm.controls['name'].hasError('required')" class="text-danger">
+          Naam is verplicht.
+        </div>
+      </div>
+  
+      <div class="form-group mb-4">
+        <label for="email" class="fw-bold">email</label>
+        <textarea class="form-control" id="email" [(ngModel)]="shop.email" name="bio" placeholder="email" rows="8" required></textarea>
+        <div *ngIf="shopEditForm.controls['email'].touched && shopEditForm.controls['email'].hasError('required')" class="text-danger">
+          Biografie is verplicht.
+        </div>
+      </div>
+      
+      <div class="form-group mb-4">
+        <label for="InputStreet" class="fw-bold">telNumber</label>
+        <input type="number" class="form-control" id="InputCity" [(ngModel)]="shop.telNumber"  name="telNumber" placeholder="telNumber" required>
+        <div *ngIf="shopEditForm.controls['telNumber'].touched && shopEditForm.controls['telNumber'].hasError('required')" class="text-danger">
+            telNumber is verplicht.
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="col-12 mt-3">
+          <button type="button" class="btn btn-info m-3" (click)="updateShop()">
+            Shop aanmaken
+          </button>    
+      
+          <button type="button" class="btn btn-dark m-3" (click)="goBack()">
+            Cancel
+          </button>
+        </div>
+      </div> 
+    </form>
+  </div>

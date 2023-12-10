@@ -1,0 +1,96 @@
+<div class="container-fluid">
+    <form class="m-5" #productNewForm="ngForm" (ngSubmit)="createProduct()">
+
+        <div class="form-group mb-4">
+            <label for="InputCover" class="fw-bold">Boek cover</label>
+            <input type="text" class="form-control" id="InputCover" [(ngModel)]="product.productImageUrl"
+                name="productImageUrl" placeholder="FotoURL" required minlength="5" maxlength="255">
+            <div *ngIf="productNewForm.controls['productImageUrl'].touched && productNewForm.controls['productImageUrl'].hasError('required')"
+                class="text-danger">
+                Boek cover is verplicht.
+            </div>
+            <div *ngIf="productNewForm.controls['productImageUrl'].touched && productNewForm.controls['productImageUrl'].hasError('minlength')"
+                class="text-danger">
+                Boek cover must be at least 5 characters long.
+            </div>
+            <div *ngIf="productNewForm.controls['productImageUrl'].touched && productNewForm.controls['productImageUrl'].hasError('maxlength')"
+                class="text-danger">
+                Boek cover cannot be more than 255 characters long.
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="nameProduct" class="fw-bold">nameProduct</label>
+            <input type="text" class="form-control" id="nameProduct" [(ngModel)]="product.nameProduct"
+                name="nameProduct" placeholder="Name Product" required minlength="3" maxlength="50">
+            <div *ngIf="productNewForm.controls['nameProduct'].touched && productNewForm.controls['nameProduct'].hasError('required')"
+                class="text-danger">
+                Product name is required
+            </div>
+            <div *ngIf="productNewForm.controls['nameProduct'].touched && productNewForm.controls['nameProduct'].hasError('minlength')"
+                class="text-danger">
+                Product name must be at least 3 characters long.
+            </div>
+            <div *ngIf="productNewForm.controls['nameProduct'].touched && productNewForm.controls['nameProduct'].hasError('maxlength')"
+                class="text-danger">
+                Product name may not be more than 50 characters long.
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="InputBeschrijving" class="fw-bold">Description</label>
+            <textarea class="form-control" id="InputBeschrijving" [(ngModel)]="product.description" name="description"
+                placeholder="description" rows="8" required></textarea>
+            <div *ngIf="productNewForm.controls['beschrijving'].touched && productNewForm.controls['description'].hasError('required')"
+                class="text-danger">
+                Description is required.
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="price" class="fw-bold">Price</label>
+            <input type="number" class="form-control" id="price" [(ngModel)]="product.price" name="price"
+                placeholder="Aantal pagina's" required>
+            <div *ngIf="productNewForm.controls['price'].touched && productNewForm.controls['price'].hasError('required')"
+                class="text-danger">
+                Price is required.
+            </div>
+            <div *ngIf="!checkPriceNumber()" class="text-danger">
+                Ongeldig aantal pagina's.
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="favorite" class="fw-bold">Favorite</label>
+            <input type="checkbox" class="form-control" id="favorite" [(ngModel)]="product.favorite" name="favorite"
+                placeholder="Favorite" required>
+            <div *ngIf="productNewForm.controls['favorite'].touched && productNewForm.controls['favorite'].hasError('required')"
+                class="text-danger">
+                Favorite is required
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="condition" class="fw-bold">Conditie</label>
+            <input type="radio" class="form-control" id="condition" [(ngModel)]="product.condition" name="condition"
+                placeholder="Conditie" required>
+            <div *ngIf="productNewForm.controls['condition'].touched && productNewForm.controls['condition'].hasError('required')"
+                class="text-danger">
+                Genre is verplicht.
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-12 mt-3">
+                <button type="button" class="btn btn-info m-3" (click)="createProduct()">
+                    Make New
+                </button>
+
+                <button type="button" class="btn btn-dark m-3" (click)="goBack()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>

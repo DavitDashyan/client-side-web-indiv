@@ -1,7 +1,7 @@
 <!-- <form>
     <div class="relative z-0 w-full mb-6 group">
         <input type="email" name="floating_email" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=""/>
-        <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email Address: {{ user?.address }}</label>
+        <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email Address: {{ user?.number }}</label>
     </div>
     <div class="relative z-0 w-full mb-6 group">
         <input type="password" name="floating_password" id="floating_password" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
@@ -27,83 +27,89 @@
     </div>
     <button type="submit" routerLink="user" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
     -->
-    <!-- <button routerLink="/user" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submin</button>    -->
+<!-- <button routerLink="/user" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submin</button>    -->
 <!-- </form> -->
 
 
+<div class="container-fluid">
+    <form class="m-5" #userEditForm="ngForm" (submit)="updateUser()">
 
-    <form id="myForm" class="max-w-md mx-auto mt-8 p-4 bg-white rounded-md shadow-md">
-        <!-- <form id="myForm" class="mx-auto max-w-lg bg-white shadow-md rounded-md overflow-hidden mb-4"> -->
-        <!-- Email -->
-        <div class="relative z-0 w-full mb-6 group">
-            <input type="email" name="floating_email" id="floating_email" 
-            value="{{user?.email}}"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder="" required />
-            <label for="floating_email"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email
-                Address: <span id="emailLabel"></span></label>
-        </div>
-
-        <!-- Password -->
-        <div class="relative z-0 w-full mb-6 group">
-            <input type="password" name="floating_password" id="floating_password" 
-                value=""
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder="" required />
-            <label for="floating_password"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
-        </div>
-
-        <!-- Name -->
-        <div class="grid md:grid-cols-2 md:gap-6">
-            <div class="relative z-0 w-full mb-6 group">
-                <input type="text" name="floating_name" id="floating_name"
-                     value="{{user?.name}}"
-                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                    placeholder="" required />
-                <label for="floating_name"
-                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Name</label>
-            </div>
-
-            <!-- Birthdate -->
-            <div class="relative z-0 w-full mb-6 group">
-                <input type="date" name="floating_bday" id="floating_bday" 
-                    value="{{user?.bday}}"
-                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                    placeholder="" required />
-                <label for="floating_bday"
-                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Geboorte
-                    datum</label>
-            </div>
-        </div> 
-
-    <!-- </div>
-        <div class="relative max-w-sm">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-              <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-              </svg>
-            </div>
-            <input datepicker type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
-          </div> -->
-     
-
-        <!-- Phone number -->
-        <div class="grid md:grid-cols-2 md:gap-6">
-            <div class="relative z-0 w-full mb-6 group">
-                <!-- <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="floating_phone" id="floating_phone" -->
-                <input type="tel" name="floating_phone" id="floating_phone"
-                    value="{{user?.number}}"
-                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                    placeholder="" required />
-                <label for="floating_phone"
-                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Phone
-                    number (1234567890)</label>
+        <div class="form-group mb-4">
+            <label for="name" class="fw-bold">Name</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="user.name" name="name" placeholder="name"
+                required>
+            <div *ngIf="userEditForm.controls['name'].touched && userEditForm.controls['name'].hasError('required')"
+                class="text-danger">
+                Naam is verplicht.
             </div>
         </div>
 
-        <!-- Submit button -->
-        <button type="submit"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+        <div class="form-group mb-4">
+            <label for="InputEmail" class="fw-bold">Emailadres</label>
+            <input type="email" class="form-control" id="InputEmail" [(ngModel)]="user.email" name="email"
+                placeholder="Emailadres" required>
+            <div *ngIf="userEditForm.controls['email'].touched && userEditForm.controls['email'].hasError('required')"
+                class="text-danger">
+                Emailadres is verplicht.
+            </div>
+            <div *ngIf="userEditForm.controls['email'].touched && userEditForm.controls['email'].hasError('email')"
+                class="text-danger">
+                Ongeldig emailadres.
+            </div>
+            <div *ngIf="!isValidEmail(user.email)" class="text-danger">
+                Ongeldig emailadres.
+            </div>
+        </div>
+
+
+        <div class="form-group mb-4">
+            <label for="InputDate" class="fw-bold">Geboortedatum</label>
+            <input type="date" class="form-control" id="InputDate" [(ngModel)]="user.bday" name="geboortedatum"
+                placeholder="Selecteer geboortedatum" required>
+            <div *ngIf="userEditForm.controls['geboortedatum'].touched && userEditForm.controls['geboortedatum'].hasError('required')"
+                class="text-danger">
+                Geboortedatum is verplicht.
+            </div>
+            <div *ngIf="checkFutureUserDate()" class="text-danger">
+                Geboortedatum mag niet in de toekomst liggen.
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="address" class="fw-bold">
+                <address></address>
+            </label>
+            <input type="text" class="form-control" id="address" [(ngModel)]="user.address" name="address"
+                placeholder="Address" required>
+            <div *ngIf="userEditForm.controls['address'].touched && userEditForm.controls['address'].hasError('required')"
+                class="text-danger">
+                Address is verplicht.
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="number" class="fw-bold"></label>
+            <input type="text" class="form-control" id="number" [(ngModel)]="user.number" name="number"
+                placeholder="Address" required>
+            <div *ngIf="userEditForm.controls['number'].touched && userEditForm.controls['number'].hasError('required')"
+                class="text-danger">
+                Nummer is verplicht.
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-12 mt-3">
+                <button type="button" class="btn m-3" (click)="updateUser()">
+                    Gebruiker wijzigen
+                </button>
+
+                <button type="button" class="btn m-3" (click)="goBack()">
+                    Annuleren
+                </button>
+            </div>
+        </div>
     </form>
+</div>
+
+
+<!-- password: string; -->

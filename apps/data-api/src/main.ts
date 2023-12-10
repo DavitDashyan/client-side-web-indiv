@@ -15,9 +15,11 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
 
   const corsOptions: CorsOptions = {
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+
+    // niet perse nodgi is voor specificatie
+    // origin: '*',
+    // methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    // allowedHeaders: ['Content-Type', 'Authorization'],
   };
   app.enableCors(corsOptions);
 

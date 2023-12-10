@@ -73,21 +73,15 @@ import { IUser } from '@avans-nx-workshop/shared/api';
 export class LoginComponent implements OnInit, OnDestroy {
 
   hidePassword = true; 
-
-  loginForm: FormGroup = new FormGroup({
-    email: new FormControl(null, [
-      Validators.required,
-      this.validEmail.bind(this),
-    ]),
-    password: new FormControl(null, [
-      Validators.required,
-      this.validPassword.bind(this),
-    ]),
-  });
   subs: Subscription | null = null;
-  
   submitted = false;
   loginError = false;
+  userId: string | null = null;
+
+  loginForm: FormGroup = new FormGroup({
+    email: new FormControl(null, [Validators.required, this.validEmail.bind(this),]),
+    password: new FormControl(null, [Validators.required, this.validPassword.bind(this),]),
+  });
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -97,8 +91,18 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe((user: IUser | null) => {
         if (user) {
           console.log('User already logged in > to dashboard');
-          this.router.navigate(['/users']);
+          this.router.navigate([`${this.userId}/dashboard`]);
         }
+      });
+      this.authService.currentUser$.subscribe({
+        next: (user: IUser | null) => {
+          if (user) {
+            this.userId = user.id;
+          }
+        },
+        error: (error) => {
+          console.error('Error getting user information:', error);
+        },
       });
   }
 
@@ -119,7 +123,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           (user: IUser | null) => {
             if (user) {
               console.log('Logged in');
-              this.router.navigate(['/books']);
+              this.router.navigate([`${this.userId}/dashboard`])
             } else {
               // Inloggen mislukt
               this.loginError = true;

@@ -5,15 +5,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../user/user.service';
 
-
 @Component({
   selector: '@avans-nx-workshop-auth-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
 
+// name: string;
+// address: string;
+// number: number;
+// email: string;
+// password: string;
+// bday: Date;
 export class RegisterComponent implements OnInit, OnDestroy {
-  
   registerForm: FormGroup = new FormGroup({
     email: new FormControl(null, [
       Validators.required,
@@ -26,7 +30,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   });
 
   subs: Subscription | null = null;
-  hidePassword = true; 
+  hidePassword = true;
   loginError = false;
 
   constructor(
@@ -37,15 +41,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
-      naam:  new FormControl(null, [Validators.required]),
-      geboortedatum:  new FormControl(null, [Validators.required]),
-      straatnaam: new FormControl(null, [Validators.required]),
-      huisnummer:  new FormControl(null, [Validators.required]),
-      stad:  new FormControl(null, [Validators.required]),
+      name: new FormControl(null, [Validators.required]),
+      address: new FormControl(null, [Validators.required]),
+      number: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [
         Validators.required,
         this.validEmail.bind(this),
       ]),
+      bday: new FormControl(null, [Validators.required]),
       password: new FormControl(null, [
         Validators.required,
         this.validPassword.bind(this),
@@ -73,7 +76,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   validEmail(control: FormControl): { [key: string]: boolean } | null {
     const email = control.value;
-    const regexp = /^[a-zA-Z]+@[a-zA-Z]+\.[a-zA-Z]+$/;
+    const regexp = /^[a-zA-Z]+\d*@([a-zA-Z]+\.)+[a-zA-Z]+$/;
     return regexp.test(email) ? null : { invalidEmail: true };
   }
 

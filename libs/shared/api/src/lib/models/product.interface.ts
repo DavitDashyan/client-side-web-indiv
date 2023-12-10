@@ -1,4 +1,5 @@
 import { Id } from './id.type';
+import { IShop } from './shop.interface';
 
 type Product = string;
 
@@ -19,14 +20,17 @@ export interface IProduct {
     productImageUrl:string,
     favorite: boolean,
    // stars: number,
+
+   shop: IShop,
     
-    condition: Conditie
+    condition: Conditie,
+    creatorID: string
 
     }
 
 export type ICreateProduct = Pick<
     IProduct,
-    'nameProduct' | 'description' | 'price' | 'condition' | 'productImageUrl' | 'favorite'
+    'nameProduct' | 'description' | 'price' | 'condition' | 'productImageUrl' | 'favorite' | 'creatorID' | 'shop'
 >;
 export type IUpdateProduct = Partial<Omit<IProduct, 'id'>>;
 export type IUpsertProduct = IProduct;

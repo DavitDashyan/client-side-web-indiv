@@ -1,8 +1,4 @@
-<form id="myForm" class="max-w-md mx-auto mt-8 p-4 bg-white rounded-md shadow-md">
-    <!-- <form id="myForm" class="mx-auto max-w-lg bg-white shadow-md rounded-md overflow-hidden mb-4"> -->
-
-
-
+<!-- <form id="myForm" class="max-w-md mx-auto mt-8 p-4 bg-white rounded-md shadow-md">
 
     <div class="relative z-0 w-full mb-6 group">
         <input type="text" name="floating_nameIMG" id="floating_nameIMG" value="{{product?.productImageUrl}}"
@@ -15,8 +11,6 @@
             <span id="nameIMG"></span></label>
     </div>
 
-
-    <!-- name -->
     <div class="relative z-0 w-full mb-6 group">
         <input type="text" name="floating_nameProduct" id="floating_nameProduct" value="{{product?.nameProduct}}"
             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -26,9 +20,6 @@
             Product
             <span id="nameProduct"></span></label>
     </div>
-
-
-    <!--Conditie-->
 
     <div class="flex flex-wrap">
         <div class="flex items-center mb-4 mr-4">
@@ -55,9 +46,6 @@
         </div>
     </div>
 
-
-
-    <!-- description -->
     <div class="grid md:grid-cols-2 md:gap-6">
         <div class="relative z-0 w-full mb-6 group">
             <input type="text" name="floating_description" id="floating_description" value="{{product?.description}}"
@@ -67,7 +55,6 @@
                 class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Description</label>
         </div>
 
-        <!-- price -->
         <div class="relative z-0 w-full mb-6 group">
             <input type="number" name="floating_bday" id="floating_bday" value="{{product?.price}}"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -78,9 +65,6 @@
         </div>
     </div>
 
-
-    <!--favoriten-->
-
     <div class="flex flex-wrap">
         <div class="flex items-center mb-4 mr-4">
             <input id="default-radio-1" type="checkbox" value="" name="default-radio"
@@ -90,9 +74,103 @@
         </div>
     </div>
 
-
-
-    <!-- Submit button -->
     <button type="submit"
         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-</form>
+</form> -->
+
+<div class="container-fluid">
+    <form class="m-5" #productEditForm="ngForm" (ngSubmit)="updateProduct()">
+
+        <div class="form-group mb-4">
+            <label for="InputCover" class="fw-bold">Boek cover</label>
+            <input type="text" class="form-control" id="InputCover" [(ngModel)]="product.productImageUrl"
+                name="productImageUrl" placeholder="FotoURL" required minlength="5" maxlength="255">
+            <div *ngIf="productEditForm.controls['productImageUrl'].touched && productEditForm.controls['productImageUrl'].hasError('required')"
+                class="text-danger">
+                Boek cover is verplicht.
+            </div>
+            <div *ngIf="productEditForm.controls['productImageUrl'].touched && productEditForm.controls['productImageUrl'].hasError('minlength')"
+                class="text-danger">
+                Boek cover must be at least 5 characters long.
+            </div>
+            <div *ngIf="productEditForm.controls['productImageUrl'].touched && productEditForm.controls['productImageUrl'].hasError('maxlength')"
+                class="text-danger">
+                Boek cover cannot be more than 255 characters long.
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="nameProduct" class="fw-bold">nameProduct</label>
+            <input type="text" class="form-control" id="nameProduct" [(ngModel)]="product.nameProduct"
+                name="nameProduct" placeholder="Name Product" required minlength="3" maxlength="50">
+            <div *ngIf="productEditForm.controls['nameProduct'].touched && productEditForm.controls['nameProduct'].hasError('required')"
+                class="text-danger">
+                Product name is required
+            </div>
+            <div *ngIf="productEditForm.controls['nameProduct'].touched && productEditForm.controls['nameProduct'].hasError('minlength')"
+                class="text-danger">
+                Product name must be at least 3 characters long.
+            </div>
+            <div *ngIf="productEditForm.controls['nameProduct'].touched && productEditForm.controls['nameProduct'].hasError('maxlength')"
+                class="text-danger">
+                Product name may not be more than 50 characters long.
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="InputBeschrijving" class="fw-bold">Description</label>
+            <textarea class="form-control" id="InputBeschrijving" [(ngModel)]="product.description" name="description"
+                placeholder="description" rows="8" required></textarea>
+            <div *ngIf="productEditForm.controls['beschrijving'].touched && productEditForm.controls['description'].hasError('required')"
+                class="text-danger">
+                Description is required.
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="price" class="fw-bold">Price</label>
+            <input type="number" class="form-control" id="price" [(ngModel)]="product.price" name="price"
+                placeholder="Aantal pagina's" required>
+            <div *ngIf="productEditForm.controls['price'].touched && productEditForm.controls['price'].hasError('required')"
+                class="text-danger">
+                Price is required.
+            </div>
+            <div *ngIf="!checkPriceNumber()" class="text-danger">
+                Ongeldig aantal pagina's.
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="favorite" class="fw-bold">Favorite</label>
+            <input type="checkbox" class="form-control" id="favorite" [(ngModel)]="product.favorite" name="favorite"
+                placeholder="Favorite" required>
+            <div *ngIf="productEditForm.controls['favorite'].touched && productEditForm.controls['favorite'].hasError('required')"
+                class="text-danger">
+                Favorite is required
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="condition" class="fw-bold">Conditie</label>
+            <input type="radio" class="form-control" id="condition" [(ngModel)]="product.condition" name="condition"
+                placeholder="Conditie" required>
+            <div *ngIf="productEditForm.controls['condition'].touched && productEditForm.controls['condition'].hasError('required')"
+                class="text-danger">
+                Genre is verplicht.
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-12 mt-3">
+                <button type="button" class="btn btn-info m-3" (click)="updateProduct()">
+                    Edit
+                </button>
+
+                <button type="button" class="btn btn-dark m-3" (click)="goBack()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>

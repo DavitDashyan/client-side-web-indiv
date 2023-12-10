@@ -25,13 +25,22 @@
     </a>
   </div> -->
   
-  <div id="flex-container">
+  <!-- <div id="flex-container">
   <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ user?.name }}</h5>
     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ user?.address }}</p>
     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ user?.number }}</p>
     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ user?.email }}</p>
    
+    <div class="button-container text-center">
+      <button type="button" (click)="goBack()" class="btn text-center me-4">
+        <span class="text-dark text-decoration-none">Terug</span>
+      </button>
+
+      <button type="button" class="btn text-center" *ngIf="showButton" [routerLink]="['edit']">
+        Wijzig Gegevens
+      </button>
+    </div>
 
     <a href="#" routerLink="/user/{{ user?.id }}/edit" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
       Edit
@@ -40,6 +49,46 @@
       </svg>
     </a>
   </div>
+  </div> -->
+
+
+
+  <div class="container-fluid">
+    <div class="card m-5 text-center">
+      <div class="card-body">
+  
+        <h2 class="user-name mb-3">{{user.name}}</h2>
+  
+        <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item">
+            <span class="fw-bold">Emailadres:</span>
+            <p>{{user.email}}</p>
+          </li>
+          <li class="list-group-item">
+            <span class="fw-bold">Geboortedatum:</span>
+            <p>{{user.bday | date: 'dd-MM-yyyy'}}</p>
+          </li>
+          <li class="list-group-item">
+            <span class="fw-bold">Adres:</span>
+            <p>{{user.address}}</p>
+          </li>
+          <li class="list-group-item">
+            <span class="fw-bold">Number:</span>
+            <p>{{user.number}}</p>
+          </li>
+        </ul>
+  
+        <div class="button-container text-center">
+          <button type="button" (click)="goBack()" class="btn text-center me-4">
+            <span class="text-dark text-decoration-none">Terug</span>
+          </button>
+  
+          <button type="button" class="btn text-center" *ngIf="showButton" [routerLink]="['edit']">
+            Wijzig Gegevens
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
   
   <!-- <button routerLink="/user/{{ user.id }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800">View</button>                        -->

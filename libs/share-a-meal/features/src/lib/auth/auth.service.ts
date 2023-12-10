@@ -202,24 +202,30 @@ export class AuthService {
             return of(user);
           } else {
             console.log(`No current user found`);
-            return of(null);
+            return of(undefined);
           }
         })
       )
       .subscribe(() => console.log('Startup auth done'));
   }
 
+  get currentUser(): Observable<IUser | null> {
+    return this.currentUser$.asObservable();
+  }
+
   login(email: string, password: string): Observable<IUser | null> {
     console.log(`login at ${environment.dataApiUrl}/api/user/login`);
 
     return this.http
-      .post<IUser>(
+      .post<{ results: IUser }>(
         `${environment.dataApiUrl}/api/user/login`,
         { email: email, password: password },
         { headers: this.headers }
       )
       .pipe(
-        map((user) => {
+        map((response) => {
+          const user = response.results;
+          user && user.id && this.updateUser({ ...user, id: user.id });
           this.saveUserToLocalStorage(user);
           this.currentUser$.next(user);
           //this.alertService.success('You have been logged in');
@@ -326,5 +332,8 @@ export class AuthService {
     return this.currentUser$.pipe(
       map((user: IUser | null) => (user ? user.id === itemUserId : false))
     );
+  }
+  updateUser(user: IUser | null): void {
+    this.currentUser$.next(user);
   }
 }

@@ -51,6 +51,13 @@ export class Product implements IProduct {
     required: true,
   })
   shop!: IShop;
+
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User', // Reference to the User model
+    required: true,
+  })
+  creatorID!: string;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

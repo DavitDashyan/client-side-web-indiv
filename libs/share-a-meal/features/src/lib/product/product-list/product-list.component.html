@@ -1,9 +1,18 @@
 <!-- <avans-nx-workshop-search></avans-nx-workshop-search> -->
 
-<input type="search" id="default-search"
+<!-- <input type="search" id="default-search"
     class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
     placeholder="Search Mockups, Logos..." required [(ngModel)]="searchTerm" (keyup)="searchProducts()">
-    
+     -->
+
+     <div class="input-group mb-3">
+        <input [(ngModel)]="searchTerm" type="search" class="form-control me-5" placeholder="Zoeken op product titel" aria-label="Search" aria-describedby="search-addon" />
+  
+        <button type="button" class="btn btn-info" [routerLink]="['/product/new']">
+          Nieuw Product
+        </button>
+       
+      </div>
 <ul>
     <li *ngFor="let product of products">
         <a routerLink="/product/{{product.id}}">
