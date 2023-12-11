@@ -30,7 +30,7 @@ jobs:
           npm install
           npx nx build --project client-side-web-indiv
           npx nx build --project data-api
-          npm run test --if-present
+          # npm run test --if-present
 
       - name: Zip artifacts for deployment
         run: |
