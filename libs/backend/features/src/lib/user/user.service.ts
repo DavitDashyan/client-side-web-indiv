@@ -144,7 +144,7 @@ export class UserService {
 
   async create(userDto: CreateUserDto): Promise<IUser> {
     this.logger.log(`Create user ${userDto.name}`);
-
+        
     // Sluit id expliciet uit
     const { id, ...userWithoutId } = userDto;
 

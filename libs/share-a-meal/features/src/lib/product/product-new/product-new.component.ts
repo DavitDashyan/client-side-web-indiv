@@ -64,7 +64,6 @@ export class ProductNewComponent implements OnInit {
           // Creer nieuwe boek with geupdate userID
           const newProduct: IProduct = {
             ...this.product,
-            shop: selectedShop,
             creatorID: this.userId, // Set userID here
           };
 

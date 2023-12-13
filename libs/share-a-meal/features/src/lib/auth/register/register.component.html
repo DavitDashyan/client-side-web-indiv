@@ -5,27 +5,26 @@
     <form class="form-signin" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="form-row">
         <label for="inputNaam">Name</label><br>
-        <input type="text" class="form-control" formControlName="naam" id="inputNaam" [ngClass]="{
+        <input type="text" class="form-control" formControlName="name" id="inputNaam" [ngClass]="{
               'is-invalid':
                 registerForm.get('name')?.invalid &&
                 registerForm.get('name')?.touched
             }" />
         <span *ngIf="!registerForm.get('name')?.valid && registerForm.get('name')?.touched" class="invalid-feedback">
-          <p id="naam-invalid">Name is not valid.</p>
+          <p id="name-invalid">Name is not valid.</p>
         </span>
       </div>
 
       <div class="form-row">
         <div class="form-group">
           <label for="inputBirthday">Birthday</label><br>
-          <input type="date" class="form-control" formControlName="birthday" id="inputBirthday" [ngClass]="{
+          <input type="date" class="form-control" formControlName="bday" id="inputBirthday" [ngClass]="{
               'is-invalid':
-                registerForm.get('birthday')?.invalid &&
-                registerForm.get('birthday')?.touched
+                registerForm.get('bday')?.invalid &&
+                registerForm.get('bday')?.touched
             }" />
-          <span *ngIf="!registerForm.get('birthday')?.valid && registerForm.get('birthday')?.touched"
-            class="invalid-feedback">
-            <p id="birthday-invalid">Birthday is not valid.</p>
+          <span *ngIf="!registerForm.get('bday')?.valid && registerForm.get('bday')?.touched" class="invalid-feedback">
+            <p id="bday-invalid">Birthday is not valid.</p>
           </span>
         </div>
       </div>

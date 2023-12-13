@@ -9,7 +9,6 @@ import { UserComponent } from './user/user-list/user.component';
 import { UserService } from './user/user.service';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { RouterLink, RouterModule } from '@angular/router';
-import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ProductEditComponent } from './product/product-edit/product-edit.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { ProductNewComponent } from './product/product-new/product-new.component';
@@ -29,6 +28,7 @@ import { ShopEditComponent } from './shop/shop-edit/shop-edit.component';
 import { UserNewComponent } from './user/user-new/user-new.component';
 //import { NgSelectModule } from '@ng-select/ng-select';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
+import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 
 @NgModule({
   imports: [

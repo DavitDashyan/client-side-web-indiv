@@ -41,55 +41,54 @@
 
 
 <div class="container">
-    <div class="row">
-      <!-- Left Column -->
-      <div class="column-left col-12 col-lg-3 align-items-center justify-content-center">
-  
-        <div class="img-container text-center">
-          <img src="{{ product.productImageUrl }}" class="img-fluid" alt="Product Image">
-        </div>
-    
-          <div class="button-container text-center mt-3" *ngIf="showButton">
-            <button type="button" class="btn text-center" routerLink="/product/{{ product.id }}/edit"
-            >Edit</button>
-          </div>
-          
-       
-  
-        <div class="button-container text-center mt-3" *ngIf="showButton">
-          <!-- Show the "Verwijder Boek" button if the confirmation dialog is not shown -->
-          <ng-container *ngIf="!showDeleteConfirmation; else confirmationDialog">
-            <button type="button" class="btn text-center" (click)="showDeleteConfirmation = true">
-              <a class="text-dark text-decoration-none">Delete</a>
-            </button>
-          </ng-container>
-        </div>
-  
-        <!-- To display the confirmation dialog when needed -->
-        <ng-template #confirmationDialog>
-          <div class="confirmation-dialog text-center mt-3">
-            <p>Weet u zeker dat u dit product wilt verwijderen?</p>
-            <button type="button" (click)="deleteProduct()" class="btn text-center mb-3">Ja, verwijder product</button>
-            <button type="button" (click)="showDeleteConfirmation = false" class="btn text-center">Nee, annuleer</button>
-          </div>
-        </ng-template>
+  <div class="row">
+    <!-- Left Column -->
+    <div class="column-left col-12 col-lg-3 align-items-center justify-content-center">
+
+      <div class="img-container text-center">
+        <img src="{{ product.productImageUrl }}" class="img-fluid" alt="Product Image">
       </div>
-  
-      <!-- Right Column -->
-      <div class="column-right col-12 col-lg-9 align-items-center justify-content-center">
-        <div class="title-container">
-          <h5> {{product.nameProduct }} </h5>
-          <p class="writer"><a [routerLink]="['/shop', product.shop.id]" class="text-dark">{{product.shop.name}}</a></p>
-  
-          <p class="description"> {{product.description}}</p>
-  
-          <p><span>Prijs: </span>{{product.price}}</p>
-          <p><span>Conditie: </span>{{product.condition}}</p>
-          <p><span>Favorite: </span>{{product.favorite}}</p>
-          <p><span>Naam winkel: </span>{{product.shop.name}}</p>
-  
-        
+
+      <div class="button-container text-center mt-3" *ngIf="showButton">
+        <button type="button" class="btn text-center" routerLink="/product/{{ product.id }}/edit">Edit</button>
+      </div>
+
+
+
+      <div class="button-container text-center mt-3" *ngIf="showButton">
+        <!-- Show the "Verwijder Boek" button if the confirmation dialog is not shown -->
+        <ng-container *ngIf="!showDeleteConfirmation; else confirmationDialog">
+          <button type="button" class="btn text-center" (click)="showDeleteConfirmation = true">
+            <a class="text-dark text-decoration-none">Delete</a>
+          </button>
+        </ng-container>
+      </div>
+
+      <!-- To display the confirmation dialog when needed -->
+      <ng-template #confirmationDialog>
+        <div class="confirmation-dialog text-center mt-3">
+          <p>Weet u zeker dat u dit product wilt verwijderen?</p>
+          <button type="button" (click)="deleteProduct()" class="btn text-center mb-3">Ja, verwijder product</button>
+          <button type="button" (click)="showDeleteConfirmation = false" class="btn text-center">Nee, annuleer</button>
         </div>
+      </ng-template>
+    </div>
+
+    <!-- Right Column -->
+    <div class="column-right col-12 col-lg-9 align-items-center justify-content-center">
+      <div class="title-container">
+        <h5> {{product.nameProduct }} </h5>
+        <p class="writer"><a [routerLink]="['/shop', product.shopId]" class="text-dark">{{product.shopId}}</a></p>
+
+        <p class="description"> {{product.description}}</p>
+
+        <p><span>Prijs: </span>{{product.price}}</p>
+        <p><span>Conditie: </span>{{product.condition}}</p>
+        <p><span>Favorite: </span>{{product.favorite}}</p>
+        <p><span>Naam winkel: </span>{{product.shopId}}</p>
+
+
       </div>
     </div>
   </div>
+</div>

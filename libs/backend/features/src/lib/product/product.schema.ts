@@ -50,7 +50,7 @@ export class Product implements IProduct {
     ref: 'Shop', // Reference to the Shop model
     required: true,
   })
-  shop!: IShop;
+  shopId!: string;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,

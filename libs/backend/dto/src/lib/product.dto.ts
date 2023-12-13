@@ -27,8 +27,8 @@ export class CreateProductDto implements ICreateProduct {
   @IsNotEmpty()
   description!: string;
 
-  @IsString()
-  @IsNotEmpty()
+  // @IsString()
+  // @IsNotEmpty()
   id!: Id;
 
   @IsInt()
@@ -47,11 +47,11 @@ export class CreateProductDto implements ICreateProduct {
   @IsNotEmpty()
   condition!: Conditie;
 
-  @IsNotEmpty()
-  shop!: IShop;
+  // @IsNotEmpty()
+  shopId!: string;
 
-  @IsString()
-  @IsNotEmpty()
+  // @IsString()
+  // @IsNotEmpty()
   creatorID!: string;
 }
 
@@ -85,7 +85,7 @@ export class UpsertProductDto implements IUpsertProduct {
   condition!: Conditie;
 
   @IsNotEmpty()
-  shop!: IShop;
+  shopId!: string;
 
   @IsString()
   @IsNotEmpty()
@@ -118,7 +118,7 @@ export class UpdateProductDto implements IUpdateProduct {
   condition!: Conditie;
 
   @IsNotEmpty()
-  shop!: IShop;
+  shopId!: string;
 
   @IsString()
   @IsNotEmpty()

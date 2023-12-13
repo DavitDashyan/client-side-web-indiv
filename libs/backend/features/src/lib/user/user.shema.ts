@@ -32,12 +32,12 @@ export class User implements IUser {
   bday!: Date;
 
   @Prop({
-    required: true,
+    required: false,
   })
   address!: string;
 
   @Prop({
-    required: true,
+    required: false,
   })
   number!: number;
 }

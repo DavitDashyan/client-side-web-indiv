@@ -21,7 +21,7 @@ export interface IProduct {
     favorite: boolean,
    // stars: number,
 
-   shop: IShop,
+   shopId: string,
     
     condition: Conditie,
     creatorID: string
@@ -30,7 +30,7 @@ export interface IProduct {
 
 export type ICreateProduct = Pick<
     IProduct,
-    'nameProduct' | 'description' | 'price' | 'condition' | 'productImageUrl' | 'favorite' | 'creatorID' | 'shop'
+    'nameProduct' | 'description' | 'price' | 'condition' | 'productImageUrl' | 'favorite' | 'creatorID' | 'shopId'
 >;
 export type IUpdateProduct = Partial<Omit<IProduct, 'id'>>;
 export type IUpsertProduct = IProduct;

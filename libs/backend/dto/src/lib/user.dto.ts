@@ -7,6 +7,7 @@ import {
   IS_EMAIL,
   IsEmail,
   IsInt,
+  IsMongoId,
 } from 'class-validator';
 import {
   ICreateUser,
@@ -24,17 +25,18 @@ export class CreateUserDto implements ICreateUser {
   @IsNotEmpty()
   name!: string;
 
-  @IsDate()
-  @IsNotEmpty()
-  address!: string;
+  // @IsString()
+  // @IsNotEmpty()
+  // address!: string;
 
-  @IsString()
-  @IsNotEmpty()
+  // @IsString()
+  // @IsNotEmpty()
+  // @IsMongoId()
   id!: Id;
 
-  @IsInt()
-  @IsNotEmpty()
-  number!: number;
+  // @IsInt()
+  // @IsNotEmpty()
+  // number!: number;
 
   @IsEmail()
   @IsNotEmpty()

@@ -5,17 +5,20 @@
     placeholder="Search Mockups, Logos..." required [(ngModel)]="searchTerm" (keyup)="searchProducts()">
      -->
 
-     <div class="input-group mb-3">
-        <input [(ngModel)]="searchTerm" type="search" class="form-control me-5" placeholder="Zoeken op product titel" aria-label="Search" aria-describedby="search-addon" />
-  
-        <button type="button" class="btn btn-info" [routerLink]="['/product/new']">
-          Nieuw Product
-        </button>
-       
-      </div>
+<div class="input-group mb-3">
+    <input [(ngModel)]="searchTerm" type="search" class="form-control me-5" placeholder="Zoeken op product titel"
+        aria-label="Search" aria-describedby="search-addon" />
+
+    <button type="button" class="btn btn-info" [routerLink]="['/product/new']">
+        Nieuw Product
+    </button>
+
+</div>
 <ul>
     <li *ngFor="let product of products">
-        <a routerLink="/product/{{product.id}}">
+        <!-- <a routerLink="/product/{{product.id}}"> -->
+        <!-- <a [routerLink]="['/product/id']"> -->
+        <a [routerLink]="['/product', product.id]">
 
             <img src={{product.productImageUrl}} alt="No Image Found">
 

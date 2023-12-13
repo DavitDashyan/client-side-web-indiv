@@ -42,8 +42,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.registerForm = new FormGroup({
       name: new FormControl(null, [Validators.required]),
-      address: new FormControl(null, [Validators.required]),
-      number: new FormControl(null, [Validators.required]),
+      // address: new FormControl(null, [Validators.required]),
+      // number: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [
         Validators.required,
         this.validEmail.bind(this),
@@ -63,13 +63,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    if (this.registerForm?.valid) {
+    if (this.registerForm.valid) {
       this.userService.create(this.registerForm.value).subscribe((user) => {
         console.log('Registration succeeded');
         this.router.navigate(['/user/login'], { relativeTo: this.route });
       });
     } else {
       this.loginError = true;
+      console.log('this.registerForm.value', this.registerForm.value);
       console.error('Registration returned null user');
     }
   }

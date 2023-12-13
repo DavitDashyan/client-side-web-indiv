@@ -15,8 +15,8 @@ export class CreateShopDto implements ICreateShop {
   @IsNotEmpty()
   name!: string;
 
-  @IsString()
-  @IsNotEmpty()
+  // @IsString()
+  // @IsNotEmpty()
   id!: Id;
 
   @IsInt()
@@ -31,8 +31,8 @@ export class CreateShopDto implements ICreateShop {
   @IsNotEmpty()
   shopImageUrl!: string;
 
-  @IsString()
-  @IsNotEmpty()
+  // @IsString()
+  // @IsNotEmpty()
   creatorID!: string;
 }
 
@@ -56,7 +56,7 @@ export class UpsertShopDto implements IUpsertShop {
   @IsString()
   @IsNotEmpty()
   shopImageUrl!: string;
-  
+
   @IsString()
   @IsNotEmpty()
   creatorID!: string;

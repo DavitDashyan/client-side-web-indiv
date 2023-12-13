@@ -90,6 +90,7 @@ export class ShopService {
 
   async create(shopDto: CreateShopDto): Promise<IShop> {
     this.logger.log(`Create shop ${shopDto.name}`);
+    this.logger.log(`ShopDtoName ${shopDto.name}`);
 
     // Sluit _id expliciet uit
     const { id, ...shopWithoutId } = shopDto;
