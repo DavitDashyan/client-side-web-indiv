@@ -128,6 +128,7 @@ export const appRoutes: Route[] = [
   },
 
   // mss component veranderen door home ofzo
+  // mss ff cart toevoegen. 
   {
     path: '**',
     pathMatch: 'full',

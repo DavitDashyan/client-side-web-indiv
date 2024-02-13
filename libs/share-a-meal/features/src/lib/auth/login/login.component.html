@@ -45,56 +45,6 @@
 </div> -->
 
 
-
- <div class="container-fluid w-50">
-    <div class="mt-5">
-
-        <h2 class="text-center">Login</h2>
-
-        <form class="form-signin" [formGroup]='loginForm' (ngSubmit)="onSubmit()">
-
-            <div class="form-group mt-5 mb-5">
-                <label for="inputEmail">E-mailadres</label><br>
-                <input type="email" class="form-control" formControlName="email" id="inputEmail"
-                    aria-describedby="emailHelp"
-                    [ngClass]="{'is-invalid': loginForm.get('email')?.invalid && loginForm.get('email')?.touched}" />
-                <span *ngIf="loginForm.get('email')?.hasError('invalidEmail') && loginForm.get('email')?.touched"
-                    class="invalid-feedback">
-                    <p id="email-invalid">Voer een geldig e-mailadres in</p>
-                </span>
-            </div>
-
-            <div class="form-group mt-5 mb-5">
-                <label for="inputPassword">Wachtwoord</label>
-                <div class="input-group">
-                    <input type="{{ hidePassword ? 'password' : 'text' }}" class="form-control"
-                        formControlName="password" id="inputPassword" [ngClass]="{
-              'is-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched
-            }" />
-                    <div class="input-group-append">
-                        <button class="btn btn-info" type="button" (click)="togglePasswordVisibility()">
-                            {{ hidePassword ? 'Weergeven' : 'Verbergen' }}
-                        </button>
-                    </div>
-                    <span
-                        *ngIf="loginForm.get('password')?.hasError('invalidPassword')  && loginForm.get('password')?.touched"
-                        class="invalid-feedback">
-                        <p id="password-invalid">Voer een geldig wachtwoord in</p>
-                    </span>
-                </div>
-
-            </div>
-
-
-            <div class="form-group text-center">
-                <button id="submitbutton" class="inlog btn" type="submit">Inloggen</button>
-                <div *ngIf="loginError" class="error-message">Ongeldige gebruikersnaam of wachtwoord.</div>
-            </div>
-
-        </form>
-    </div>
-</div> 
-
 <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Login</h2>
