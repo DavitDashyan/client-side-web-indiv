@@ -1,12 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
 import { Conditie, IProduct, IShop } from '@avans-nx-workshop/shared/api';
+import { IsMongoId } from 'class-validator';
 
 export type ProductDocument = Product & Document;
 
 @Schema()
 export class Product implements IProduct {
   id!: string;
+  @IsMongoId()
+  _id!: string;
 
   @Prop({
     required: true,

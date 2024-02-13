@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       .getUserFromLocalStorage()
       .subscribe((user: IUser | null) => {
         if (user) {
-          console.log('User already logged in > to dashboard');
+          console.log('User already logged in > to dashboard', user.email);
           this.router.navigate([`${this.userId}/dashboard`]);
         }
       });

@@ -2,20 +2,20 @@
     <form class="m-5" #productNewForm="ngForm" (ngSubmit)="createProduct()">
 
         <div class="form-group mb-4">
-            <label for="InputCover" class="fw-bold">Boek cover</label>
+            <label for="InputCover" class="fw-bold">img</label>
             <input type="text" class="form-control" id="InputCover" [(ngModel)]="product.productImageUrl"
                 name="productImageUrl" placeholder="FotoURL" required minlength="5" maxlength="255">
             <div *ngIf="productNewForm.controls['productImageUrl'].touched && productNewForm.controls['productImageUrl'].hasError('required')"
                 class="text-danger">
-                Boek cover is verplicht.
+                img is verplicht.
             </div>
             <div *ngIf="productNewForm.controls['productImageUrl'].touched && productNewForm.controls['productImageUrl'].hasError('minlength')"
                 class="text-danger">
-                Boek cover must be at least 5 characters long.
+                img must be at least 5 characters long.
             </div>
             <div *ngIf="productNewForm.controls['productImageUrl'].touched && productNewForm.controls['productImageUrl'].hasError('maxlength')"
                 class="text-danger">
-                Boek cover cannot be more than 255 characters long.
+                img cover cannot be more than 255 characters long.
             </div>
         </div>
 

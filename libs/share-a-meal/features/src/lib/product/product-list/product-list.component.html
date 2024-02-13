@@ -16,10 +16,10 @@
 </div>
 <ul>
     <li *ngFor="let product of products">
-        <!-- <a routerLink="/product/{{product.id}}"> -->
-        <!-- <a [routerLink]="['/product/id']"> -->
-        <a [routerLink]="['/product', product.id]">
-
+        <a routerLink="/product/{{product._id}}">
+            <!-- <a [routerLink]="['/product/id']"> -->
+            <!-- <a [routerLink]=[`/product/${product.id}`]> -->
+                <a routerLink="/product/{{product.id}}">Bekijk details</a>
             <img src={{product.productImageUrl}} alt="No Image Found">
 
             <div class="name">

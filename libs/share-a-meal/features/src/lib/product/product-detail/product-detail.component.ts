@@ -58,23 +58,51 @@ export class ProductDetailComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    // Krijg productId van route parameter
-    this.route.paramMap.subscribe((params) => {
-      this.productId = params.get('id');
+  // ngOnInit(): void {
+  //   // Krijg productId van route parameter
+  //   this.route.paramMap.subscribe((params) => {
+  //     this.productId = params.get('id');
 
-      // Krijg userID van AuthService
+  //     // Krijg userID van AuthService
+  //     this.authService.currentUser$.subscribe({
+  //       next: (user: IUser | null) => {
+  //         if (user) {
+  //           this.userId = user.id;
+  //           // Product details ophalen gebaseerd op productId
+  //           this.productService.read(this.productId).subscribe((observable) => {
+  //             this.product = observable;
+
+  //             // Check of de userId en creator hetzelfde zijn, als het niet zo is, is de knop niet zichtbaar
+  //             this.showButton = this.isCurrentUserCreator();
+  //           });
+  //         }
+  //       },
+  //       error: (error) => {
+  //         console.error('Error getting user information:', error);
+  //       },
+  //     });
+  //   });
+  // }
+  ngOnInit(): void {
+    // this.productService['getProducts']().subscribe((data: IProduct[]) => {
+    //   this.products = data;
+
+    this.route.paramMap.subscribe((params) => {
+      const productId = params.get('id') ?? ''; // Use an empty string as the default
+
       this.authService.currentUser$.subscribe({
         next: (user: IUser | null) => {
           if (user) {
             this.userId = user.id;
-            // Product details ophalen gebaseerd op productId
-            this.productService.read(this.productId).subscribe((observable) => {
-              this.product = observable;
-
-              // Check of de userId en creator hetzelfde zijn, als het niet zo is, is de knop niet zichtbaar
-              this.showButton = this.isCurrentUserCreator();
-            });
+            this.productService.read(productId).subscribe(
+              (result) => {
+                this.product = result;
+                this.showButton = this.isCurrentUserCreator();
+              },
+              (error) => {
+                console.error('Error getting product details:', error);
+              }
+            );
           }
         },
         error: (error) => {

@@ -56,6 +56,7 @@ export class CreateUserDto implements ICreateUser {
 }
 
 export class UpsertUserDto implements IUpsertUser {
+  //token?: string | null | undefined;
   @IsString()
   @IsNotEmpty()
   name!: string;

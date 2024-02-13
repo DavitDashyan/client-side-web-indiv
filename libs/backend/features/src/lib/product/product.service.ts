@@ -64,21 +64,23 @@ export class ProductService {
     this.logger.log(`finding product with id ${id}`);
 
     // Check if id is null
-    if (id === null || id === 'null') {
-      this.logger.debug('ID is null or "null"');
-      return null;
-    }
-    // Use populate to fetch the writer details along with the product
-    const item = await this.productModel
-      .findOne({ id: id })
-      .populate('shop')
-      .exec();
+    // if (id === null || id === 'null') {
+    //   this.logger.debug('ID is null or "null"');
+    //   return null;
+    // }
+    // // Use populate to fetch the writer details along with the product
+    // const item = await this.productModel
+    //   .findOne({ id: id })
+    //   .populate('shop')
+    //   .exec();
 
-    if (!item) {
-      this.logger.debug('Item not found');
-    }
+    // if (!item) {
+    //   this.logger.debug('Item not found');
+    // }
 
-    return item;
+    // return item;
+    Logger.log('Get one');
+    return await this.productModel.findOne({_id:id}).exec();
   }
 
   //voor search

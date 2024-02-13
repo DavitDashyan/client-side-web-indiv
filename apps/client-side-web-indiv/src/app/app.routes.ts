@@ -13,6 +13,9 @@ import { LoginComponent } from 'libs/share-a-meal/features/src/lib/auth/login/lo
 import { RegisterComponent } from 'libs/share-a-meal/features/src/lib/auth/register/register.component';
 import { ProductNewComponent } from 'libs/share-a-meal/features/src/lib/product/product-new/product-new.component';
 import { ShopNewComponent } from 'libs/share-a-meal/features/src/lib/shop/shop-new/shop-new.component';
+import { ShopDetailComponent } from 'libs/share-a-meal/features/src/lib/shop/shop-detail/shop-detail.component';
+import { ShopEditComponent } from 'libs/share-a-meal/features/src/lib/shop/shop-edit/shop-edit.component';
+import { UserNewComponent } from 'libs/share-a-meal/features/src/lib/user/user-new/user-new.component';
 // import { LoginComponent } from 'libs/share-a-meal/features/src/lib/login/login.component';
 // import { CommonModule } from '@angular/common';
 
@@ -70,7 +73,7 @@ export const appRoutes: Route[] = [
   {
     path: 'user/new',
     pathMatch: 'full',
-    component: UserEditComponent,
+    component: UserNewComponent,
   },
   { path: 'user/:id', pathMatch: 'full', component: UserDetailComponent },
   {
@@ -116,18 +119,18 @@ export const appRoutes: Route[] = [
   {
     path: 'shop/:id',
     pathMatch: 'full',
-    component: ProductDetailComponent,
+    component: ShopDetailComponent,
   },
   {
     path: 'shop/:id/edit',
     pathMatch: 'full',
-    component: ProductEditComponent,
+    component: ShopEditComponent,
   },
 
   // mss component veranderen door home ofzo
   {
     path: '**',
     pathMatch: 'full',
-    component: ProductListComponent,
+    component: LoginComponent,
   },
 ];

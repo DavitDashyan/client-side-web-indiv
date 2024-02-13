@@ -29,6 +29,7 @@ import { UserNewComponent } from './user/user-new/user-new.component';
 //import { NgSelectModule } from '@ng-select/ng-select';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
+import { ShopService } from './shop/shop.service';
 
 @NgModule({
   imports: [
@@ -47,7 +48,7 @@ import { ProductDetailComponent } from './product/product-detail/product-detail.
     UserComponent,
     UserDetailComponent,
 
-    ProductDetailComponent,
+    // ProductDetailComponent,
     ProductListComponent,
     ProductEditComponent,
     ProductNewComponent,
@@ -65,7 +66,7 @@ import { ProductDetailComponent } from './product/product-detail/product-detail.
     UserNewComponent,
     UserEditComponent,
   ],
-  providers: [UserService, ProductService, AuthService], //MealService
+  providers: [UserService, ProductService, AuthService, ShopService], //MealService
   exports: [
     // MealListComponent,
     // MealDetailComponent,
