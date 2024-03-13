@@ -4,6 +4,7 @@ import { ProductService } from '../product.service';
 // import { Subscription, switchMap, tap } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+// import { CartService } from '../../../../../../backend/features/src//lib/cart/cart.service';
 
 @Component({
   selector: 'avans-nx-workshop-product-detail',
@@ -55,6 +56,7 @@ export class ProductDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private authService: AuthService,
+    // private cartService: CartService, 
     private router: Router
   ) {}
 
@@ -88,7 +90,7 @@ export class ProductDetailComponent implements OnInit {
     //   this.products = data;
 
     this.route.paramMap.subscribe((params) => {
-      const productId = params.get('id') ?? ''; // Use an empty string as the default
+      const productId = params.get('id') || '';
 
       this.authService.currentUser$.subscribe({
         next: (user: IUser | null) => {
@@ -115,6 +117,10 @@ export class ProductDetailComponent implements OnInit {
   isCurrentUserCreator(): boolean {
     return this.userId === this.product?.creatorID;
   }
+
+  // addToCart(): void {
+  //   this.cartService.addToCart(this.product.id, 1); // 1 is de standaardhoeveelheid, je kunt dit aanpassen als dat nodig is.
+  // }
 
   deleteProduct(): void {
     if (this.userId !== this.product?.creatorID) {

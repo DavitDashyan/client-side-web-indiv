@@ -30,6 +30,7 @@ import { UserNewComponent } from './user/user-new/user-new.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ShopService } from './shop/shop.service';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 
 @NgModule({
   imports: [
@@ -65,6 +66,7 @@ import { ShopService } from './shop/shop.service';
     ShopEditComponent,
     UserNewComponent,
     UserEditComponent,
+    DashboardComponent,
   ],
   providers: [UserService, ProductService, AuthService, ShopService], //MealService
   exports: [

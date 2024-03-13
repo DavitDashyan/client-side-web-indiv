@@ -16,6 +16,8 @@ import { ShopNewComponent } from 'libs/share-a-meal/features/src/lib/shop/shop-n
 import { ShopDetailComponent } from 'libs/share-a-meal/features/src/lib/shop/shop-detail/shop-detail.component';
 import { ShopEditComponent } from 'libs/share-a-meal/features/src/lib/shop/shop-edit/shop-edit.component';
 import { UserNewComponent } from 'libs/share-a-meal/features/src/lib/user/user-new/user-new.component';
+import { DashboardComponent } from 'libs/share-a-meal/features/src/lib/dashboard/dashboard/dashboard.component';
+import { CartListComponent } from 'libs/share-a-meal/features/src/lib/cart/cart-list/cart-list.component';
 // import { LoginComponent } from 'libs/share-a-meal/features/src/lib/login/login.component';
 // import { CommonModule } from '@angular/common';
 
@@ -128,10 +130,16 @@ export const appRoutes: Route[] = [
   },
 
   // mss component veranderen door home ofzo
-  // mss ff cart toevoegen. 
+  // Cart
+  {
+    path: 'cart',
+    pathMatch: 'full',
+    component: CartListComponent,
+  },
+
   {
     path: '**',
     pathMatch: 'full',
-    component: LoginComponent,
+    component: DashboardComponent,
   },
 ];
