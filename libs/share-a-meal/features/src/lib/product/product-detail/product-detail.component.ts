@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { IProduct, IShop, IUser } from '@avans-nx-workshop/shared/api';
 import { ProductService } from '../product.service';
 // import { Subscription, switchMap, tap } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 // import { CartService } from '../../../../../../backend/features/src//lib/cart/cart.service';
+import { CartService } from '../../cart/cart.service';
 
 @Component({
   selector: 'avans-nx-workshop-product-detail',
@@ -47,7 +48,7 @@ export class ProductDetailComponent implements OnInit {
   product = {} as IProduct;
   products: IProduct[] | null = null;
   productId: string | null = null;
-  writers: IShop[] = [];
+  shops: IShop[] = [];
   userId: string | null = null;
   user: IUser | null = null;
   showButton: boolean | undefined;
@@ -56,7 +57,7 @@ export class ProductDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private authService: AuthService,
-    // private cartService: CartService, 
+    private cartService: CartService, 
     private router: Router
   ) {}
 
@@ -118,10 +119,11 @@ export class ProductDetailComponent implements OnInit {
     return this.userId === this.product?.creatorID;
   }
 
-  // addToCart(): void {
-  //   this.cartService.addToCart(this.product.id, 1); // 1 is de standaardhoeveelheid, je kunt dit aanpassen als dat nodig is.
-  // }
+ // cartService = inject(CartService);
+ addToCart(): void {
+  this.cartService.addToCart(this.product); 
 
+ }
   deleteProduct(): void {
     if (this.userId !== this.product?.creatorID) {
       console.error(

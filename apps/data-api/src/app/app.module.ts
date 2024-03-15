@@ -25,6 +25,8 @@ import { MongooseModule } from '@nestjs/mongoose';
     UserModule,
     ShopModule,
     CartModule,
+
+    //ToastrModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [AppService],

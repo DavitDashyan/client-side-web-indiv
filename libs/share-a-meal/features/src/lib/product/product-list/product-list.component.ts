@@ -50,10 +50,11 @@
 // }
 
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { IProduct } from '@avans-nx-workshop/shared/api';
 import { ProductService } from '../product.service';
 import { Subscription } from 'rxjs';
+import { CartService } from '../../cart/cart.service';
 
 
 @Component({
@@ -65,6 +66,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     products: IProduct[] | null = null;
     subscription: Subscription | undefined = undefined;
     searchTerm = '';
+    cartService = inject(CartService);
 
     constructor(private productService: ProductService) {}
 

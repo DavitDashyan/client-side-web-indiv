@@ -13,27 +13,49 @@
 // //   total: number;
 // // }
 
-
 import { ICartItem, ICart } from '@avans-nx-workshop/shared/api';
-import { IsString, IsInt, IsNotEmpty } from 'class-validator';
+import { IsString, IsInt, IsNotEmpty, IsNumber } from 'class-validator';
 
+export class AddToCartDto implements ICartItem {
+  @IsString()
+  @IsNotEmpty()
+  productId!: string;
 
-export class AddToCartDto implements ICartItem{
-    @IsString()
-    @IsNotEmpty()
-    productId!: string;
+  @IsInt()
+  @IsNotEmpty()
+  quantity!: number;
 
-    @IsInt()
-    @IsNotEmpty()
-    quantity!: number;
+  @IsString()
+  @IsNotEmpty()
+  nameProduct!: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  price!: number;
+
+  @IsString()
+  @IsNotEmpty()
+  productImageUrl!: string;
 }
 
 export class UpdateQuantityDto {
-    @IsString()
-    @IsNotEmpty()
-    productId!: string;
+  @IsString()
+  @IsNotEmpty()
+  productId!: string;
 
-    @IsInt()
-    @IsNotEmpty()
-    quantity!: number;
+  @IsInt()
+  @IsNotEmpty()
+  quantity!: number;
+
+  @IsString()
+  @IsNotEmpty()
+  nameProduct!: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  price!: number;
+
+  @IsString()
+  @IsNotEmpty()
+  productImageUrl!: string;
 }

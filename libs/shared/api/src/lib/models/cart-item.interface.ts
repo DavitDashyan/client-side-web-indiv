@@ -1,7 +1,9 @@
-import { IProduct } from "./product.interface";
+import { IProduct } from './product.interface';
 
 export interface ICartItem {
   productId: string;
   quantity: number;
-  product?: IProduct; // Optional product reference
+  nameProduct: string;
+  price: number;
+  productImageUrl: string;
 }

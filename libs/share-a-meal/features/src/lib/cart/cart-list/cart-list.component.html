@@ -101,7 +101,10 @@
         </div>
     </div>
 </body> -->
-<div class="container">
+
+
+
+<!-- <div class="container">
     <h1>Winkelwagen</h1>
     <ul class="list-group">
         <li class="list-group-item" *ngFor="let item of items">
@@ -125,4 +128,39 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+
+<div class="container">
+    <h1>Shopping Cart</h1>
+    <br>
+    <ul class="list-group">
+        <!-- <li class="list-group-item" *ngFor="let item of items">
+            {{ item.productId }} - {{ item.quantity }} -->
+        <!-- <input type="number" min="1" [(ngModel)]="item.quantity"
+                (change)="updateQuantity(item.productId, item.quantity)"> -->
+        <!-- <button class="btn btn-danger" (click)="removeFromCart(item.productId)">Remove</button> -->
+        <!-- </li> -->
+    </ul>
+
+    <div class="card mt-3">
+        <!-- {{cartService.getCart()|json}} -->
+        <div *ngFor="let item of items">
+            {{ item.productId | json }}
+            <p>ID: {{ item.productId }} item.productId->idk werkt niet</p>
+            <img src="{{ item.productImageUrl }}" alt="product-image" class="w-full rounded-lg sm:w-40" />
+            <p>Name: {{ item.nameProduct }}</p>
+            <p>Price: {{ item.price }}</p>
+            <!-- <p>Quantity: {{ item.quantity}}</p> -->
+            <button (click)="removeFromCart(item.productId)"> Remove </button>
+            <!-- <button (click)="incrementQuantity(item.productId)">increse </button>
+            <button (click)="decrementQuantity(item.productId)">decrese</button> -->
+
+            <!--Note:
+                De increse en decrese knoppen werken niet, en de quantity is dat items niet gestact worden
+            -->
+
+            <br> <br>
+        </div>
+        <h2>total: {{cartService.getTotal()}}</h2>
+    </div>

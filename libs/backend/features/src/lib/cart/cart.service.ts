@@ -56,34 +56,44 @@ export class CartService {
   //     });
   // }
 
-  async addToCart(productId: string, quantity: number = 1): Promise<void> {
-    try {
-      const product = await this.productService.getOne(productId);
+  //---------------------
 
-      if (!product) {
-        throw new NotFoundException(`Product with id ${productId} not found`);
-      }
+  // async addToCart2(productId: string, quantity: number = 1): Promise<void> {
+  //   try {
+  //     const product = await this.productService.getOne(productId);
 
-      const existingCartItem = this.getCartItem(productId);
-      if (existingCartItem) {
-        existingCartItem.quantity += quantity;
-      } else {
-        this.cartSubject.next({
-          ...this.cartSubject.value,
-          items: [
-            ...this.cartSubject.value.items,
-            { productId, quantity, product },
-          ],
-          totalQuantity: this.cartSubject.value.totalQuantity + quantity,
-          totalPrice: this.calculateTotalPrice(),
-        });
-      }
+  //     if (!product) {
+  //       throw new NotFoundException(`Product with id ${productId} not found`);
+  //     }
 
-      this.updateLocalStorage();
-    } catch (error) {
-      // Handle errors (e.g., log or rethrow)
-      console.error('Error adding to cart:', error);
-    }
+  //     const existingCartItem = this.getCartItem(productId);
+  //     if (existingCartItem) {
+  //       existingCartItem.quantity += quantity;
+  //     } else {
+  //       this.cartSubject.next({
+  //         ...this.cartSubject.value,
+  //         items: [
+  //           ...this.cartSubject.value.items,
+  //           { productId, quantity,  },
+  //         ],
+  //         totalQuantity: this.cartSubject.value.totalQuantity + quantity,
+  //         totalPrice: this.calculateTotalPrice(),
+  //       });
+  //     }
+
+  //     this.updateLocalStorage();
+  //   } catch (error) {
+  //     // Handle errors (e.g., log or rethrow)
+  //     console.error('Error adding to cart:', error);
+  //   }
+  // }
+  private items: any[] = [];
+
+  addToCart(product: any) {
+    this.items.push(product);
+  }
+  getItems() {
+    return this.items;
   }
 
   removeFromCart(productId: string): void {
@@ -133,7 +143,7 @@ export class CartService {
 
   private calculateTotalPrice(): number {
     return this.cartSubject.value.items.reduce(
-      (sum, item) => sum + (item.product?.price || 0) * item.quantity,
+      (sum, item) => sum + (item.price || 0) * item.quantity,
       0
     );
   }
@@ -145,7 +155,7 @@ export class CartService {
     );
   }
 
-  private getCartItem(productId: string): ICartItem | undefined {
+  public getCartItem(productId: string): ICartItem | undefined {
     return this.cartSubject.value.items.find(
       (item) => item.productId === productId
     );
