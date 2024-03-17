@@ -35,7 +35,7 @@ export class ShopDetailComponent {
           this.authService.currentUser$.subscribe({
             next: (user: IUser | null) => {
               if (user) {
-                this.userId = user.id;      
+                this.userId = user._id;      
 
                 // Haal schrijverdetails op met gebruik van shopId
                 this.shopService.read(this.shopId).subscribe((observable) => {

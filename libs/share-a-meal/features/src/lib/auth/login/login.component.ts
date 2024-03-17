@@ -2,7 +2,6 @@
 // import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
 // import { AuthService } from '@avans-nx-workshop/shared/auth'; // Update the path
 
-
 // @Component({
 //   selector: 'app-login',
 //   templateUrl: './login.component.html',
@@ -14,7 +13,6 @@
 
 // //   constructor(private formBuilder: FormBuilder) {}
 // constructor(private formBuilder: FormBuilder, private authService: AuthService) {}
-
 
 //   ngOnInit(): void {
 //     this.loginForm = this.formBuilder.group({
@@ -55,9 +53,6 @@
 //   }
 // }
 
-
-
-
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
@@ -71,16 +66,21 @@ import { IUser } from '@avans-nx-workshop/shared/api';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-
-  hidePassword = true; 
+  hidePassword = true;
   subs: Subscription | null = null;
   submitted = false;
   loginError = false;
   userId: string | null = null;
 
   loginForm: FormGroup = new FormGroup({
-    email: new FormControl(null, [Validators.required, this.validEmail.bind(this),]),
-    password: new FormControl(null, [Validators.required, this.validPassword.bind(this),]),
+    email: new FormControl(null, [
+      Validators.required,
+      this.validEmail.bind(this),
+    ]),
+    password: new FormControl(null, [
+      Validators.required,
+      this.validPassword.bind(this),
+    ]),
   });
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -94,16 +94,16 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.router.navigate([`${this.userId}/dashboard`]);
         }
       });
-      this.authService.currentUser$.subscribe({
-        next: (user: IUser | null) => {
-          if (user) {
-            this.userId = user.id;
-          }
-        },
-        error: (error) => {
-          console.error('Error getting user information:', error);
-        },
-      });
+    this.authService.currentUser$.subscribe({
+      next: (user: IUser | null) => {
+        if (user) {
+          this.userId = user._id;
+        }
+      },
+      error: (error) => {
+        console.error('Error getting user information:', error);
+      },
+    });
   }
 
   ngOnDestroy(): void {
@@ -117,25 +117,24 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.submitted = true;
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
-      this.authService
-        .login(email, password)
-        .subscribe(
-          (user: IUser | null) => {
-            if (user) {
-              console.log('Logged in');
-              this.router.navigate([`${this.userId}/dashboard`])
-            } else {
-              // Inloggen mislukt
-              this.loginError = true;
-            }
-            this.submitted = false;
-          },
-          () => {
-            // Fout bij inloggen
+      this.authService.login(email, password).subscribe(
+        (user: IUser | null) => {
+          if (user) {
+            console.log('Logged in');
+            console.log('User logged in', user._id, this.userId, user.email);
+            this.router.navigate([`${this.userId}/dashboard`]);
+          } else {
+            // Inloggen mislukt
             this.loginError = true;
-            this.submitted = false;
           }
-        );
+          this.submitted = false;
+        },
+        () => {
+          // Fout bij inloggen
+          this.loginError = true;
+          this.submitted = false;
+        }
+      );
     } else {
       this.submitted = false;
       console.error('loginForm invalid');
@@ -158,7 +157,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.hidePassword = !this.hidePassword;
   }
 }
-
 
 // import { Component, OnInit, OnDestroy } from '@angular/core';
 // import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -250,8 +248,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 //     return regexp.test(password) ? null : { password: false };
 //   }
 // }
-
-
 
 // import { Component, OnInit, OnDestroy } from '@angular/core';
 // import { FormControl, FormGroup, Validators } from '@angular/forms';

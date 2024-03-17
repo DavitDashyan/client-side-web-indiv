@@ -225,7 +225,7 @@ export class AuthService {
       .pipe(
         map((response) => {
           const user = response.results;
-          user && user.id && this.updateUser({ ...user, id: user.id });
+          user && user._id && this.updateUser({ ...user, _id: user._id });
           this.saveUserToLocalStorage(user);
           this.currentUser$.next(user);
           //this.alertService.success('You have been logged in');
@@ -304,6 +304,7 @@ export class AuthService {
         // true when canDeactivate allows us to leave the page.
         if (success) {
           console.log('logout - removing local user info');
+          console.log('logout user:', this.currentUser$.getValue());
           localStorage.removeItem(this.CURRENT_USER);
           this.currentUser$.next(null);
           //  this.alertService.success('You have been logged out.');
@@ -330,7 +331,7 @@ export class AuthService {
 
   userMayEdit(itemUserId: string): Observable<boolean> {
     return this.currentUser$.pipe(
-      map((user: IUser | null) => (user ? user.id === itemUserId : false))
+      map((user: IUser | null) => (user ? user._id === itemUserId : false))
     );
   }
   updateUser(user: IUser | null): void {

@@ -64,7 +64,7 @@ export class UserDetailComponent implements OnInit {
           this.authService.currentUser$.subscribe({
               next: (user: IUser | null) => {
                  if (user) {
-                  this.userId = user.id;      
+                  this.userId = user._id;      
 
                     // Haal user details op gebaseerd up userId
                     this.userService.read(this.userId).subscribe((observable) => {
@@ -83,12 +83,12 @@ export class UserDetailComponent implements OnInit {
     }  
 
     isCurrentUserCreator(): boolean {
-      return this.userId === this.user?.id;
+      return this.userId === this.user?._id;
     }
   
 
     deleteUser(): void {
-      if (this.userId !== this.user?.id) {
+      if (this.userId !== this.user?._id) {
         console.error('Current user is not the creator of the user. Deletion is not allowed.');
         return;
       }

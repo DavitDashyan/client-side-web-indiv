@@ -57,7 +57,7 @@ export class ProductDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private authService: AuthService,
-    private cartService: CartService, 
+    private cartService: CartService,
     private router: Router
   ) {}
 
@@ -96,7 +96,7 @@ export class ProductDetailComponent implements OnInit {
       this.authService.currentUser$.subscribe({
         next: (user: IUser | null) => {
           if (user) {
-            this.userId = user.id;
+            this.userId = user._id;
             this.productService.read(productId).subscribe(
               (result) => {
                 this.product = result;
@@ -119,11 +119,40 @@ export class ProductDetailComponent implements OnInit {
     return this.userId === this.product?.creatorID;
   }
 
- // cartService = inject(CartService);
- addToCart(): void {
-  this.cartService.addToCart(this.product); 
+  items: any[] = [];
 
- }
+  // loadCartItems(): void {
+  //   if (this.userId) {
+  //     console.log(this.userId, 'This user product-detail.component.ts');
+  //     this.items = this.cartService.getCart(this.userId);
+  //     //this.calculateTotal();
+  //   }
+  // }
+
+  // // cartService = inject(CartService);
+  // addToCart(): void {
+  //   console.log(this.product, 'Product added to cart');
+  //   this.cartService.addToCart(this.product);
+  // }
+  addToCart(): void {
+    console.log(this.product, 'Product added to cart');
+    if (this.product) {
+      const user: IUser = {
+        _id: this.userId || '',
+        name: '',
+        address: '',
+        number: 0,
+        email: '',
+        password: '', // Add the missing 'password' property
+        bday: new Date(), // Change the type of 'bday' property to 'string'
+      }; // Create an instance of IUser with the userId
+      console.log(user._id, 'This user product-detail.component.ts');
+      this.cartService.addToCart(user._id, this.product); // Pass the user id to the addToCart method
+    } else {
+      console.error('Product is not defined.');
+    }
+  }
+
   deleteProduct(): void {
     if (this.userId !== this.product?.creatorID) {
       console.error(

@@ -67,7 +67,7 @@ export class UpsertUserDto implements IUpsertUser {
 
   @IsString()
   @IsNotEmpty()
-  id!: Id;
+  _id!: Id;
 
   @IsInt()
   @IsNotEmpty()

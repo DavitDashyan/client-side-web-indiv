@@ -56,6 +56,8 @@ export class CreateProductDto implements ICreateProduct {
 }
 
 export class UpsertProductDto implements IUpsertProduct {
+  _id!: string;
+  
   @IsString()
   @IsNotEmpty()
   id!: Id;

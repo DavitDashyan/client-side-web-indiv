@@ -27,7 +27,7 @@ export class ShopNewComponent implements OnInit {
         this.authService.currentUser$.subscribe({
           next: (user: IUser | null) => {
             if (user) {
-              this.userId = user.id;
+              this.userId = user._id;
             }
           },
           error: (error) => {

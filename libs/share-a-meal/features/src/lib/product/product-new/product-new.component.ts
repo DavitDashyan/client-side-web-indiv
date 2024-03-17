@@ -37,7 +37,7 @@ export class ProductNewComponent implements OnInit {
     this.authService.currentUser$.subscribe({
       next: (user: IUser | null) => {
         if (user) {
-          this.userId = user.id;
+          this.userId = user._id;
         }
       },
       error: (error) => {
@@ -50,7 +50,7 @@ export class ProductNewComponent implements OnInit {
     this.authService.currentUser$.subscribe({
       next: (user: IUser | null) => {
         if (user) {
-          this.userId = user.id;
+          this.userId = user._id;
 
           const selectedShop = this.shops.find(
             (shop) => shop.id === this.selectedShopId

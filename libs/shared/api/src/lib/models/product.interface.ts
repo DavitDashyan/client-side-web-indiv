@@ -13,7 +13,7 @@ export enum Conditie{
 export interface IProduct {
 
     id: Id,
-    _id?: Id,
+    _id: Id,
 
     nameProduct: string,
     description: string,

@@ -11,9 +11,9 @@ import { AddToCartDto } from '@avans-nx-workshop/backend/dto';
 @Injectable()
 export class CartService {
   private cartSubject = new BehaviorSubject<ICart>({
+    _id: '', // Add the _id property here
     items: [],
-    totalQuantity: 0,
-    totalPrice: 0,
+    userId: '', // Add the userId property here
   });
   cart$: Observable<ICart> = this.cartSubject.asObservable();
 
@@ -106,8 +106,8 @@ export class CartService {
       this.cartSubject.next({
         ...this.cartSubject.value,
         items: updatedItems,
-        totalQuantity: cart.totalQuantity - cart.items[itemIndex].quantity,
-        totalPrice: this.calculateTotalPrice(),
+        // totalQuantity: cart.totalQuantity - cart.items[itemIndex].quantity,
+        // totalPrice: this.calculateTotalPrice(),
       });
       this.updateLocalStorage();
     }
@@ -125,8 +125,8 @@ export class CartService {
       this.cartSubject.next({
         ...this.cartSubject.value,
         items: updatedItems,
-        totalQuantity: this.calculateTotalQuantity(),
-        totalPrice: this.calculateTotalPrice(),
+        // totalQuantity: this.calculateTotalQuantity(),
+        // totalPrice: this.calculateTotalPrice(),
       });
       this.updateLocalStorage();
     }
@@ -135,8 +135,8 @@ export class CartService {
   clearCart(): void {
     this.cartSubject.next({
       items: [],
-      totalQuantity: 0,
-      totalPrice: 0,
+      _id: '',
+      userId: '', // Add the userId property
     });
     this.updateLocalStorage();
   }

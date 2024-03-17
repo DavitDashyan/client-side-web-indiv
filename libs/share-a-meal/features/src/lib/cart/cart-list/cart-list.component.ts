@@ -1,40 +1,11 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'avans-nx-workshop-cart-list',
-//   templateUrl: './cart-list.component.html',
-//   styleUrls: ['./cart-list.component.css'],
-// })
-// export class CartListComponent {}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-// import { Component, OnInit } from '@angular/core';
-// import { Inject } from '@angular/core';
-
-// @Component({
-//   selector: 'avans-nx-workshop-cart-list',
-//   templateUrl: './cart-list.component.html',
-//   styleUrls: ['./cart-list.component.css'],
-// })
-// export class CartListComponent implements OnInit {
-//   items: any[] = [];
-
-//   constructor(@Inject(CartService) private cartService: CartService) {}
-
-//   ngOnInit(): void {
-//     this.items = this.cartService.getCart().items;
-//   }
-
-//   addToCart(productId: string) {
-//     this.cartService.addToCart(productId);
-//   }
-// }
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-// import { Component, OnInit } from '@angular/core';
+// import { Component, OnInit, inject } from '@angular/core';
 // import { CartService } from '../cart.service';
+// import { ICartItem } from '@avans-nx-workshop/shared/api';
+// //import { ToastrService } from 'ngx-toastr'; // Import Toastr for feedback messages
+// import { Observable, tap } from 'rxjs';
+
+// import { ProductDetailComponent } from '../../product/product-detail/product-detail.component';
+// import { CommonModule } from '@angular/common';
 
 // @Component({
 //   selector: 'avans-nx-workshop-cart-list',
@@ -44,44 +15,81 @@
 // export class CartListComponent implements OnInit {
 //   items: ICartItem[] = [];
 //   totalQuantity = 0;
+//   cart = {} as ICartItem;
 //   totalPrice = 0;
+//   productName = '';
+//   productPrice = 0;
+//   productImageUrl = '';
+//   cartService = inject(CartService);
 
-//   constructor(private cartService: CartService) {}
+//   // constructor(
+//   //   private cartService: CartService,
+//   //   //private toastr: ToastrService
+//   // ) {}
 
 //   ngOnInit(): void {
-//     this.items = this.cartService.getCart();
+//     this.loadCartItems();
 //   }
 
-//   addToCart(productId: string) {
+//   addToCart(productId: any): void {
 //     this.cartService.addToCart(productId);
-//     this.items = this.cartService.getCart(); // Update the local items array
+//     console.log(productId, 'Product Id');
+//     console.log(this.productName, 'Product Name 123');
+//     this.loadCartItems();
 //   }
 
-//   removeFromCart(productId: string) {
+//   loadCartItems(): void {
+//     this.items = this.cartService.getCart();
+//     console.log(this.items, 'Items');
+
+//     this.calculateTotal();
+//   }
+
+//   removeFromCart2(productId: string): void {
+//     const index = this.items.findIndex((item) => item.productId === productId);
+//     if (index >= 0) {
+//       this.items.splice(index, 1); // Remove the item from the local component array
+//       this.calculateTotal(); // Recalculate total quantity and price
+//       this.cartService.removeFromCart(productId); // Call the service to remove from storage
+//     }
+//   }
+
+//   removeFromCart(productId: string): void {
 //     this.cartService.removeFromCart(productId);
-//     this.items = this.cartService.getCart(); // Update the local items array
+//     this.loadCartItems(); // Reload cart items after removal
 //   }
 
-//   updateQuantity(productId: string, quantity: number) {
-//     this.cartService.updateQuantity(productId, quantity);
-//     this.items = this.cartService.getCart(); // Update the local items array
+//   getTotal() {
+//     return this.items.reduce((acc, item) => {
+//       return acc + item.price * item.quantity;
+//     }, 0);
+//   }
+
+//   // deleteFromCart(item){
+//   //   this.cartService.delete(item);
+//   //   this.loadCartItems();
+//   // }
+
+//   calculateTotal(): void {
+//     this.totalQuantity = this.items.reduce(
+//       (total, item) => total + item.quantity,
+//       0
+//     );
+//     this.totalPrice = this.items.reduce(
+//       (total, item) => total + item.quantity * item.price,
+//       0
+//     );
 //   }
 // }
 
-// // You might need to adjust the ICartItem interface based on your backend model
-// interface ICartItem {
-//   productId: string;
-//   quantity: number;
-//   // Add other product details if needed (e.g., name, price)
-// }
+//-------------------------------------------------------------------------------------
 
-import { Component, OnInit, inject } from '@angular/core';
-import { CartService, ICartItem } from '../cart.service';
-//import { ToastrService } from 'ngx-toastr'; // Import Toastr for feedback messages
-import { Observable, tap } from 'rxjs';
-
-import { ProductDetailComponent } from '../../product/product-detail/product-detail.component';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { CartService } from '../cart.service';
+import { ICartItem, IUser } from '@avans-nx-workshop/shared/api';
+import { Inject } from '@angular/core';
+import { AuthService } from '../../auth/auth.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'avans-nx-workshop-cart-list',
@@ -90,120 +98,111 @@ import { CommonModule } from '@angular/common';
 })
 export class CartListComponent implements OnInit {
   items: ICartItem[] = [];
-  totalQuantity = 0;
-  totalPrice = 0;
-  productName = '';
-  productPrice = 0;
-  cartService = inject(CartService);
+  userId: string = '';
+  //userId = ''; // Set the logged-in user ID here
 
-  // constructor(
-  //   private cartService: CartService,
-  //   //private toastr: ToastrService
-  // ) {}
+  constructor(
+    private cartService: CartService,
+    private authService: AuthService
+  ) {}
 
-  ngOnInit(): void {
-    this.loadCartItems();
-  }
-
-  addToCart(productId: any): void {
-    this.cartService.addToCart(productId);
-    console.log(productId, 'Product Id');
-    console.log(this.productName, 'Product Name 123');
-    this.loadCartItems();
-  }
-
-  loadCartItems(): void {
-    this.items = this.cartService.getCart();
-    this.calculateTotal();
-  }
-
-  removeFromCart2(productId: string): void {
-    const index = this.items.findIndex((item) => item.productId === productId);
-    if (index >= 0) {
-      this.items.splice(index, 1); // Remove the item from the local component array
-      this.calculateTotal(); // Recalculate total quantity and price
-      this.cartService.removeFromCart(productId); // Call the service to remove from storage
-    }
-  }
-
-  removeFromCart(productId: string): void {
-    this.cartService.removeFromCart(productId);
-    this.loadCartItems(); // Reload cart items after removal
-  }
-
-
-
-  getTotal() {
-    return this.items.reduce((acc, item) => {
-      return acc + item.price * item.quantity;
-    }, 0);
-  }
-
-  // deleteFromCart(item){
-  //   this.cartService.delete(item);
+  // ngOnInit(): void {
   //   this.loadCartItems();
   // }
 
-  calculateTotal(): void {
-    this.totalQuantity = this.items.reduce(
-      (total, item) => total + item.quantity,
-      0
-    );
-    this.totalPrice = this.items.reduce(
-      (total, item) => total + item.quantity * item.price,
+  ngOnInit(): void {
+    this.authService.currentUser$.pipe(take(1)).subscribe((user) => {
+      if (user) {
+        this.userId = user._id;
+        this.loadCartItems(); // Call loadCartItems after userId is set
+      }
+    });
+  }
+
+  addToCart(productId: any): void {
+    const user: IUser = {
+      _id: this.userId || '', // Assign an empty string as the default value if userId is undefined
+      name: '',
+      address: '',
+      number: 0,
+      email: '',
+      password: '',
+      bday: new Date(), // Change the type of 'bday' to 'Date' and assign a new Date object
+    }; // Create a user object with the userId
+    this.cartService.addToCart(user._id, productId); // Pass the user object to the addToCart method
+    this.loadCartItems();
+  }
+
+  // loadCartItems(): void {
+  //   console.log('User ID+cart.item:', this.userId, this.items);
+  //   const cart = this.cartService.getCart(this.userId);
+  //   if (cart) {
+  //     this.items = cart.items;
+  //     //this.calculateTotal();
+  //   } else {
+  //     this.items = [];
+  //     this.totalQuantity = 0;
+  //     this.totalPrice = 0;
+  //   }
+  // }
+
+  async loadCartItems(): Promise<void> {
+    console.log('User ID BB:', this.userId);
+    console.log('User item BB:', this.items);
+    const cart = await this.cartService.getCart(this.userId);
+    if (cart) {
+      this.items = cart.items;
+      // this.calculateTotal();
+    }
+  }
+
+  // Declare the userId property
+
+  // constructor(
+  //   private cartService: CartService,
+  //   @Inject(AuthService) private authService: AuthService
+  // ) {}
+
+  // ngOnInit(): void {
+  //   this.authService.currentUser$.subscribe((user) => {
+  //     if (user) {
+  //       this.userId = user.id;
+  //       this.loadCartItems();
+  //     }
+  //   });
+  // }
+
+  // loadCartItems(): void {
+  //   if (this.userId) {
+  //     this.items = this.cartService.getCart(this.userId);
+  //     this.calculateTotal();
+  //   }
+  // }
+
+  removeFromCart(productId: string): void {
+    this.cartService.removeFromCart(this.userId, productId);
+    this.loadCartItems();
+  }
+
+  getTotal() {
+    return this.items.reduce(
+      (acc, item) => acc + item.price * item.quantity,
       0
     );
   }
 
-  // removeFromCart(item: ICartItem): Observable<void> {
-  //   return this.cartService.removeFromCart(item.productId).pipe(
-  //     tap(() => {
-  //       this.toastr.info(`Removed ${item.productId} from cart`);
-  //       this.loadCartItems();
-  //     })
-  //   );
-  // }
+  // calculateTotal(): void {
+  //   let totalQuantity = 0;
+  //   let totalPrice = 0;
 
-  // updateQty(event: any, item: ICartItem): void {
-  //   const newQty = event.target.value;  // Get the new quantity from the input field
-  //   if (newQty < 1) {
-  //     this.toastr.error('Quantity must be at least 1');
-  //     return;
-  //   } else if (newQty > 10) {
-  //     this.toastr.warning('You can only order up to 10 items');
-  //     return;
+  //   for (const item of this.items) {
+  //     if (item.quantity && item.price) {
+  //       totalQuantity += item.quantity;
+  //       totalPrice += item.quantity * item.price;
+  //     }
   //   }
-  //   this.cartService.updateQty(item.productId, newQty).subscribe(() => {
-  //     item.quantity = newQty;  // Update the local quantity
-  //     this.calculateTotal();  // Recalculate the total quantity and price
-  //   });
-  // }
 
-  // removeFromCart2(productId: string): void {
-  //   this.cartService.removeFromCart(productId).subscribe(() => {
-  //     this.loadCartItems();
-  //     this.toastr.success('Item removed from cart!');
-  //   });
-  // }
-
-  // updateQuantity(productId: string, quantity: number): void {
-  //   this.cartService.updateQuantity(productId, quantity).subscribe(() => {
-  //     this.loadCartItems();
-  //     this.toastr.success('Quantity updated!');
-  //   });
-  // }
-
-  // private loadCartItems(): void {
-  //   this.cartService.getCart().subscribe((cart) => {
-  //     this.items = cart.items;
-  //     this.totalQuantity = cart.totalQuantity;
-  //     this.totalPrice = cart.totalPrice;
-  //   });
+  //   this.totalQuantity = totalQuantity;
+  //   this.totalPrice = totalPrice;
   // }
 }
-
-// addToCart(productId: string): void {
-//   this.cartService.addToCart(productId);
-//   this.loadCartItems();
-//   this.toastr.success('Item added to cart!');
-// }

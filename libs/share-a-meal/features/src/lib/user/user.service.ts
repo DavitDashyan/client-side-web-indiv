@@ -74,7 +74,7 @@ export class UserService {
 
   public create(user: IUser): Observable<IUser> {
     console.log(`create ${this.endpoint}`);
-    console.log(`User ${user.id}`);
+    console.log(`User._id ${user._id}`);
 
 
     const httpOptions = {
@@ -93,9 +93,9 @@ export class UserService {
   }
 
   public update(user: IUser): Observable<IUser> {
-    console.log(`update ${this.endpoint}/${user.id}`);
+    console.log(`update ${this.endpoint}/${user._id}`);
     return this.http
-      .put<ApiResponse<IUser>>(`${this.endpoint}/${user.id}`, user)
+      .put<ApiResponse<IUser>>(`${this.endpoint}/${user._id}`, user)
       .pipe(
         tap(console.log),
         catchError((error) => {
@@ -106,9 +106,9 @@ export class UserService {
   }
 
   public delete(user: IUser): Observable<IUser> {
-    console.log(`delete ${this.endpoint}/${user.id}`);
+    console.log(`delete ${this.endpoint}/${user._id}`);
     return this.http
-      .delete<ApiResponse<IUser>>(`${this.endpoint}/${user.id}`)
+      .delete<ApiResponse<IUser>>(`${this.endpoint}/${user._id}`)
       .pipe(tap(console.log), catchError(this.handleError));
   }
 

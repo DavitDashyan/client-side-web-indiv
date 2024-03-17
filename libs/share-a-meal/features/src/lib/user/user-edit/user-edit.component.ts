@@ -36,7 +36,7 @@ export class UserEditComponent implements OnInit {
       this.authService.currentUser$.subscribe({
         next: (user: IUser | null) => {
           if (user) {
-            this.userId = user.id;
+            this.userId = user._id;
           }
         },
         error: (error) => {
@@ -46,7 +46,7 @@ export class UserEditComponent implements OnInit {
   }
 
   updateUser() {
-    if (this.userId !== this.user?.id) {
+    if (this.userId !== this.user?._id) {
       console.error('Current user is not the creator of the user. Updating is not allowed.');
       return;
     }
