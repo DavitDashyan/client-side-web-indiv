@@ -26,16 +26,19 @@
 // //-----------------------------------------------------
 import { ICartItem } from './cart-item.interface';
 import { Id } from './id.type';
+import { IProduct } from './product.interface';
 
 export interface ICart {
-  _id: Id;
-  items: ICartItem[];
-  // totalQuantity: number;
-  // totalPrice: number;
-  userId: string;
+
+  productList: IProduct[];
+  productId?: string;
+
+  // _id: IProduct;
+  // items: ICartItem[];
+  // userId: string;
 }
 
-export type ICreateCart = any;
+// export type ICreateCart = any;
 
-export type IUpdateCart = Partial<Omit<ICart, 'id'>>;
-export type IUpsertCart = ICart;
+// export type IUpdateCart = Partial<Omit<ICart, 'id'>>;
+// export type IUpsertCart = ICart;

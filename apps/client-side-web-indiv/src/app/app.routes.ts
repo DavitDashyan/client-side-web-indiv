@@ -17,9 +17,10 @@ import { ShopDetailComponent } from 'libs/share-a-meal/features/src/lib/shop/sho
 import { ShopEditComponent } from 'libs/share-a-meal/features/src/lib/shop/shop-edit/shop-edit.component';
 import { UserNewComponent } from 'libs/share-a-meal/features/src/lib/user/user-new/user-new.component';
 import { DashboardComponent } from 'libs/share-a-meal/features/src/lib/dashboard/dashboard/dashboard.component';
-import { CartListComponent } from 'libs/share-a-meal/features/src/lib/cart/cart-list/cart-list.component';
+//import { CartListComponent } from 'libs/share-a-meal/features/src/lib/cart/cart-list/cart-list.component';
 // import { LoginComponent } from 'libs/share-a-meal/features/src/lib/login/login.component';
 // import { CommonModule } from '@angular/common';
+import { CartListComponent } from 'libs/share-a-meal/features/src/lib/product/cart-list/cart-list.component';
 
 export const appRoutes: Route[] = [
   //overig

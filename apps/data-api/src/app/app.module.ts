@@ -11,7 +11,7 @@ import {
   ProductModule,
   UserModule,
   ShopModule,
-  CartModule,
+ // CartModule,
 } from '@avans-nx-workshop/backend/features';
 import { MongooseModule } from '@nestjs/mongoose';
 
@@ -24,7 +24,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     ProductModule,
     UserModule,
     ShopModule,
-    CartModule,
+   // CartModule,
 
     //ToastrModule.forRoot(),
   ],

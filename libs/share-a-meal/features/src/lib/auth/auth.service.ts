@@ -202,7 +202,7 @@ export class AuthService {
             return of(user);
           } else {
             console.log(`No current user found`);
-            return of(undefined);
+            return of(null);
           }
         })
       )
@@ -245,7 +245,7 @@ export class AuthService {
     console.log(`register at ${environment.dataApiUrl}user`);
     console.log(userData);
     return this.http
-      .post<IUser>(`${environment.dataApiUrl}user`, userData, {
+      .post<IUser>(`${environment.dataApiUrl}/api/user`, userData, {
         headers: this.headers,
       })
       .pipe(
@@ -266,7 +266,14 @@ export class AuthService {
         })
       );
   }
-
+  // register(userData: IUser): Observable<IUser | null> {
+  //   return this.http
+  //     .post<IUser>(`${this.endpoint}/register`, userData, { headers: this.headers })
+  //     .pipe(
+  //       map(response => this.handleLoginResponse(response)),
+  //       catchError(this.handleError('register'))
+  //     );
+  // }
   /**
    * Validate het token bij de backend API. Als er geen HTTP error
    * als response komt is het token nog valid. We doen dan verder niets.
@@ -321,11 +328,13 @@ export class AuthService {
       return of(null);
     } else {
       const localUser = JSON.parse(itemFromStorage);
+      console.log('getUserFromLocalStorage:', localUser);
       return of(localUser);
     }
   }
 
   private saveUserToLocalStorage(user: IUser): void {
+    console.log('saveUserToLocalStorage:', user);
     localStorage.setItem(this.CURRENT_USER, JSON.stringify(user));
   }
 

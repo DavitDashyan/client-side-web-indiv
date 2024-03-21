@@ -51,6 +51,7 @@
 
       <div class="button-container text-center mt-3" *ngIf="showButton">
         <button type="button" class="btn text-center" routerLink="/product/{{ product.id }}/edit">Edit</button>
+        <button type="button" class="btn text-center" routerLink="/product/">Edit</button>
       </div>
 
 
@@ -78,7 +79,7 @@
     <div class="column-right col-12 col-lg-9 align-items-center justify-content-center">
       <div class="title-container">
         <h5> {{product.nameProduct }} </h5>
-        <p class="shop"><a [routerLink]="['/shop', product.shopId]" class="text-dark">{{product.shopId}}</a></p>
+        <p class="shop"><a class="text-dark">{{product.shopId}}</a></p>
 
         <p class="description"> {{product.description}}</p>
 

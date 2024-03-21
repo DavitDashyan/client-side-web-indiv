@@ -56,19 +56,23 @@ export class UserDetailComponent implements OnInit {
       ) {}
 
     ngOnInit(): void {
-
       this.route.paramMap.subscribe((params) => {
         this.userId = params.get('id');
+        console.log('user.id = ', this.userId);
 
           // Retrieve user ID from AuthService
           this.authService.currentUser$.subscribe({
               next: (user: IUser | null) => {
                  if (user) {
+                    console.log('user:', user);
+                    console.log('user._id:', user._id);
                   this.userId = user._id;      
 
                     // Haal user details op gebaseerd up userId
                     this.userService.read(this.userId).subscribe((observable) => {
                     this.user = observable;
+
+                    console.log('userId:', this.userId);
           
                     // Als UserId van account en van aangemaakte user niet hetzelfde zijn, is knop niet zichtbaar
                     this.showButton = this.isCurrentUserCreator();

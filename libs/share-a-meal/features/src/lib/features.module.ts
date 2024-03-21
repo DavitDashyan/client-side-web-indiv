@@ -14,7 +14,7 @@ import { ProductListComponent } from './product/product-list/product-list.compon
 import { ProductNewComponent } from './product/product-new/product-new.component';
 import { ProductService } from './product/product.service';
 import { StarRatingModule } from 'angular-star-rating';
-import { CartListComponent } from './cart/cart-list/cart-list.component';
+//import { CartListComponent } from './cart/cart-list/cart-list.component';
 import { ShopListComponent } from './shop/shop-list/shop-list.component';
 import { FormsModule } from '@angular/forms';
 //import { SearchComponent } from '../../../ui/src/lib/search/search.component'; // Zorg ervoor dat het juiste pad wordt gebruikt
@@ -31,6 +31,7 @@ import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ShopService } from './shop/shop.service';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import { CartListComponent } from './product/cart-list/cart-list.component';
 
 @NgModule({
   imports: [
@@ -54,6 +55,7 @@ import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
     ProductEditComponent,
     ProductNewComponent,
 
+    //  CartListComponent,
     CartListComponent,
     ShopListComponent,
 
@@ -86,6 +88,7 @@ import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
     ProductEditComponent,
     ProductNewComponent,
 
+    // CartListComponent,
     CartListComponent,
     ShopListComponent,
 

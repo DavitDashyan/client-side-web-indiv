@@ -4,6 +4,7 @@ import { AuthService } from '../auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../user/user.service';
+import { IUser } from '@avans-nx-workshop/shared/api';
 
 @Component({
   selector: '@avans-nx-workshop-auth-register',
@@ -32,9 +33,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
   subs: Subscription | null = null;
   hidePassword = true;
   loginError = false;
-
+  registeredUser: IUser | null = null;
   constructor(
     private route: ActivatedRoute,
+    private authService: AuthService,
     private router: Router,
     private userService: UserService
   ) {}
@@ -62,18 +64,57 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }
   }
 
+  // onSubmit(): void {
+  //   if (this.registerForm.valid) {
+  //     this.userService.create(this.registerForm.value).subscribe((user) => {
+  //       console.log('Registration succeeded');
+  //       this.router.navigate(['/user/login'], { relativeTo: this.route });
+  //     });
+  //   } else {
+  //     this.loginError = true;
+  //     console.log('this.registerForm.value', this.registerForm.value);
+  //     console.error('Registration returned null user');
+  //   }
+  // }
+
   onSubmit(): void {
-    if (this.registerForm.valid) {
-      this.userService.create(this.registerForm.value).subscribe((user) => {
-        console.log('Registration succeeded');
-        this.router.navigate(['/user/login'], { relativeTo: this.route });
+    if (this.registerForm!.valid) {
+      console.log('Form is valid', this.registerForm!.value);
+      const user: IUser = this.registerForm!.value;
+      user.cart = [];
+      this.authService.register(user).subscribe({
+        next: (newUser) => {
+          console.log('User created:', newUser);
+          console.log('User created:', newUser?.email);
+          this.router.navigate([`/dashboard`]);
+        },
+        error: (error) => console.error('Error creating user:', error),
       });
     } else {
-      this.loginError = true;
-      console.log('this.registerForm.value', this.registerForm.value);
-      console.error('Registration returned null user');
+      this.registerForm!.markAllAsTouched();
+      console.error('Form is not valid');
     }
   }
+
+  goBack(): void {
+    this.router.navigate(['/login'], { relativeTo: this.route });
+  }
+
+  // onSubmit(): void {
+  //   if (this.registerForm!.valid) {
+  //     const user: IUser = this.registerForm!.value;
+  //     this.userService.create(this.registerForm.value).subscribe({
+  //       next: (newUser: IUser) => {
+  //         // Explicitly specify the type of 'newUser' as 'IUser'
+  //         console.log('User created:', newUser);
+  //       },
+  //       error: (error: any) => console.error('Error creating user:', error), // Explicitly specify the type of 'error' as 'any'
+  //     });
+  //   } else {
+  //     this.registerForm!.markAllAsTouched();
+  //     console.error('Form is not valid');
+  //   }
+  // }
 
   validEmail(control: FormControl): { [key: string]: boolean } | null {
     const email = control.value;

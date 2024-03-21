@@ -13,21 +13,6 @@ import { CreateUserDto, UpdateUserDto } from '@avans-nx-workshop/backend/dto';
 export class UserController {
     constructor(private userService: UserService) {}
 
-    // @Get('')
-    // getAll(): IUser[] {
-    //     return this.userService.getAll();
-    // }
-
-    // @Get(':id')
-    // getOne(@Param('id') id: string): IUser {
-    //     return this.userService.getOne(id);
-    // }
-
-    // @Post('')
-    // create(@Body() data: CreateUserDto): IUser {
-    //     return this.userService.create(data);
-    // } 
-
     @Get('')
     async getAll(): Promise<IUser[]> {
         return await this.userService.getAll();

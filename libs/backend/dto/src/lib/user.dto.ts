@@ -8,8 +8,11 @@ import {
   IsEmail,
   IsInt,
   IsMongoId,
+  IsArray,
 } from 'class-validator';
 import {
+  ICart,
+  ICartItem,
   ICreateUser,
   IUpdateUser,
   IUpsertUser,
@@ -32,7 +35,7 @@ export class CreateUserDto implements ICreateUser {
   // @IsString()
   // @IsNotEmpty()
   // @IsMongoId()
-  id!: Id;
+  _id!: Id;
 
   // @IsInt()
   // @IsNotEmpty()
@@ -50,13 +53,22 @@ export class CreateUserDto implements ICreateUser {
   @IsNotEmpty()
   bday!: Date;
 
+  @IsNotEmpty()
+  cart!: ICart;
+
   // @IsBoolean()
   // @IsNotEmpty()
   // isAdmin!: boolean;
 }
 
 export class UpsertUserDto implements IUpsertUser {
-  //token?: string | null | undefined;
+  @IsString()
+  @IsNotEmpty()
+  _id!: string;
+
+  @IsNotEmpty()
+  cart!: ICartItem[];
+
   @IsString()
   @IsNotEmpty()
   name!: string;
@@ -64,10 +76,6 @@ export class UpsertUserDto implements IUpsertUser {
   @IsString()
   @IsNotEmpty()
   address!: string;
-
-  @IsString()
-  @IsNotEmpty()
-  _id!: Id;
 
   @IsInt()
   @IsNotEmpty()
@@ -114,6 +122,11 @@ export class UpdateUserDto implements IUpdateUser {
   @IsInt()
   @IsOptional()
   number!: number;
+
+  @IsNotEmpty()
+  cart!: ICartItem[];
+
+  _id!: Id;
 
   // @IsBoolean()
   // @IsNotEmpty()

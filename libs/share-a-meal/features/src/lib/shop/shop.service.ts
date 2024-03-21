@@ -87,7 +87,7 @@ export class ShopService {
   }
 
   public update(shop: IShop): Observable<IShop> {
-    console.log(`update ${this.endpoint}/${shop.id}`);
+    console.log(`update shop ${this.endpoint}/${shop.id}`);
     return this.http
       .put<ApiResponse<IShop>>(`${this.endpoint}/${shop.id}`, shop)
       .pipe(tap(console.log), catchError(this.handleError));

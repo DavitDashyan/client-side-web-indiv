@@ -118,16 +118,33 @@ export class UserService {
     return items;
   }
 
-  async getOne(id: string): Promise<IUser | null> {
-    this.logger.log(`finding user with id ${id}`);
+  // async getOne(_id: string): Promise<IUser | null> {
+  //   this.logger.log(`finding user with id ${_id}`);
+
+  //   // Check if id is null
+  //   if (_id === null || _id === 'null') {
+  //     this.logger.debug('ID is null or "null"');
+  //     return null;
+  //   }
+  //   const item = await this.userModel.findOne({ id: _id }).exec();
+  //   if (!item) {
+  //     this.logger.debug('id of the item not found', _id);
+  //     this.logger.debug('Item not found');
+  //   }
+  //   return item;
+  // }
+
+  async getOne(_id: string): Promise<IUser | null> {
+    this.logger.log(`finding user with id ${_id}`);
 
     // Check if id is null
-    if (id === null || id === 'null') {
+    if (_id === null || _id === 'null') {
       this.logger.debug('ID is null or "null"');
       return null;
     }
-    const item = await this.userModel.findOne({ id: id }).exec();
+    const item = await this.userModel.findOne({ _id: _id }).exec(); // Gebruik '_id' in plaats van 'id' in de query
     if (!item) {
+      this.logger.debug('id of the item not found', _id);
       this.logger.debug('Item not found');
     }
     return item;
@@ -144,11 +161,10 @@ export class UserService {
 
   async create(userDto: CreateUserDto): Promise<IUser> {
     this.logger.log(`Create user ${userDto.name}`);
-        
-    // Sluit id expliciet uit
-    const { id, ...userWithoutId } = userDto;
 
-    // Hash het wachtwoord voordat het wordt opgeslagen
+    const { _id, ...userWithoutId } = userDto;
+
+    // wachtwoord hasken
     const hashedPassword = await bcrypt.hash(userDto.password, 10);
 
     const createdItem = await this.userModel.create({
@@ -160,17 +176,22 @@ export class UserService {
   }
 
   async update(userId: string, updateUserDto: UpdateUserDto): Promise<IUser> {
+    this.logger.log(`Updating user with id ${userId}`);
     const existingUser = await this.userModel.findById(userId).exec();
+
+    console.log('Existing user:', existingUser, userId);
 
     if (!existingUser) {
       throw new NotFoundException(`User with id ${userId} not found`);
     }
 
-    // Update user properties
+    console.log('Object.assign:', existingUser, updateUserDto);
+
     Object.assign(existingUser, updateUserDto);
 
-    // Save the updated user
     const updatedUser = await existingUser.save();
+
+    console.log('Updated user:', updatedUser);
 
     return updatedUser;
   }

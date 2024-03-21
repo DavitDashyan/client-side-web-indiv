@@ -72,4 +72,21 @@ export class ProductController {
   async delete(@Param('id') id: string): Promise<void> {
     await this.productService.deleteProduct(id);
   }
+
+  @Post('/:productId/:userId/cartList')
+  async addCartlist(
+    @Param('userId') userId: string,
+    @Body() { productId }: { productId: IProduct }
+  ): Promise<void> {
+    const productID: IProduct = productId;
+    await this.productService.addBookBooklist(userId, productID);
+  }
+
+  @Delete('/:productId/:userId/cartList')
+  async removeBookBookList(
+    @Param('boekId') boekId: string,
+    @Param('userId') userId: string
+  ): Promise<void> {
+    await this.productService.removeBookBookList(userId, boekId);
+  }
 }

@@ -1,14 +1,17 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import {
   Conditie,
+  ICartItem,
   ICreateProduct,
   IProduct,
+  IUser,
 } from '@avans-nx-workshop/shared/api';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Logger } from '@nestjs/common';
-import { ProductDocument } from './product.schema';
+import { Product, ProductDocument } from './product.schema';
 import { ShopService } from '../shop/shop.service';
 import { Product as ProductModel } from './product.schema';
+import { User as UserModel, UserDocument } from '../user/user.shema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import {
@@ -26,7 +29,9 @@ export class ProductService {
   constructor(
     @InjectModel(ProductModel.name)
     private productModel: Model<ProductDocument>,
-    private readonly shopService: ShopService
+    private readonly shopService: ShopService,
+
+    @InjectModel(UserModel.name) private userModel: Model<UserDocument>
   ) {}
 
   // getAll(): IProduct[] {
@@ -80,7 +85,7 @@ export class ProductService {
 
     // return item;
     Logger.log('Get one');
-    return await this.productModel.findOne({_id:id}).exec();
+    return await this.productModel.findOne({ _id: id }).exec();
   }
 
   //voor search
@@ -110,7 +115,6 @@ export class ProductService {
   async createProduct(productDto: CreateProductDto): Promise<IProduct> {
     const { id, ...productWithoutShop } = productDto;
 
-    // Voeg de schrijver expliciet toe aan het boek
     const productData = {
       ...productWithoutShop,
     };
@@ -148,5 +152,78 @@ export class ProductService {
     }
 
     this.logger.log(`Product deleted successfully`);
+  }
+
+  async addBookBooklist(userId: string, productId: IProduct): Promise<IUser> {
+    const user = await this.userModel.findById(userId).exec();
+
+    if (!user) {
+      throw new NotFoundException(`User with id ${userId} not found`);
+    }
+    const newProduct: ICartItem = {
+      _id: '',
+      productId: String(productId),
+      quantity: 1,
+      nameProduct: '',
+      price: 0,
+      productImageUrl: '',
+    };
+    console.log('productId newProduct:', newProduct.productId);
+
+    user.cart.push(newProduct);
+    console.log('user.cart AA:', user.cart);
+    console.log('newProduct:', newProduct);
+
+    const updatedUser = await user.save();
+
+    return updatedUser;
+  }
+
+  // async addBookBooklist(userId: string, productId: IProduct): Promise<IUser> {
+  //   const user = await this.userModel.findById(userId).exec();
+
+  //   if (!user) {
+  //     throw new NotFoundException(`User with id ${userId} not found`);
+  //   }
+
+  //   // Create a new product item
+  //   const newProduct: ICartItem = {
+  //     _id: String(), // Generate a unique ID for the product
+  //     productId: String(productId), // Convert productId to string if necessary
+  //     quantity: 1, // Example value, adjust as needed
+  //     nameProduct: "", // Example value, provide the actual product name
+  //     price: 0, // Example value, provide the actual product price
+  //     productImageUrl: "", // Example value, provide the actual product image URL
+  //   };
+
+  //   // Push the new product item into the user's cart
+  //   user.cart.push(newProduct);
+
+  //   const updatedUser = await user.save();
+
+  //   return updatedUser;
+  // }
+
+  async removeBookBookList(userId: string, productId: string): Promise<IUser> {
+    const user = await this.userModel.findById(userId).exec();
+
+    if (!user) {
+      throw new NotFoundException(`User with id ${userId} not found`);
+    }
+    const productIndex = user.cart.findIndex(
+      (product) => String(product.productId) === productId
+    );
+    if (productIndex === -1) {
+      throw new NotFoundException(
+        `Product with id ${productId} not found in user's cartLIst`
+      );
+    }
+
+    // Verwijder het boek van de boekenlijst
+    user.cart.splice(productIndex, 1);
+
+    const updatedUser = await user.save();
+
+    return updatedUser;
   }
 }
