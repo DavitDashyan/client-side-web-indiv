@@ -13,7 +13,7 @@ export interface IUser {
   password: string;
   bday: Date;
   token?: string | null;
- // cart: ICart[];
+  // cart: ICart[];
   cart: ICartItem[];
   // isAdmin: boolean;
 }
@@ -22,5 +22,5 @@ export type ICreateUser = Pick<
   IUser,
   'name' | 'email' | 'password' | 'bday' // | 'isAdmin'
 >;
-export type IUpdateUser = Partial<Omit<IUser, '_id'>> // & { cartList?: ICart[] };
+export type IUpdateUser = Partial<Omit<IUser, '_id'>>; // & { cartList?: ICart[] };
 export type IUpsertUser = IUser;

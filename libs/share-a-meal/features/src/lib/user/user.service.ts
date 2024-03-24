@@ -34,11 +34,6 @@ export class UserService {
     private productService: ProductService
   ) {}
 
-  /**
-   * Get all items.
-   *
-   * @options options - optional URL queryparam options
-   */
   public list(options?: any): Observable<IUser[] | null> {
     console.log(`list ${this.endpoint}`);
 
@@ -117,10 +112,13 @@ export class UserService {
         map((response: any) => response.results as IUser),
         catchError(this.handleError)
       );
-}
+  }
 
   public update(user: IUser): Observable<IUser> {
-    console.log('user', user);
+    console.log('userEEEEEE bday', user.bday);
+    //user.bday = new Date(user.bday);
+    console.log('userEEEEEE bday', user.bday);
+
     console.log(`update userCC ${this.endpoint}/${user._id}`);
     return this.http
       .put<ApiResponse<IUser>>(`${this.endpoint}/${user._id}`, user)

@@ -105,6 +105,8 @@ import { AuthService } from '../../auth/auth.service';
 import { UserService } from '../../user/user.service';
 import { HttpInterceptorFn } from '@angular/common/http';
 import { IProduct, IUser } from '@avans-nx-workshop/shared/api';
+import { __values } from 'tslib';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'avans-nx-workshop-product-detail',
@@ -127,6 +129,7 @@ export class CartListComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const idParam = params.get('id');
+      console.log('BUHVUYVUV:', this.ngOnInit);
       if (idParam) {
         console.log('idParam:', idParam);
         this.productId = idParam;
@@ -136,21 +139,26 @@ export class CartListComponent implements OnInit {
     this.authService.currentUser$.subscribe({
       next: (user: IUser | null) => {
         if (user) {
-          console.log('user:', user);
-          console.log('userId:', user._id);
+          console.log('user AAA:', user);
+          console.log('user AVVA:', user.cart);
+          console.log('userId AAA:', user._id);
           this.userId = user._id;
           this.user = user;
+        } else {
+          console.log('No user found');
         }
       },
       error: (error) => {
         console.error('Error getting user information:', error);
       },
     });
+    console.log('USERID: ', this.userId);
   }
 
   handleStatusChange(): void {
-    console.log('OOOOOOOOOO');
-    this.userService.findOneInCartlist(this.userId!).subscribe({
+    console.log('OOOOOOOOOO', this.userId);
+    console.log('OIOIOIOIOI', this.user);
+    this.userService.findOneInCartlist(this.user?._id ?? null).subscribe({
       next: (userWithBooklist: IUser) => {
         console.log('userWithBooklist:', userWithBooklist);
         this.user = userWithBooklist;
@@ -160,6 +168,7 @@ export class CartListComponent implements OnInit {
 
         console.log('userId 2:', this.userId);
         console.log('productId:', this.productId);
+        console.log('productMMMM:',this.product);
         console.log('productExists:', productExists);
 
         if (!productExists) {

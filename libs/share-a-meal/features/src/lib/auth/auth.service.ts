@@ -194,12 +194,14 @@ export class AuthService {
     this.getUserFromLocalStorage()
       .pipe(
         // switchMap is overbodig als we validateToken() niet gebruiken...
-        switchMap((user: IUser | null) => {
+        switchMap((user: any) => {
           if (user) {
-            console.log('User found in local storage');
-            this.currentUser$.next(user);
+            const user1 = user.results;
+            console.log('User found in local storage', user1);
+            console.log('UserID found in local storage', user1._id);
+            this.currentUser$.next(user1);
             // return this.validateToken(user);
-            return of(user);
+            return of(user1);
           } else {
             console.log(`No current user found`);
             return of(null);
@@ -344,6 +346,7 @@ export class AuthService {
     );
   }
   updateUser(user: IUser | null): void {
+    console.log('HURAAAAA update User:', user);
     this.currentUser$.next(user);
   }
 }

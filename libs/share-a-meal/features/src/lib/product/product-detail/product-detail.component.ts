@@ -322,8 +322,15 @@ export class ProductDetailComponent implements OnInit {
         // if (!user.cart) {
         //   user.cart = [];
         // }
-        console.log('user.cart BB', user);
+        console.log('user.cart BB', user, user._id);
+
+        console.log('user.bday before', user.bday);
         // Add the product to the user's cart
+        console.log('Product._Id', this.product._id);
+        if (typeof user.bday === 'string') {
+          user.bday = new Date(user.bday);
+        }
+
         user.cart.push({
           _id: this.product._id, // or generate a unique ID for the cart item
           productId: this.product._id, // Assuming productId is the ID of the product
@@ -332,6 +339,8 @@ export class ProductDetailComponent implements OnInit {
           price: this.product.price, // Assuming price is the price of the product
           productImageUrl: this.product.productImageUrl, // Assuming productImageUrl is the image URL of the product
         });
+        console.log('user.cart AA', user.cart);
+        console.log('USER BDAY', user.bday);
 
         // Update the user's cart in the backend
         this.userService.update(user).subscribe({
@@ -342,6 +351,7 @@ export class ProductDetailComponent implements OnInit {
             // this.router.navigate([`${this.userId}/cart`]);
           },
           error: (error) => {
+            console.log('bdayQQQQQ', user.bday);
             console.error('Error updating user with added product:', error);
           },
         });
