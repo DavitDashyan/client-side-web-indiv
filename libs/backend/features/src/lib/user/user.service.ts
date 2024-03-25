@@ -174,27 +174,42 @@ export class UserService {
 
     return createdItem;
   }
-
-  async update(userId: string, updateUserDto: UpdateUserDto): Promise<IUser> {
-    this.logger.log(`Updating user with id ${userId}`);
-    const existingUser = await this.userModel.findById(userId).exec();
-
-    console.log('Existing user:', existingUser, userId);
-
-    if (!existingUser) {
-      throw new NotFoundException(`User with id ${userId} not found`);
+  async findOne(_id: string): Promise<IUser | null> {
+    this.logger.log(`finding user with id ${_id}`);
+    const item = await this.userModel.findOne({ _id }).exec();
+    if (!item) {
+      this.logger.debug('Item not found');
     }
-
-    console.log('Object.assign:', existingUser, updateUserDto);
-
-    Object.assign(existingUser, updateUserDto);
-
-    const updatedUser = await existingUser.save();
-
-    console.log('Updated user:', updatedUser);
-
-    return updatedUser;
+    return item;
   }
+  async update(_id: string, user: UpdateUserDto): Promise<IUser | null> {
+    const userTest = await this.findOne(_id);
+    if (userTest) {
+      this.logger.log(`Update user ${userTest.name}`);
+    }
+    console.log('bday:', user.bday);
+    return this.userModel.findByIdAndUpdate({ _id }, user);
+  }
+  // async update(userId: string, updateUserDto: UpdateUserDto): Promise<IUser> {
+  //   this.logger.log(`Updating user with id ${userId}`);
+  //   const existingUser = await this.userModel.findById(userId).exec();
+
+  //   console.log('Existing user:', existingUser, userId);
+
+  //   if (!existingUser) {
+  //     throw new NotFoundException(`User with id ${userId} not found`);
+  //   }
+
+  //   console.log('Object.assign:', existingUser, updateUserDto);
+
+  //   Object.assign(existingUser, updateUserDto);
+
+  //   const updatedUser = await existingUser.save();
+
+  //   console.log('Updated user:', updatedUser);
+
+  //   return updatedUser;
+  // }
 
   async deleteUser(id: string): Promise<void> {
     this.logger.log(`Deleting user with id ${id}`);

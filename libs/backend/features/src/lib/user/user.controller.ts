@@ -35,6 +35,9 @@ export class UserController {
   @Post('')
   async create(@Body() createUserDto: CreateUserDto): Promise<IUser> {
     const { ...userWithoutId } = createUserDto;
+    // console.log('create', createUserDto.bday);
+    // createUserDto.bday = new Date(createUserDto.bday);
+    // console.log('create after', createUserDto.bday);
     return await this.userService.create(userWithoutId);
   }
 
@@ -43,6 +46,7 @@ export class UserController {
     @Param('id') userId: string,
     @Body() updateUserDto: UpdateUserDto
   ) {
+    console.log('update', userId, updateUserDto);
     const updatedUser = await this.userService.update(userId, updateUserDto);
     return { message: 'User updated successfully', user: updatedUser };
   }

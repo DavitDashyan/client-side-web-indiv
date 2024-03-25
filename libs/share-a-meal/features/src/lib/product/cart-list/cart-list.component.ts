@@ -129,7 +129,7 @@ export class CartListComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const idParam = params.get('id');
-      console.log('BUHVUYVUV:', this.ngOnInit);
+      // console.log('BUHVUYVUV:', this.ngOnInit);
       if (idParam) {
         console.log('idParam:', idParam);
         this.productId = idParam;
@@ -140,7 +140,6 @@ export class CartListComponent implements OnInit {
       next: (user: IUser | null) => {
         if (user) {
           console.log('user AAA:', user);
-          console.log('user AVVA:', user.cart);
           console.log('userId AAA:', user._id);
           this.userId = user._id;
           this.user = user;
