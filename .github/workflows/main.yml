@@ -99,7 +99,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'DemoNodeApp42'
+          app-name: 'clientsideproject'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.NEXTJS_PUBLISHPROFILE }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0F5BD2A1D0084DD299CB1FEFF56460F1 }}
           package: .
