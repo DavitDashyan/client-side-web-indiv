@@ -134,69 +134,15 @@
 <div class="container">
     <h1>Shopping Cart</h1>
     <br>
-    <ul class="list-group">
-        <li class="list-group-item" *ngFor="let item of product">
-            {{ item.id }} - {{ item.nameProduct }}
-            <!-- <input type="number" min="1" [(ngModel)]="item.quantity"
-                    (change)="updateQuantity(item.productId, item.quantity)"> -->
-            <!-- <button class="btn btn-danger" (click)="removeFromCart(item.productId)">Remove</button> -->
-        </li>
-    </ul>
-
     <div class="card mt-3">
         <!-- {{cartService.getCart()|json}} -->
-        <div *ngFor="let item of product">
-            <!-- {{ item.productId | json }} -->
-            <p>ID: {{ item.id }}-item.productId->idk werkt niet</p>
+        <div *ngFor="let item of cartItems">
             <img src="{{ item.productImageUrl}}" alt="product-image" class="w-full rounded-lg sm:w-40" />
             <p>Name: {{ item.nameProduct }}</p>
             <p>Price: {{ item.price }}</p>
-            <p>Quantity: {{item.creatorID}}</p>
-            <button (click)="removeBookFromList(item._id)"> Remove </button>
-
+            <button (click)="removeFromCart(item._id)"> Remove </button>
             <br>
-            <button type="button" class="btn text-center mb-3" (click)="handleStatusChange()">handle status
-                change</button>
-            <!-- <button (click)="loadCartItems()"> loadCartItems </button> -->
-            <br>
-            <!-- <button (click)="incrementQuantity(item.productId)">increse </button>
-            <button (click)="decrementQuantity(item.productId)">decrese</button> -->
-
-            <!--Note:
-                De increse en decrese knoppen werken niet, en de quantity is dat items niet gestact worden
-            -->
-
-            <br> <br>
         </div>
         <!-- <h2>total: {{cartService.getTotal()}}</h2> -->
     </div>
 </div>
-
-<p>test {{product}}</p>
-<button type="button" class="btn text-center mb-3" (click)="handleStatusChange()">handle status
-    change</button>
-
-
-
-<!-- <div *ngIf="items.length > 0; else emptyCart">
-        <h2>Your Cart</h2>
-
-        <br>
-        <button (click)="loadCartItems()"> loadCartItems </button>
-        <br>
-
-        <ul>
-            <li *ngFor="let item of items">
-                <p>{{ item.nameProduct }}</p>
-                <p>Price: {{ item.price }}</p>
-                <p>Quantity: {{ item.quantity }}</p>
-                <button (click)="removeFromCart(item.productId)">Remove</button>
-            </li>
-        </ul>
-        <p>Total Quantity: {{ totalQuantity }}</p>
-        <p>Total Price: {{ totalPrice }}</p>
-    </div>
-
-    <ng-template #emptyCart>
-        <p>Your cart is empty.</p>
-    </ng-template> -->
