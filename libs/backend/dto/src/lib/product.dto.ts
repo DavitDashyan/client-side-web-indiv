@@ -4,6 +4,8 @@ import {
   IsInt,
   IsEnum,
   IsBoolean,
+  IsMongoId,
+  IsOptional,
 } from 'class-validator';
 import {
   Id,
@@ -27,9 +29,9 @@ export class CreateProductDto implements ICreateProduct {
   @IsNotEmpty()
   description!: string;
 
-  // @IsString()
-  // @IsNotEmpty()
-  id!: Id;
+  @IsMongoId()
+  @IsOptional()
+  _id?: Id;
 
   @IsInt()
   @IsNotEmpty()
@@ -48,7 +50,7 @@ export class CreateProductDto implements ICreateProduct {
   condition!: Conditie;
 
   // @IsNotEmpty()
-  shopId!: string;
+  shopId?: string;
 
   // @IsString()
   // @IsNotEmpty()
@@ -56,11 +58,13 @@ export class CreateProductDto implements ICreateProduct {
 }
 
 export class UpsertProductDto implements IUpsertProduct {
+  @IsMongoId()
+  @IsNotEmpty()
   _id!: string;
   
-  @IsString()
-  @IsNotEmpty()
-  id!: Id;
+  // @IsString()
+  // @IsNotEmpty()
+  // id!: Id;
 
   @IsString()
   @IsNotEmpty()
@@ -86,8 +90,8 @@ export class UpsertProductDto implements IUpsertProduct {
   @IsNotEmpty()
   condition!: Conditie;
 
-  @IsNotEmpty()
-  shopId!: string;
+ // @IsNotEmpty()
+  shopId?: string;
 
   @IsString()
   @IsNotEmpty()
@@ -95,6 +99,9 @@ export class UpsertProductDto implements IUpsertProduct {
 }
 
 export class UpdateProductDto implements IUpdateProduct {
+
+  _id!: string | undefined;
+
   @IsString()
   @IsNotEmpty()
   nameProduct!: string;
@@ -119,8 +126,8 @@ export class UpdateProductDto implements IUpdateProduct {
   @IsNotEmpty()
   condition!: Conditie;
 
-  @IsNotEmpty()
-  shopId!: string;
+  //@IsNotEmpty()
+  shopId?: string;
 
   @IsString()
   @IsNotEmpty()

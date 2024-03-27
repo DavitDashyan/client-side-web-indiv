@@ -76,16 +76,16 @@ export class ProductService {
   }
 
   public update(product: IProduct): Observable<IProduct> {
-    console.log(`update product ${this.endpoint}/${product.id}`);
+    console.log(`update product ${this.endpoint}/${product._id}`);
     return this.http
-      .put<ApiResponse<IProduct>>(`${this.endpoint}/${product.id}`, product)
+      .put<ApiResponse<IProduct>>(`${this.endpoint}/${product._id}`, product)
       .pipe(tap(console.log), catchError(this.handleError));
   }
 
   public delete(product: IProduct): Observable<IProduct> {
-    console.log(`delete ${this.endpoint}/${product.id}`);
+    console.log(`delete ${this.endpoint}/${product._id}`);
     return this.http
-      .delete<ApiResponse<IProduct>>(`${this.endpoint}/${product.id}`)
+      .delete<ApiResponse<IProduct>>(`${this.endpoint}/${product._id}`)
       .pipe(tap(console.log), catchError(this.handleError));
   }
 
@@ -107,30 +107,6 @@ export class ProductService {
         catchError(this.handleError)
       );
   }
-
-  // public addProductlist(userId: string, productId: string): Observable<IUser> {
-  //   const endpoint = `${environment.dataApiUrl}/api/product/${productId}/${userId}/cartList`;
-  //   const requestBody = { productId: productId };
-
-  //   return this.http.post<ApiResponse<IUser>>(endpoint, requestBody).pipe(
-  //     tap(console.log),
-  //     map((response: any) => response.results as IUser),
-  //     catchError(this.handleError)
-  //   );
-  // }
-
-  // public removeProductList(
-  //   userId: string,
-  //   productId: string
-  // ): Observable<IUser> {
-  //   const endpoint = `${environment.dataApiUrl}/api/product/${productId}/${userId}/cartList`;
-
-  //   return this.http.delete<ApiResponse<IUser>>(endpoint).pipe(
-  //     tap(console.log),
-  //     map((response: any) => response.results as IUser),
-  //     catchError(this.handleError)
-  //   );
-  // }
 
   public handleError(error: HttpErrorResponse): Observable<any> {
     console.log('handleError in ProductService', error);

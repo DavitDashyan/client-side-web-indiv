@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid">
     <form class="m-5" #productNewForm="ngForm" (ngSubmit)="createProduct()">
 
         <div class="form-group mb-4">
@@ -23,15 +23,15 @@
             <label for="nameProduct" class="fw-bold">nameProduct</label>
             <input type="text" class="form-control" id="nameProduct" [(ngModel)]="product.nameProduct"
                 name="nameProduct" placeholder="Name Product" required minlength="3" maxlength="50">
-            <div *ngIf="productNewForm.controls['nameProduct'].touched && productNewForm.controls['nameProduct'].hasError('required')"
+            <div *ngIf="productNewForm.controls['nameProduct'] && productNewForm.controls['nameProduct'].hasError('required')"
                 class="text-danger">
                 Product name is required
             </div>
-            <div *ngIf="productNewForm.controls['nameProduct'].touched && productNewForm.controls['nameProduct'].hasError('minlength')"
+            <div *ngIf="productNewForm.controls['nameProduct'] && productNewForm.controls['nameProduct'].hasError('minlength')"
                 class="text-danger">
                 Product name must be at least 3 characters long.
             </div>
-            <div *ngIf="productNewForm.controls['nameProduct'].touched && productNewForm.controls['nameProduct'].hasError('maxlength')"
+            <div *ngIf="productNewForm.controls['nameProduct'] && productNewForm.controls['nameProduct'].hasError('maxlength')"
                 class="text-danger">
                 Product name may not be more than 50 characters long.
             </div>
@@ -79,7 +79,7 @@
                 Genre is verplicht.
             </div>
         </div>
-                // shop
+                 shop
         <div class="form-row">
             <div class="col-12 mt-3">
                 <button type="button" class="btn btn-info m-3" (click)="createProduct()">
@@ -92,5 +92,55 @@
             </div>
         </div>
 
+    </form>
+</div> -->
+
+<div class="container-fluid">
+    <form class="m-5" (submit)="createProduct()">
+        <div class="form-group mb-4">
+            <label for="productName" class="fw-bold">Productnaam</label>
+            <input type="text" class="form-control" id="productName" [(ngModel)]="product.nameProduct"
+                name="nameProduct" placeholder="Productnaam" required>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="description" class="fw-bold">Beschrijving</label>
+            <textarea class="form-control" id="description" [(ngModel)]="product.description" name="description"
+                placeholder="Beschrijving" rows="8" required></textarea>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="price" class="fw-bold">Prijs</label>
+            <input type="number" class="form-control" id="price" [(ngModel)]="product.price" name="price"
+                placeholder="Prijs" required>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="condition" class="fw-bold">Staat</label>
+            <select class="form-control" id="condition" [(ngModel)]="product.condition" name="condition" required>
+                <option value="Nieuw">Nieuw</option>
+                <option value="Zo Goed Als Nieuw">Zo Goed Als Nieuw</option>
+                <option value="Licht Gebruikt">Licht Gebruikt</option>
+                <option value="Zichtbaar Gebruikt">Zichtbaar Gebruikt</option>
+            </select>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="productImageUrl" class="fw-bold">Afbeelding URL</label>
+            <input type="text" class="form-control" id="productImageUrl" [(ngModel)]="product.productImageUrl"
+                name="productImageUrl" placeholder="Afbeelding URL" required>
+        </div>
+
+        <div class="form-row">
+            <div class="col-12 mt-3">
+                <button type="submit" class="btn btn-primary m-3">
+                    Product aanmaken
+                </button>
+
+                <button type="button" class="btn btn-dark m-3" (click)="goBack()">
+                    Annuleren
+                </button>
+            </div>
+        </div>
     </form>
 </div>

@@ -109,7 +109,7 @@ export class ProductEditComponent implements OnInit {
     this.productService.update(this.product).subscribe({
       next: (updatedProduct) => {
         console.log('Product updated successfully:', updatedProduct);
-        this.router.navigate(['../../products', this.product?.id]);
+        this.router.navigate(['../../products', this.product?._id]);
       },
       error: (error) => {
         console.error('Error updating product:', error);
@@ -118,7 +118,7 @@ export class ProductEditComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['../../products', this.product?.id]);
+    this.router.navigate(['../../products', this.product?._id]);
   }
 
   customSearch(term: string, item: any) {

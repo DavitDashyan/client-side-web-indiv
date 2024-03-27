@@ -1,8 +1,5 @@
 import { Id } from './id.type';
-import { ICart } from './cart.interface';
 import { ICartItem } from './cart-item.interface';
-
-type User = string;
 
 export interface IUser {
   _id: Id;
@@ -15,12 +12,11 @@ export interface IUser {
   token?: string | null;
   // cart: ICart[];
   cart: ICartItem[];
-  // isAdmin: boolean;
 }
 
 export type ICreateUser = Pick<
   IUser,
-  'name' | 'email' | 'password' | 'bday' // | 'isAdmin'
+  'name' | 'email' | 'password' | 'bday'
 >;
 export type IUpdateUser = Partial<Omit<IUser, '_id'>>; // & { cartList?: ICart[] };
 export type IUpsertUser = IUser;

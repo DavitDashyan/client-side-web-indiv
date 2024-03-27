@@ -51,9 +51,9 @@ export class Product implements IProduct {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Shop', // Reference to the Shop model
-    required: true,
+    required: false,
   })
-  shopId!: string;
+  shopId?: string;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,

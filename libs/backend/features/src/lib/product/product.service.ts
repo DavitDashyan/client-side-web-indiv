@@ -113,7 +113,7 @@ export class ProductService {
   //     }
 
   async createProduct(productDto: CreateProductDto): Promise<IProduct> {
-    const { id, ...productWithoutShop } = productDto;
+    const { _id, ...productWithoutShop } = productDto;
 
     const productData = {
       ...productWithoutShop,
