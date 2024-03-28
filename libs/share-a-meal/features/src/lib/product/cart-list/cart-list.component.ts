@@ -12,6 +12,7 @@ import { IProduct, IUser, ICartItem } from '@avans-nx-workshop/shared/api';
 export class CartListComponent implements OnInit {
   user: IUser | null = null;
   cartItems: ICartItem[] = [];
+  totalPrice: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,6 +47,7 @@ export class CartListComponent implements OnInit {
     this.userService.findOneInCartlist(userId).subscribe({
       next: (userWithCartlist: IUser) => {
         this.cartItems = userWithCartlist.cart;
+        this.calculateTotalPrice();
       },
       error: (error) => {
         console.error('Error loading cart items:', error);
@@ -92,5 +94,8 @@ export class CartListComponent implements OnInit {
         console.error('Error fetching user information:', error);
       },
     });
+  }
+  calculateTotalPrice(): void {
+    this.totalPrice = this.cartItems.reduce((acc, item) => acc + item.price, 0);
   }
 }

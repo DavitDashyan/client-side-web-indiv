@@ -77,8 +77,8 @@
     <button type="submit"
         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
 </form> -->
-
-<div class="container-fluid">
+<!-- ================================================================================================================================> -->
+<!-- <div class="container-fluid">
     <form class="m-5" #productEditForm="ngForm" (ngSubmit)="updateProduct()">
 
         <div class="form-group mb-4">
@@ -121,7 +121,7 @@
             <label for="InputBeschrijving" class="fw-bold">Description</label>
             <textarea class="form-control" id="InputBeschrijving" [(ngModel)]="product.description" name="description"
                 placeholder="description" rows="8" required></textarea>
-            <div *ngIf="productEditForm.controls['beschrijving'].touched && productEditForm.controls['description'].hasError('required')"
+            <div *ngIf="productEditForm.controls['beschrijving'] && productEditForm.controls['description'].hasError('required')"
                 class="text-danger">
                 Description is required.
             </div>
@@ -172,5 +172,69 @@
             </div>
         </div>
 
+    </form>
+</div> -->
+
+
+<div class="container-fluid">
+    <form [formGroup]="productForm" (ngSubmit)="updateProduct()" class="m-5">
+        <div class="form-group mb-4">
+            <label for="nameProduct" class="fw-bold">Productnaam</label>
+            <input type="text" class="form-control" id="nameProduct" formControlName="nameProduct">
+            <div *ngIf="productForm.get('nameProduct')?.invalid && productForm.get('nameProduct')?.touched"
+                class="text-danger">
+                Productnaam is verplicht.
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="description" class="fw-bold">Beschrijving</label>
+            <textarea class="form-control" id="description" formControlName="description"></textarea>
+            <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched"
+                class="text-danger">
+                Beschrijving is verplicht.
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="price" class="fw-bold">Prijs</label>
+            <input type="number" class="form-control" id="price" formControlName="price">
+            <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched" class="text-danger">
+                Prijs is verplicht en moet een positief getal zijn.
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="productImageUrl" class="fw-bold">Afbeeldings-URL</label>
+            <input type="text" class="form-control" id="productImageUrl" formControlName="productImageUrl">
+            <div *ngIf="productForm.get('productImageUrl')?.invalid && productForm.get('productImageUrl')?.touched"
+                class="text-danger">
+                Afbeeldings-URL is verplicht.
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="condition" class="fw-bold">Conditie</label>
+            <select class="form-control" id="condition" formControlName="condition">
+                <option *ngFor="let condition of conditieEnum | keyvalue" [value]="condition.key">{{ condition.value }}
+                </option>
+            </select>
+            <div *ngIf="productForm.get('condition')?.invalid && productForm.get('condition')?.touched"
+                class="text-danger">
+                Conditie is verplicht.
+            </div>
+        </div>
+
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="favorite" formControlName="favorite">
+            <label class="form-check-label" for="favorite">Favoriet</label>
+        </div>
+
+        <div class="form-row">
+            <div class="col-12 mt-3">
+                <button type="submit" class="btn btn-info me-3">Opslaan</button>
+                <button type="button" class="btn btn-dark" (click)="goBack()">Annuleren</button>
+            </div>
+        </div>
     </form>
 </div>
