@@ -55,17 +55,6 @@ export const appRoutes: Route[] = [
     component: ProductListComponent,
   },
 
-  // {
-  //   path: 'listmeal',
-  //   pathMatch: 'full',
-  //   component: MealListComponent,
-  // },
-  // {
-  //   path: 'listmeal/:id',
-  //   pathMatch: 'full',
-  //   component: MealDetailComponent,
-  // },
-
   //users
   {
     path: 'user',
@@ -130,8 +119,8 @@ export const appRoutes: Route[] = [
     component: ShopEditComponent,
   },
 
-  // mss component veranderen door home ofzo
-  // Cart
+
+  //cart
   {
     path: 'cart',
     pathMatch: 'full',

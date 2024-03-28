@@ -61,33 +61,6 @@ export class ProductDetailComponent implements OnInit {
     return this.userId === this.product?.creatorID;
   }
 
-  // items: any[] = [];
-
-  // addToCart(): void {
-  //   console.log(this.product, 'Product added to cart');
-  //   if (this.product) {
-  //     const user: IUser = {
-  //       _id: this.userId || '', // Provide a default value of an empty string if this.userId is null
-  //       name: 'Test Naam',
-  //       address: '',
-  //       number: 0,
-  //       email: '',
-  //       password: '',
-  //       bday: new Date(),
-  //       cart: [], // Assign an empty array to the cart property
-  //     }; // Create an instance of IUser with the userId
-  //     console.log(
-  //       user._id,
-  //       //user.cart,
-  //       user.email,
-  //       user.name,
-  //       'This user product-detail.component.ts'
-  //     );
-  //   } else {
-  //     console.error('Product is not defined.');
-  //   }
-  // }
-
   addToCart(): void {
     if (!this.product) {
       console.error('Product is not defined.');

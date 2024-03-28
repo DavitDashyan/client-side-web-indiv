@@ -1,4 +1,3 @@
-//import{ MealModule} from '@avans-nx-workshop/backend/features';
 import { AppController } from './app.controller';
 
 import { Module } from '@nestjs/common';
@@ -11,12 +10,11 @@ import {
   ProductModule,
   UserModule,
   ShopModule,
- // CartModule,
+  // CartModule,
 } from '@avans-nx-workshop/backend/features';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  //imports: [MealModule,],
   imports: [
     MongooseModule.forRoot(environment.mongo, {
       dbName: 'clientSideWebProject',
@@ -24,9 +22,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     ProductModule,
     UserModule,
     ShopModule,
-   // CartModule,
-
-    //ToastrModule.forRoot(),
+    // CartModule,
   ],
   controllers: [AppController],
   providers: [AppService],

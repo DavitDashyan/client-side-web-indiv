@@ -12,12 +12,6 @@ import { IUser } from '@avans-nx-workshop/shared/api';
   styleUrls: ['./register.component.css'],
 })
 
-// name: string;
-// address: string;
-// number: number;
-// email: string;
-// password: string;
-// bday: Date;
 export class RegisterComponent implements OnInit, OnDestroy {
   registerForm: FormGroup = new FormGroup({
     email: new FormControl(null, [
@@ -63,20 +57,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.subs.unsubscribe();
     }
   }
-
-  // onSubmit(): void {
-  //   if (this.registerForm.valid) {
-  //     this.userService.create(this.registerForm.value).subscribe((user) => {
-  //       console.log('Registration succeeded');
-  //       this.router.navigate(['/user/login'], { relativeTo: this.route });
-  //     });
-  //   } else {
-  //     this.loginError = true;
-  //     console.log('this.registerForm.value', this.registerForm.value);
-  //     console.error('Registration returned null user');
-  //   }
-  // }
-
   onSubmit(): void {
     if (this.registerForm!.valid) {
       console.log('Form is valid', this.registerForm!.value);
@@ -99,22 +79,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   goBack(): void {
     this.router.navigate(['/login'], { relativeTo: this.route });
   }
-
-  // onSubmit(): void {
-  //   if (this.registerForm!.valid) {
-  //     const user: IUser = this.registerForm!.value;
-  //     this.userService.create(this.registerForm.value).subscribe({
-  //       next: (newUser: IUser) => {
-  //         // Explicitly specify the type of 'newUser' as 'IUser'
-  //         console.log('User created:', newUser);
-  //       },
-  //       error: (error: any) => console.error('Error creating user:', error), // Explicitly specify the type of 'error' as 'any'
-  //     });
-  //   } else {
-  //     this.registerForm!.markAllAsTouched();
-  //     console.error('Form is not valid');
-  //   }
-  // }
 
   validEmail(control: FormControl): { [key: string]: boolean } | null {
     const email = control.value;

@@ -1,18 +1,3 @@
-// // import { IProduct } from '@avans-nx-workshop/shared/api';
-
-// // export interface ICartItem {
-// //   product: IProduct;
-// //   quantity: number;
-// // }
-
-// // export interface ICart {
-// //   items: ICartItem[];
-// //   subtotal: number;
-// //   taxes: number;
-// //   shipping: number;
-// //   total: number;
-// // }
-
 import { ICartItem, ICart, Id } from '@avans-nx-workshop/shared/api';
 import { IsString, IsInt, IsNotEmpty, IsNumber } from 'class-validator';
 
@@ -37,11 +22,11 @@ export class AddToCartDto implements ICartItem {
   @IsNotEmpty()
   productImageUrl!: string;
 
-  _id!: Id; // Add the missing _id property
+  _id!: Id;
 
   @IsString()
   @IsNotEmpty()
-  userId!: string; // Add the missing userId property
+  userId!: string;
 }
 
 export class UpdateQuantityDto {
@@ -65,7 +50,7 @@ export class UpdateQuantityDto {
   @IsNotEmpty()
   productImageUrl!: string;
 
-  _id!: Id; // Add the missing _id property
+  _id!: Id;
 
   @IsString()
   @IsNotEmpty()
@@ -93,7 +78,7 @@ export class UpsertCartDto {
   @IsNotEmpty()
   productImageUrl!: string;
 
-  _id!: Id; // Add the missing _id property
+  _id!: Id;
 
   @IsString()
   @IsNotEmpty()

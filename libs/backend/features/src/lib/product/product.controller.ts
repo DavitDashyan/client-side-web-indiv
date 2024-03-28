@@ -9,31 +9,16 @@ import { UpdateProductDto } from '@avans-nx-workshop/backend/dto';
 export class ProductController {
   constructor(private productService: ProductService) {}
 
-  // @Get('')
-  // getAll(): IProduct[] {
-  //     return this.productService.getAll();
-  // }
-
   @Get('')
   async getAll(): Promise<IProduct[]> {
     return await this.productService.getAll();
   }
-
-  // @Get(':id')
-  // getOne(@Param('id') id: string): IProduct {
-  //     return this.productService.getOne(id);
-  // }
 
   @Get(':id')
   async getOne(@Param('id') id: string): Promise<IProduct | null> {
     return await this.productService.getOne(id);
   }
 
-  //voor search
-  // @Get('search/:nameProduct')
-  // getAllProductsBySearchTerm(@Param('nameProduct') nameProduct: string): IProduct[] {
-  //     return this.productService.getAllProductsBySearchTerm(nameProduct);
-  // }
 
   //voor search
   @Get('search/:nameProduct')
@@ -42,11 +27,6 @@ export class ProductController {
   ): Promise<IProduct[]> {
     return await this.productService.getAllProductsBySearchTerm(nameProduct);
   }
-
-  // @Post('')
-  // create(@Body() data: CreateProductDto): IProduct {
-  //     return this.productService.create(data);
-  // }
 
   @Post('')
   async create(@Body() createProductDto: CreateProductDto): Promise<IProduct> {
@@ -79,14 +59,14 @@ export class ProductController {
     @Body() { productId }: { productId: IProduct }
   ): Promise<void> {
     const productID: IProduct = productId;
-    await this.productService.addBookBooklist(userId, productID);
+    await this.productService.addProduct(userId, productID);
   }
 
   @Delete('/:productId/:userId/cartList')
-  async removeBookBookList(
+  async removeProduct(
     @Param('boekId') boekId: string,
     @Param('userId') userId: string
   ): Promise<void> {
-    await this.productService.removeBookBookList(userId, boekId);
+    await this.productService.removeProduct(userId, boekId);
   }
 }

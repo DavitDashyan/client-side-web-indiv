@@ -11,35 +11,6 @@ import { AuthService } from '../../auth/auth.service';
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.css'],
 })
-// export class UserDetailComponent implements OnInit, OnDestroy {
-//   user: IUser | null = null;
-//   subscription: Subscription | undefined = undefined;
-
-//   constructor(
-//     private userService: UserService,
-//     private route: ActivatedRoute
-//   ) {}
-
-//   ngOnInit(): void {
-//     this.route.paramMap
-//       .pipe(
-//         // delay(1500),
-//         tap((params: ParamMap) => console.log('user.id = ', params.get('id'))),
-        
-//         switchMap((params: ParamMap) =>
-//           this.userService.read(params.get('id'))
-//         ),
-//         tap(console.log)
-//       )
-//       .subscribe((results) => {
-//         this.user = results;
-//       });
-//   }
-
-//   ngOnDestroy(): void {
-//     if (this.subscription) this.subscription.unsubscribe();
-//   }
-// }
 
 export class UserDetailComponent implements OnInit {
   showDeleteConfirmation = false;

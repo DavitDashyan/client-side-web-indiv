@@ -34,11 +34,6 @@ export class ProductService {
     @InjectModel(UserModel.name) private userModel: Model<UserDocument>
   ) {}
 
-  // getAll(): IProduct[] {
-  //     Logger.log('getAll', this.TAG);
-  //     return this.product$.value;
-  // }
-
   async getAll(): Promise<IProduct[]> {
     this.logger.log(`Finding all items with full writer data`);
 
@@ -47,70 +42,18 @@ export class ProductService {
     return items;
   }
 
-  //---
-  //private productSubject = new BehaviorSubject<IProduct[]>(this.product$.value);
-
-  // getProductObservable(): Observable<IProduct[]> {
-  //     return this.productSubject.asObservable();
-  // }
-
-  //---
-
-  // getOne(id: string): IProduct {
-  //     Logger.log(`getOne(${id})`, this.TAG);
-  //     const product = this.product$.value.find((usr) => usr.id === id);
-  //     if (!product) {
-  //         throw new NotFoundException(`Product could not be found!`);
-  //     }
-  //     return product;
-  // }
-
   async getOne(id: string): Promise<IProduct | null> {
     this.logger.log(`finding product with id ${id}`);
 
-    // Check if id is null
-    // if (id === null || id === 'null') {
-    //   this.logger.debug('ID is null or "null"');
-    //   return null;
-    // }
-    // // Use populate to fetch the writer details along with the product
-    // const item = await this.productModel
-    //   .findOne({ id: id })
-    //   .populate('shop')
-    //   .exec();
-
-    // if (!item) {
-    //   this.logger.debug('Item not found');
-    // }
-
-    // return item;
     Logger.log('Get one');
     return await this.productModel.findOne({ _id: id }).exec();
   }
 
-  //voor search
-  // getAllProductsBySearchTerm(searchTerm:string){
-  //     return this.getAll().filter(product=> product.nameProduct.toLowerCase().includes(searchTerm.toLowerCase()))
-  // }
   async getAllProductsBySearchTerm(searchTerm: string) {
     return (await this.getAll()).filter((product) =>
       product.nameProduct.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
-
-  // create(product: ICreateProduct): IProduct {
-  //     Logger.log('create', this.TAG);
-  //     const current = this.product$.value;
-  //     // Use the incoming data, a randomized ID, and a default value of `false` to create the new user
-  //     const newProduct: IProduct = {
-  //         ...product,
-  //         id: `product-${Math.floor(Math.random() * 10000)}`,
-  //     };
-  //     // Add it to our list of users
-  //     this.product$.next([...current, newProduct]);
-  //     this.productSubject.next([...current, newProduct]); // Notify subscribers
-  //     return newProduct;
-  //     }
 
   async createProduct(productDto: CreateProductDto): Promise<IProduct> {
     const { _id, ...productWithoutShop } = productDto;
@@ -154,7 +97,7 @@ export class ProductService {
     this.logger.log(`Product deleted successfully`);
   }
 
-  async addBookBooklist(userId: string, productId: IProduct): Promise<IUser> {
+  async addProduct(userId: string, productId: IProduct): Promise<IUser> {
     const user = await this.userModel.findById(userId).exec();
 
     if (!user) {
@@ -178,33 +121,7 @@ export class ProductService {
 
     return updatedUser;
   }
-
-  // async addBookBooklist(userId: string, productId: IProduct): Promise<IUser> {
-  //   const user = await this.userModel.findById(userId).exec();
-
-  //   if (!user) {
-  //     throw new NotFoundException(`User with id ${userId} not found`);
-  //   }
-
-  //   // Create a new product item
-  //   const newProduct: ICartItem = {
-  //     _id: String(), // Generate a unique ID for the product
-  //     productId: String(productId), // Convert productId to string if necessary
-  //     quantity: 1, // Example value, adjust as needed
-  //     nameProduct: "", // Example value, provide the actual product name
-  //     price: 0, // Example value, provide the actual product price
-  //     productImageUrl: "", // Example value, provide the actual product image URL
-  //   };
-
-  //   // Push the new product item into the user's cart
-  //   user.cart.push(newProduct);
-
-  //   const updatedUser = await user.save();
-
-  //   return updatedUser;
-  // }
-
-  async removeBookBookList(userId: string, productId: string): Promise<IUser> {
+  async removeProduct(userId: string, productId: string): Promise<IUser> {
     const user = await this.userModel.findById(userId).exec();
 
     if (!user) {
@@ -219,7 +136,7 @@ export class ProductService {
       );
     }
 
-    // Verwijder het boek van de boekenlijst
+    //verwijderen
     user.cart.splice(productIndex, 1);
 
     const updatedUser = await user.save();

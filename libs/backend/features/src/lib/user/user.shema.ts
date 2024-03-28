@@ -8,7 +8,6 @@ export type UserDocument = User & Document;
 export class User implements IUser {
   _id!: string;
   token?: string | null | undefined;
-  //isAdmin: boolean;
 
   @Prop({
     required: true,

@@ -56,10 +56,6 @@ export class CreateUserDto implements ICreateUser {
 
   @IsNotEmpty()
   cart!: ICart;
-
-  // @IsBoolean()
-  // @IsNotEmpty()
-  // isAdmin!: boolean;
 }
 
 export class UpsertUserDto implements IUpsertUser {
@@ -94,10 +90,6 @@ export class UpsertUserDto implements IUpsertUser {
   @IsString()
   @IsNotEmpty()
   bday!: Date;
-
-  // @IsBoolean()
-  // @IsNotEmpty()
-  // isAdmin!: boolean;
 }
 
 export class UpdateUserDto implements IUpdateUser {
@@ -130,8 +122,4 @@ export class UpdateUserDto implements IUpdateUser {
   cart!: ICartItem[];
 
   _id!: Id;
-
-  // @IsBoolean()
-  // @IsNotEmpty()
-  // isAdmin!: boolean;
 }

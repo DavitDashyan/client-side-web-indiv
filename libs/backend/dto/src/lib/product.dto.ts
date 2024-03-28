@@ -62,10 +62,6 @@ export class UpsertProductDto implements IUpsertProduct {
   @IsNotEmpty()
   _id!: string;
   
-  // @IsString()
-  // @IsNotEmpty()
-  // id!: Id;
-
   @IsString()
   @IsNotEmpty()
   nameProduct!: string;

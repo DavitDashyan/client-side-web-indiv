@@ -1,14 +1,3 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'avans-nx-workshop-product-edit',
-//   templateUrl: './product-edit.component.html',
-//   styleUrls: ['./product-edit.component.css'],
-// })
-// export class ProductEditComponent {
-// product: any;
-// }
-
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IProduct, IShop, IUser } from '@avans-nx-workshop/shared/api';
 import { ProductService } from '../product.service';
@@ -38,38 +27,6 @@ export class ProductEditComponent implements OnInit {
     private authService: AuthService,
     private router: Router
   ) {}
-
-  // ngOnInit(): void {
-  //     initModals();
-  //     this.route.paramMap
-  //       .pipe(
-  //         tap((params: ParamMap) => console.log('product.id = ', params.get('id'))),
-  //         switchMap((params: ParamMap) => {
-  //           if (params.get('id') === null) {
-
-  //             const newProductData = {
-
-  //             };
-  //             return this.productService.create(newProductData);
-  //           }
-
-  //         return this.productService.read(params.get('id')).pipe(
-  //             tap((product) => {
-
-  //             })
-  //           );
-  //         }),
-  //         tap(console.log)
-  //       )
-  //       .subscribe((results) => {
-  //         this.product = results;
-  //       });
-  // }
-
-  // ngOnDestroy(): void {
-  //   if (this.subscription) this.subscription.unsubscribe();
-  // }
-
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.productId = params.get('id');
@@ -125,13 +82,6 @@ export class ProductEditComponent implements OnInit {
     term = term.toLowerCase();
     return item.schrijvernaam.toLowerCase().includes(term);
   }
-
-  // checkFuturePublicationDate(): boolean {
-  // const currentDate = new Date();
-  // const inputDate = new Date(this.product?.publiceerdatum);
-
-  // return inputDate > currentDate;
-  // }
 
   checkPriceNumber(): boolean {
     return this.product!.price > 0;

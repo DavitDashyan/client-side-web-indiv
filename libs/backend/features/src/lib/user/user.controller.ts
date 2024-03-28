@@ -1,8 +1,3 @@
-// import { Controller } from '@nestjs/common';
-
-// @Controller('user')
-// export class UserController {}
-// import { Controller } from '@nestjs/common';
 import { UserService } from './user.service';
 // import { Get, Param, Post, Body } from '@nestjs/common';
 import {
@@ -35,9 +30,9 @@ export class UserController {
   @Post('')
   async create(@Body() createUserDto: CreateUserDto): Promise<IUser> {
     const { ...userWithoutId } = createUserDto;
-    // console.log('create', createUserDto.bday);
+    console.log('create', createUserDto.bday);
     // createUserDto.bday = new Date(createUserDto.bday);
-    // console.log('create after', createUserDto.bday);
+    console.log('create after', createUserDto.bday);
     return await this.userService.create(userWithoutId);
   }
 
