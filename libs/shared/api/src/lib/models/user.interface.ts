@@ -16,7 +16,7 @@ export interface IUser {
 
 export type ICreateUser = Pick<
   IUser,
-  'name' | 'email' | 'password' | 'bday'
+  'name' | 'email' | 'password' | 'bday' | 'address' | 'number'
 >;
 export type IUpdateUser = Partial<Omit<IUser, '_id'>>; // & { cartList?: ICart[] };
 export type IUpsertUser = IUser;

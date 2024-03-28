@@ -28,18 +28,18 @@ export class CreateUserDto implements ICreateUser {
   @IsNotEmpty()
   name!: string;
 
-  // @IsString()
-  // @IsNotEmpty()
-  // address!: string;
+  @IsString()
+  @IsNotEmpty()
+  address!: string;
 
   // @IsString()
   // @IsNotEmpty()
   // @IsMongoId()
   _id!: Id;
 
-  // @IsInt()
-  // @IsNotEmpty()
-  // number!: number;
+  @IsInt()
+  @IsNotEmpty()
+  number!: number;
 
   @IsEmail()
   @IsNotEmpty()

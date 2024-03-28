@@ -89,8 +89,8 @@
 
         <div class="form-group mb-4">
             <label for="number" class="fw-bold"></label>
-            <input type="text" class="form-control" id="number" [(ngModel)]="user.number" name="number"
-                placeholder="Address" required>
+            <input type="number" class="form-control" id="number" [(ngModel)]="user.number" name="number"
+                placeholder="Phone number" required>
             <div *ngIf="userEditForm.controls['number'].touched && userEditForm.controls['number'].hasError('required')"
                 class="text-danger">
                 Nummer is verplicht.
