@@ -1,0 +1,13 @@
+.flex-shrink-0 {
+    width: 110px; /* Aanpassen naar gewenste breedte */
+    height: 110px; /* Aanpassen naar gewenste hoogte */
+    overflow: hidden; /* Verborgen overloop om de afbeeldingen in te passen */
+    display: flex; /* Maak de container een flex container */
+    justify-content: center; /* Centreer horizontaal */
+    align-items: center; /* Centreer verticaal */
+}
+
+.flex-shrink-0 img {
+    max-width: 100%; /* Afbeeldingen vullen de beschikbare ruimte binnen de container */
+    height: auto; /* Behoudt de aspectratio van de afbeelding */
+}

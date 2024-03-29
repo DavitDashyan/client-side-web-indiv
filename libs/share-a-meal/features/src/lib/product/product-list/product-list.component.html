@@ -43,8 +43,8 @@
     <li *ngFor="let product of products">
         <a routerLink="/product/{{product._id}}">
             <img src="{{product.productImageUrl}}" alt="Product image">
+            <h2 class="name text-center">{{product.nameProduct}}</h2>
             <div class="content">
-                <h2 class="name">{{product.nameProduct}}</h2>
                 <span class="favorite {{product.favorite ? '' : 'not'}}">♥</span>
                 <div class="description"></div>
                 <!-- <div class="description">

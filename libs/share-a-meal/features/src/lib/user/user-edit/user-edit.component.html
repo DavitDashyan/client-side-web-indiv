@@ -1,114 +1,111 @@
-<!-- <form>
-    <div class="relative z-0 w-full mb-6 group">
-        <input type="email" name="floating_email" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=""/>
-        <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email Address: {{ user?.number }}</label>
+<div class="flex justify-center items-center h-screen">
+    <div class="bg-white overflow-hidden shadow rounded-lg border max-w-md">
+        <div class="px-4 py-5 sm:px-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                User Profile
+            </h3>
+            <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                This is some information about the user.
+            </p>
+        </div>
+        <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+            <dl class="sm:divide-y sm:divide-gray-200">
+                <form class="m-5" #userEditForm="ngForm" (submit)="updateUser()">
+                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Full name
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            <input type="text" class="form-control" id="name" [(ngModel)]="user.name" name="name"
+                                placeholder="name" required>
+                            <div *ngIf="userEditForm.controls['name'].touched && userEditForm.controls['name'].hasError('required')"
+                                class="text-danger">
+                                Naam is verplicht.
+                            </div>
+                        </dd>
+                    </div>
+                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Email address
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            <input type="email" class="form-control" id="InputEmail" [(ngModel)]="user.email"
+                                name="email" placeholder="Emailadres" required>
+                            <div *ngIf="userEditForm.controls['email'].touched && userEditForm.controls['email'].hasError('required')"
+                                class="text-danger">
+                                Emailadres is verplicht.
+                            </div>
+                            <div *ngIf="userEditForm.controls['email'].touched && userEditForm.controls['email'].hasError('email')"
+                                class="text-danger">
+                                Ongeldig emailadres.
+                            </div>
+                            <div *ngIf="!isValidEmail(user.email)" class="text-danger">
+                                Ongeldig emailadres.
+                            </div>
+                        </dd>
+                    </div>
+                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Phone number
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            <input type="number" class="form-control" id="number" [(ngModel)]="user.number"
+                                name="number" placeholder="Phone number" required>
+                            <div *ngIf="userEditForm.controls['number'].touched && userEditForm.controls['number'].hasError('required')"
+                                class="text-danger">
+                                Nummer is verplicht.
+                            </div>
+                        </dd>
+                    </div>
+                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Address
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            <input type="text" class="form-control" id="address" [(ngModel)]="user.address"
+                                name="address" placeholder="Address" required>
+                            <div *ngIf="userEditForm.controls['address'].touched && userEditForm.controls['address'].hasError('required')"
+                                class="text-danger">
+                                Address is verplicht.
+                            </div>
+                        </dd>
+                    </div>
+                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Birthday
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            <input type="date" class="form-control" id="InputDate" [(ngModel)]="user.bday"
+                                name="geboortedatum" placeholder="Selecteer geboortedatum" required>
+                            <div *ngIf="userEditForm.controls['geboortedatum'].touched && userEditForm.controls['geboortedatum'].hasError('required')"
+                                class="text-danger">
+                                Geboortedatum is verplicht.
+                            </div>
+                            <div *ngIf="checkFutureUserDate()" class="text-danger">
+                                Geboortedatum mag niet in de toekomst liggen.
+                            </div>
+                        </dd>
+                    </div>
+                    <div class="form-row">
+                        <div class="ml-7 col-12 mt-3">
+                            <button type="button"
+                                class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                                (click)="updateUser()">
+                                Gebruiker wijzigen
+                            </button>
+
+                            <button type="button"
+                                class="ml-5 text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                (click)="goBack()">
+                                Annuleren
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </dl>
+        </div>
     </div>
-    <div class="relative z-0 w-full mb-6 group">
-        <input type="password" name="floating_password" id="floating_password" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-        <label for="floating_password" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
-    </div>
-    <div class="grid md:grid-cols-2 md:gap-6">
-      <div class="relative z-0 w-full mb-6 group">
-          <input type="text" name="floating_name" id="floating_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-          <label for="floating_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Name</label>
-      </div>
-      <div class="relative z-0 w-full mb-6 group">
-        <input type="text" name="floating_bday" id="floating_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-        <label for="floating_bday" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Geboorte datum</label>
-    </div>
 
-    </div>
-    <div class="grid md:grid-cols-2 md:gap-6">
-      <div class="relative z-0 w-full mb-6 group">
-          <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="floating_phone" id="floating_phone" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-          <label for="floating_phone" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Phone number (123-456-7890)</label>
-      </div>
-
-    </div>
-    <button type="submit" routerLink="user" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-    -->
-<!-- <button routerLink="/user" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submin</button>    -->
-<!-- </form> -->
-
-
-<div class="container-fluid">
-    <form class="m-5" #userEditForm="ngForm" (submit)="updateUser()">
-
-        <div class="form-group mb-4">
-            <label for="name" class="fw-bold">Name</label>
-            <input type="text" class="form-control" id="name" [(ngModel)]="user.name" name="name" placeholder="name"
-                required>
-            <div *ngIf="userEditForm.controls['name'].touched && userEditForm.controls['name'].hasError('required')"
-                class="text-danger">
-                Naam is verplicht.
-            </div>
-        </div>
-
-        <div class="form-group mb-4">
-            <label for="InputEmail" class="fw-bold">Emailadres</label>
-            <input type="email" class="form-control" id="InputEmail" [(ngModel)]="user.email" name="email"
-                placeholder="Emailadres" required>
-            <div *ngIf="userEditForm.controls['email'].touched && userEditForm.controls['email'].hasError('required')"
-                class="text-danger">
-                Emailadres is verplicht.
-            </div>
-            <div *ngIf="userEditForm.controls['email'].touched && userEditForm.controls['email'].hasError('email')"
-                class="text-danger">
-                Ongeldig emailadres.
-            </div>
-            <div *ngIf="!isValidEmail(user.email)" class="text-danger">
-                Ongeldig emailadres.
-            </div>
-        </div>
-
-
-        <div class="form-group mb-4">
-            <label for="InputDate" class="fw-bold">Geboortedatum</label>
-            <input type="date" class="form-control" id="InputDate" [(ngModel)]="user.bday" name="geboortedatum"
-                placeholder="Selecteer geboortedatum" required>
-            <div *ngIf="userEditForm.controls['geboortedatum'].touched && userEditForm.controls['geboortedatum'].hasError('required')"
-                class="text-danger">
-                Geboortedatum is verplicht.
-            </div>
-            <div *ngIf="checkFutureUserDate()" class="text-danger">
-                Geboortedatum mag niet in de toekomst liggen.
-            </div>
-        </div>
-
-        <div class="form-group mb-4">
-            <label for="address" class="fw-bold">
-                <address></address>
-            </label>
-            <input type="text" class="form-control" id="address" [(ngModel)]="user.address" name="address"
-                placeholder="Address" required>
-            <div *ngIf="userEditForm.controls['address'].touched && userEditForm.controls['address'].hasError('required')"
-                class="text-danger">
-                Address is verplicht.
-            </div>
-        </div>
-        
-        <div class="form-group mb-4">
-            <label for="number" class="fw-bold"></label>
-            <input type="number" class="form-control" id="number" [(ngModel)]="user.number" name="number"
-                placeholder="Phone number" required>
-            <div *ngIf="userEditForm.controls['number'].touched && userEditForm.controls['number'].hasError('required')"
-                class="text-danger">
-                Nummer is verplicht.
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="col-12 mt-3">
-                <button type="button" class="btn m-3" (click)="updateUser()">
-                    Gebruiker wijzigen
-                </button>
-
-                <button type="button" class="btn m-3" (click)="goBack()">
-                    Annuleren
-                </button>
-            </div>
-        </div>
-    </form>
 </div>
 
 

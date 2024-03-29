@@ -8,6 +8,8 @@ import { IProduct, IUser, ICartItem } from '@avans-nx-workshop/shared/api';
 @Component({
   selector: 'avans-nx-workshop-cart-list',
   templateUrl: 'cart-list.component.html',
+  styleUrls: ['cart-list.component.css'],
+  
 })
 export class CartListComponent implements OnInit {
   user: IUser | null = null;
