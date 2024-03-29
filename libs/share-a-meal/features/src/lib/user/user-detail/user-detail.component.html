@@ -1,98 +1,66 @@
-<!-- <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <a href="#">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-    </a>
-    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-    <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        Edit
-        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-        </svg>
-    </a>
-</div> -->
-
-<!-- <div *ngIf="user" class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ user.name }}</h5>
-    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ user.address }}</p>
-    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ user.number }}</p>
-    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ user.email }}</p>
-   
-     <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-      Edit
-      <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-      </svg>
-    </a>
-  </div> -->
-
-<!-- <div id="flex-container">
-  <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ user?.name }}</h5>
-    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ user?.address }}</p>
-    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ user?.number }}</p>
-    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ user?.email }}</p>
-   
-    <div class="button-container text-center">
-      <button type="button" (click)="goBack()" class="btn text-center me-4">
-        <span class="text-dark text-decoration-none">Terug</span>
-      </button>
-
-      <button type="button" class="btn text-center" *ngIf="showButton" [routerLink]="['edit']">
-        Wijzig Gegevens
-      </button>
+<div class="flex justify-center items-center h-screen">
+  <div class="bg-white overflow-hidden shadow rounded-lg border max-w-md">
+    <div class="px-4 py-5 sm:px-6">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">
+        User Profile
+      </h3>
+      <p class="mt-1 max-w-2xl text-sm text-gray-500">
+        This is some information about the user.
+      </p>
     </div>
+    <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+      <dl class="sm:divide-y sm:divide-gray-200">
+        <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Full name
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            {{user?.name}}
+          </dd>
+        </div>
+        <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Email address
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            {{user?.email}}
+          </dd>
+        </div>
+        <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Phone number
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            {{user?.number}}
+          </dd>
+        </div>
+        <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Address
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            {{user?.address}}
+          </dd>
+        </div>
+        <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Birthday
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            {{user?.bday}}
+          </dd>
+        </div>
+        <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <button type="button" (click)="goBack()" class="btn text-center me-4">
+            <span class="text-dark text-decoration-none">Terug</span>
+          </button>
+          <button type="button" class="btn text-center" *ngIf="isCurrentUser" [routerLink]="['edit']">
+            Wijzig Gegevens
+          </button>
 
-    <a href="#" routerLink="/user/{{ user?.id }}/edit" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-      Edit
-      <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-      </svg>
-    </a>
-  </div>
-  </div> -->
-
-
-<div class="container-fluid">
-  <div class="card m-5 text-center">
-    <div class="card-body">
-
-      <h2 class="user-name mb-3">{{user?.name}}</h2>
-
-      <ul class="list-group list-group-flush mb-3">
-        <li class="list-group-item">
-          <span class="fw-bold">Emailadres:</span>
-          <p>{{user?.email}}</p>
-        </li>
-        <li class="list-group-item">
-          <span class="fw-bold">Geboortedatum:</span>
-          <p>{{user?.bday | date: 'dd-MM-yyyy'}}</p>
-        </li>
-        <li class="list-group-item">
-          <span class="fw-bold">Address:</span>
-          <p>{{user?.address}}</p>
-        </li>
-        <li class="list-group-item">
-          <span class="fw-bold">Number:</span>
-          <p>{{user?.number}}</p>
-        </li>
-      </ul>
-
-      <div class="button-container text-center">
-        <button type="button" (click)="goBack()" class="btn text-center me-4">
-          <span class="text-dark text-decoration-none">Terug</span>
-        </button>
-
-        <button type="button" class="btn text-center" *ngIf="isCurrentUser" [routerLink]="['edit']">
-          Wijzig Gegevens
-        </button>
-<!--         
-        <button type="button" class="btn text-center" *ngIf="showButton" [routerLink]="['edit']">
-          Wijzig Gegevens
-        </button> -->
-      </div>
+        </div>
+      </dl>
     </div>
   </div>
 
 </div>
-
-<!-- <button routerLink="/user/{{ user.id }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800">View</button>                        -->

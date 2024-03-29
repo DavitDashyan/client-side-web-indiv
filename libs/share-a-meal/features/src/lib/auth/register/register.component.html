@@ -1,77 +1,137 @@
-<div class="container-fluid w-50">
-  <div class="mt-5">
-    <h2 class="mb-5 text-center">Registeren</h2>
+<section class="bg-gray-50 dark:bg-gray-900">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <div class="container-fluid w-50">
+      <div class="mx-auto max-w-screen-sm text-center">
+      </div>
+      <div
+        class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+          <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+            Create an account
+          </h1>
 
-    <form class="form-signin" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <div class="form-row">
-        <label for="inputNaam">Name</label><br>
-        <input type="text" class="form-control" formControlName="name" id="inputNaam" [ngClass]="{
+          <form class="form-signin" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <!-- <div class="form-row border border-black rounded-md p-2"> -->
+            <label for="inputNaam" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+            <input type="text"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              formControlName="name" id="inputNaam" [ngClass]="{
               'is-invalid':
                 registerForm.get('name')?.invalid &&
                 registerForm.get('name')?.touched
             }" />
-        <span *ngIf="!registerForm.get('name')?.valid && registerForm.get('name')?.touched" class="invalid-feedback">
-          <p id="name-invalid">Name is not valid.</p>
-        </span>
-      </div>
+            <span *ngIf="!registerForm.get('name')?.valid && registerForm.get('name')?.touched"
+              class="invalid-feedback">
+              <p id="name-invalid">Name is not valid.</p>
+            </span>
+            <!-- </div> -->
+            <br>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="inputBirthday">Birthday</label><br>
-          <input type="date" class="form-control" formControlName="bday" id="inputBirthday" [ngClass]="{
+            <div class="form-group">
+              <label for="inputAddress"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+              <input type="text"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                formControlName="address" id="inputAddress" [ngClass]="{
+                  'is-invalid':
+                    registerForm.get('address')?.invalid &&
+                    registerForm.get('address')?.touched
+                }" />
+              <span *ngIf="!registerForm.get('address')?.valid && registerForm.get('address')?.touched"
+                class="invalid-feedback">
+                <p id="address-invalid">Address is niet geldig.</p>
+              </span>
+            </div>
+            <br>
+
+            <div class="form-group">
+              <label for="number"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tel. Number</label>
+              <input type="number"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                formControlName="number" id="number" [ngClass]="{
+                  'is-invalid':
+                    registerForm.get('number')?.invalid &&
+                    registerForm.get('number')?.touched
+                }" />
+              <span *ngIf="!registerForm.get('number')?.valid && registerForm.get('number')?.touched"
+                class="invalid-feedback">
+                <p id="number-invalid">Tel. number is niet geldig.</p>
+              </span>
+            </div>
+            <br>
+            <!-- <div class="form-row border border-black rounded-md p-2"> -->
+            <div class="form-group">
+              <label for="inputBirthday"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Birthday</label>
+              <input type="date"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                formControlName="bday" id="inputBirthday" [ngClass]="{
               'is-invalid':
                 registerForm.get('bday')?.invalid &&
                 registerForm.get('bday')?.touched
             }" />
-          <span *ngIf="!registerForm.get('bday')?.valid && registerForm.get('bday')?.touched" class="invalid-feedback">
-            <p id="bday-invalid">Birthday is not valid.</p>
-          </span>
-        </div>
-      </div>
+              <span *ngIf="!registerForm.get('bday')?.valid && registerForm.get('bday')?.touched"
+                class="invalid-feedback">
+                <p id="bday-invalid">Birthday is not valid.</p>
+              </span>
+            </div>
+            <!-- </div> -->
+            <br>
 
-      <div class="form-group">
-        <label for="inputEmail">Email</label><br>
-        <input type="email" class="form-control" formControlName="email" id="inputEmail" aria-describedby="emailHelp"
-          [ngClass]="{
+            <!-- <div class="form-group border border-black rounded-md p-2"> -->
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+            <input type="email"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              formControlName="email" id="inputEmail" aria-describedby="emailHelp" [ngClass]="{
             'is-invalid':
               registerForm.get('email')?.invalid &&
               registerForm.get('email')?.touched
           }" />
-        <span *ngIf="registerForm.get('email')?.hasError('invalidEmail') && registerForm.get('email')?.touched"
-          class="invalid-feedback">
-          <p id="email-invalid">Voer een geldig e-mailadres in</p>
-        </span>
-      </div>
+            <span *ngIf="registerForm.get('email')?.hasError('invalidEmail') && registerForm.get('email')?.touched"
+              class="invalid-feedback">
+              <p id="email-invalid">Enter a valid email address</p>
+            </span>
+            <!-- </div> -->
 
-      <div class="form-group">
-        <label for="inputPassword">Password</label><br>
-        <label class="rule">Password must contain at least one uppercase letter, one lowercase letter and one number and
-          be at least 8 characters long.</label>
-        <div class="input-group">
-          <input type="{{ hidePassword ? 'password' : 'text' }}" class="form-control" formControlName="password"
-            id="inputPassword" [ngClass]="{
-              'is-invalid':
-                registerForm.get('password')?.invalid &&
-                registerForm.get('password')?.touched
-            }" />
-          <div class="input-group-append">
-            <button class="btn btn-info" type="button" (click)="togglePasswordVisibility()">
-              {{ hidePassword ? 'Show' : 'Hide' }}
-            </button>
-          </div>
+            <br>
+            <!-- <div class="form-group border border-black rounded-md p-2"> -->
+            <label for="inputPassword">Password</label><br>
+            <label class="rule"> 🔘one uppercase letter
+              🔘one lowercase letter <br>
+              🔘one number
+              🔘least 8 characters long </label>
+            <div class="input-group">
+              <input type="{{ hidePassword ? 'password' : 'text' }}"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                formControlName="password" id="inputPassword" [ngClass]="{
+            'is-invalid':
+              registerForm.get('password')?.invalid &&
+              registerForm.get('password')?.touched
+          }" />
+              <div class="input-group-append">
+                <button class="btn btn-info" type="button" (click)="togglePasswordVisibility()">
+                  {{ hidePassword ? 'Show' : 'Hide' }}
+                </button>
+              </div>
+            </div>
+            <span
+              *ngIf="registerForm.get('password')?.hasError('invalidPassword')  && registerForm.get('password')?.touched"
+              class="invalid-feedback">
+              <p id="password-invalid">Enter a valid password.</p>
+            </span>
+            <!-- </div> -->
+
+            <div class="form-group text-center">
+              <button id="submitbutton"
+                class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                type="submit">Register</button>
+              <div *ngIf="loginError" class="error-message">Invalid data.</div>
+            </div>
+
+          </form>
         </div>
-        <span
-          *ngIf="registerForm.get('password')?.hasError('invalidPassword')  && registerForm.get('password')?.touched"
-          class="invalid-feedback">
-          <p id="password-invalid">Enter a valid password.</p>
-        </span>
       </div>
-
-      <div class="form-group text-center">
-        <button id="submitbutton" class="register btn" type="submit">Register</button>
-        <div *ngIf="loginError" class="error-message">Invalid data.</div>
-      </div>
-
-    </form>
+    </div>
   </div>
-</div>
+</section>

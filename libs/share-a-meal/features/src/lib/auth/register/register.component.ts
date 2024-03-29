@@ -11,7 +11,6 @@ import { IUser } from '@avans-nx-workshop/shared/api';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-
 export class RegisterComponent implements OnInit, OnDestroy {
   registerForm: FormGroup = new FormGroup({
     email: new FormControl(null, [
@@ -38,8 +37,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.registerForm = new FormGroup({
       name: new FormControl(null, [Validators.required]),
-      // address: new FormControl(null, [Validators.required]),
-      // number: new FormControl(null, [Validators.required]),
+      address: new FormControl(null, [Validators.required]),
+      number: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [
         Validators.required,
         this.validEmail.bind(this),

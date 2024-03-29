@@ -11,6 +11,7 @@ import { AuthService } from '../../../../features/src/lib/auth/auth.service'; //
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn = false;
+  //isLoggedOut= false;
   userId: string | null = null;
 
 

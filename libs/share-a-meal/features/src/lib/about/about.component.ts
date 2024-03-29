@@ -5,11 +5,11 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './about.component.html',
   styles: [],
 })
-export class AboutComponent implements OnInit{
-
+export class AboutComponent implements OnInit {
   title = 'avans-nx-workshop-about';
   imagePath?: string;
   ngOnInit(): void {
-      this.imagePath = '/assets/erd2.png';
+    // this.imagePath = '/assets/erd2.png';
+    this.imagePath = '/assets/ErdClientSide.png';
   }
 }
