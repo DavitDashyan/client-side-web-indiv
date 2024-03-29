@@ -40,7 +40,7 @@
 </div> -->
 
 
-<div class="container">
+<!-- <div class="container">
   <div class="row">
 
     <div class="column-left col-12 col-lg-3 align-items-center justify-content-center">
@@ -90,13 +90,62 @@
         <p><span>ID van product: </span>{{product._id}}</p>
 
         <div class="button-container text-center mt-3">
-          <!-- <button type="button" class="btn text-center" (click)="addToCart(product)">Voeg toe aan winkelwagen</button> -->
           <button type="button" class="btn text-center" (click)="addToCart()">Voeg toe aan winkelwagen</button>
         </div>
 
-        
+
 
       </div>
     </div>
   </div>
-</div>
+</div> -->
+
+
+<section class="bg-white dark:bg-gray-900">
+  <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+    <!-- <img class="w-full dark:hidden" class= "" src="{{ product.productImageUrl }}" alt="img"> -->
+    <img class="w-48 h-auto object-fit-contain mx-auto mr-13" src="{{ product.productImageUrl }}" alt="img">
+
+
+    <!-- <img class="w-full hidden dark:block" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup-dark.svg" alt="dashboard image"> -->
+    <div class="mt-4 md:mt-0">
+      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">{{ product.nameProduct }}
+      </h2>
+      <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">{{product.description}}</p>
+      <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">{{product.condition}}</p>
+      <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">{{product.price}} €</p>
+      <span class="favorite {{product.favorite ? '' : 'not'}}">♥</span>
+      <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">{{shops[0]?.name}}</p>
+
+
+    </div>
+  </div>
+  <div class="button-container text-center mt-3">
+    <button type="button" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" (click)="addToCart()">Voeg toe aan winkelwagen</button>
+  </div>
+  <div class="button-container text-center mt-3" *ngIf="showButton">
+    <button type="button" class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:focus:ring-yellow-900" routerLink="/product/{{ product._id }}/edit">Edit</button>
+  </div>
+
+
+
+  <div class="button-container text-center mt-3" *ngIf="showButton">
+
+    <ng-container *ngIf="!showDeleteConfirmation; else confirmationDialog">
+      <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" (click)="showDeleteConfirmation = true">
+        <a class="text-dark text-decoration-none">Delete</a>
+      </button>
+    </ng-container>
+  </div>
+
+
+  <ng-template #confirmationDialog>
+    <div class="confirmation-dialog text-center mt-3">
+      <p>Weet u zeker dat u dit product wilt verwijderen?</p>
+      <button type="button" (click)="deleteProduct()" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Ja, verwijder product</button>
+      <button type="button" (click)="showDeleteConfirmation = false" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Nee, annuleer</button>
+    </div>
+  </ng-template>
+
+  
+</section>

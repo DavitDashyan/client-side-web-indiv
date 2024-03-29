@@ -13,13 +13,13 @@
         Nieuw Product
     </button>
 
-</div>
-<ul>
+</div> <!-- <a [routerLink]="['/product/id']"> -->
+<!-- <a [routerLink]=[`/product/${product.id}`]> -->
+<!-- <a routerLink="/product/{{product._id}}">Bekijk details</a> -->
+<!-- <ul>
     <li *ngFor="let product of products">
         <a routerLink="/product/{{product._id}}">
-            <!-- <a [routerLink]="['/product/id']"> -->
-            <!-- <a [routerLink]=[`/product/${product.id}`]> -->
-                <a routerLink="/product/{{product._id}}">Bekijk details</a>
+        
             <img src={{product.productImageUrl}} alt="No Image Found">
 
             <div class="name">
@@ -34,6 +34,27 @@
             <div class="text-gray-600 mb-2">Prijs: <span>{{product.price}}€</span> </div>
             <div class="text-gray-600 mb-2">Conditie: <span>{{product.condition}}</span> </div>
 
+        </a>
+    </li>
+</ul> -->
+
+
+<ul class="product-list">
+    <li *ngFor="let product of products">
+        <a routerLink="/product/{{product._id}}">
+            <img src="{{product.productImageUrl}}" alt="Product image">
+            <div class="content">
+                <h2 class="name">{{product.nameProduct}}</h2>
+                <span class="favorite {{product.favorite ? '' : 'not'}}">♥</span>
+                <div class="description"></div>
+                <!-- <div class="description">
+          {{product.description}}
+        </div> -->
+                <div class="details">
+                    <span class="price">€{{product.price}}</span>
+                    <span class="condition">{{product.condition}}</span>
+                </div>
+            </div>
         </a>
     </li>
 </ul>

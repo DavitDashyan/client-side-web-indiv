@@ -13,3 +13,29 @@
     border: 1px black solid;
     background: #369;
 }
+.favorite{
+    position: absolute;
+
+    font-size: 2.5rem;
+    color: #b92c2c;
+  }
+  
+  .favorite.not{
+    color: grey;
+  }
+  
+  .product-detail li a img {
+    object-fit: contain;
+    max-height: 60%;
+  }
+
+  .img-container {
+    max-width: 300px;
+    max-height: 200px;
+    
+  }
+  
+  img {
+    object-fit: cover;
+  }
+  
