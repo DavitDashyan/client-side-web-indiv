@@ -13,6 +13,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   products: IProduct[] | null = null;
   subscription: Subscription | undefined = undefined;
   searchTerm = '';
+  filteredProducts: IProduct[] | null = null;
   //cartService = inject(CartService);
 
   constructor(private productService: ProductService) {}
@@ -22,6 +23,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       console.log(`results: ${results}`);
       //   console.log(this.products);
       this.products = results;
+      this.filterProducts();
     });
   }
 
@@ -29,20 +31,21 @@ export class ProductListComponent implements OnInit, OnDestroy {
     if (this.subscription) this.subscription.unsubscribe();
   }
 
-  searchProducts(): IProduct[] {
-    const term = this.searchTerm.toLowerCase().trim();
-
-    if (!term || !this.products) {
-      return [];
+  filterProducts(): void {
+    if (!this.products) {
+      this.filteredProducts = null;
+      return;
     }
 
-    return this.products.filter((product) =>
-      product.nameProduct.toLowerCase().includes(term)
-    );
-  }
+    // Als de zoekterm leeg is, toon alle producten
+    if (!this.searchTerm.trim()) {
+      this.filteredProducts = this.products;
+      return;
+    }
 
-  matchesSearch(product: IProduct): boolean {
-    const term = this.searchTerm.toLowerCase().trim();
-    return product.nameProduct.toLowerCase().includes(term);
+    // Filter de producten op basis van de zoekterm
+    this.filteredProducts = this.products.filter((product) =>
+      product.nameProduct.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 }

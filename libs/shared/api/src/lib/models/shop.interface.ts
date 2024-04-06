@@ -3,7 +3,7 @@ import { Id } from './id.type';
 type Shop = string;
 
 export interface IShop {
-  id: Id;
+  _id: Id;
   name: string;
   telNumber: number;
   email: string;

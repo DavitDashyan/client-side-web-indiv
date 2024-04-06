@@ -80,7 +80,6 @@ export class AuthService {
         })
       );
   }
-
   register(userData: IUser): Observable<IUser | null> {
     console.log(`register at ${environment.dataApiUrl}user`);
     console.log(userData);
@@ -92,8 +91,9 @@ export class AuthService {
         map((user) => {
           // const user = new User(response);
           console.dir(user);
-          this.saveUserToLocalStorage(user);
-          this.currentUser$.next(user);
+          // Deze regel moet worden verwijderd, zodat de gebruiker niet automatisch wordt ingelogd
+          // this.saveUserToLocalStorage(user);
+          // this.currentUser$.next(user);
           //this.alertService.success('You have been registered');
           return user;
         }),
@@ -106,6 +106,7 @@ export class AuthService {
         })
       );
   }
+  
   /**
    * Validate het token bij de backend API. Als er geen HTTP error
    * als response komt is het token nog valid. We doen dan verder niets.

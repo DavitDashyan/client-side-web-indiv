@@ -64,9 +64,14 @@ export class ProductController {
 
   @Delete('/:productId/:userId/cartList')
   async removeProduct(
-    @Param('boekId') boekId: string,
+    @Param('productId') boekId: string,
     @Param('userId') userId: string
   ): Promise<void> {
     await this.productService.removeProduct(userId, boekId);
+  }
+
+  @Get(':id/recommendations')
+  async getRecommendations(@Param('id') productId: string) {
+      return this.productService.generateProductRecommendations(productId);
   }
 }

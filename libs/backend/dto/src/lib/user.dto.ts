@@ -11,9 +11,9 @@ import {
   IsArray,
 } from 'class-validator';
 import {
-  ICart,
   ICartItem,
   ICreateUser,
+  IProduct,
   IUpdateUser,
   IUpsertUser,
 } from '@avans-nx-workshop/shared/api';
@@ -55,7 +55,10 @@ export class CreateUserDto implements ICreateUser {
   bday!: Date;
 
   @IsNotEmpty()
-  cart!: ICart;
+  cart!: ICartItem[];
+
+  @IsNotEmpty()
+  favorite!: IProduct[];
 }
 
 export class UpsertUserDto implements IUpsertUser {
@@ -65,6 +68,9 @@ export class UpsertUserDto implements IUpsertUser {
 
   @IsNotEmpty()
   cart!: ICartItem[];
+
+  @IsNotEmpty()
+  favorite!: IProduct[];
 
   @IsString()
   @IsNotEmpty()
@@ -120,6 +126,9 @@ export class UpdateUserDto implements IUpdateUser {
 
   @IsNotEmpty()
   cart!: ICartItem[];
+
+  @IsNotEmpty()
+  favorite!: IProduct[];
 
   _id!: Id;
 }

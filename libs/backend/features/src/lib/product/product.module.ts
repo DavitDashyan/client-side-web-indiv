@@ -7,6 +7,7 @@ import { Product, ProductSchema } from './product.schema';
 import { ShopService } from '../shop/shop.service';
 import { Shop, ShopSchema } from '../shop/shop.schema';
 import { User, UserSchema } from '../user/user.shema';
+import { RecommendationService } from '../recommendation/recommendation.service';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { User, UserSchema } from '../user/user.shema';
     ]),
   ],
   controllers: [ProductController],
-  providers: [ProductService, ShopService],
+  providers: [ProductService, ShopService, RecommendationService],
   exports: [ProductService],
 })
 export class ProductModule {}

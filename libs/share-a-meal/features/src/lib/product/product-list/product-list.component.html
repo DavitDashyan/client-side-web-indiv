@@ -1,43 +1,21 @@
-<!-- <avans-nx-workshop-search></avans-nx-workshop-search> -->
+<!-- <div class="input-group mb-3">
+        <form class="d-flex">
+            <input [(ngModel)]="searchTerm" type="search" class="form-control me-5" placeholder="Zoeken op product titel" aria-label="Search" aria-describedby="search-addon" />
+            <button class="btn btn-outline-primary" type="button" (click)="searchProducts()">Zoeken</button>
+          </form>
+          
 
-<!-- <input type="search" id="default-search"
-    class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-    placeholder="Search Mockups, Logos..." required [(ngModel)]="searchTerm" (keyup)="searchProducts()">
-     -->
-
-<div class="input-group mb-3">
-    <input [(ngModel)]="searchTerm" type="search" class="form-control me-5" placeholder="Zoeken op product titel"
-        aria-label="Search" aria-describedby="search-addon" />
-
-    <button type="button" class="btn btn-info" [routerLink]="['/product/new']">
+    <button type="button"
+        class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+        [routerLink]="['/product/new']">
         Nieuw Product
     </button>
 
-</div> <!-- <a [routerLink]="['/product/id']"> -->
-<!-- <a [routerLink]=[`/product/${product.id}`]> -->
-<!-- <a routerLink="/product/{{product._id}}">Bekijk details</a> -->
-<!-- <ul>
-    <li *ngFor="let product of products">
-        <a routerLink="/product/{{product._id}}">
-        
-            <img src={{product.productImageUrl}} alt="No Image Found">
+</div> 
 
-            <div class="name">
-                <h2 class="text-xl font-bold mb-2">{{ product.nameProduct }}</h2>
-            </div>
 
-            <span class="favorite {{product.favorite?'':'not'}}">
-                ♥
-            </span>
-
-            <div class="text-gray-600 mb-2">Beschrijving: <span>{{product.description}}</span> </div>
-            <div class="text-gray-600 mb-2">Prijs: <span>{{product.price}}€</span> </div>
-            <div class="text-gray-600 mb-2">Conditie: <span>{{product.condition}}</span> </div>
-
-        </a>
-    </li>
-</ul> -->
-
+<input [(ngModel)]="searchTerm" type="search" class="form-control me-5" placeholder="Zoeken op product titel"
+    aria-label="Search" aria-describedby="search-addon" />
 
 <ul class="product-list">
     <li *ngFor="let product of products">
@@ -45,11 +23,59 @@
             <img src="{{product.productImageUrl}}" alt="Product image">
             <h2 class="name text-center">{{product.nameProduct}}</h2>
             <div class="content">
-                <span class="favorite {{product.favorite ? '' : 'not'}}">♥</span>
+                <div class="description"></div>
+                <div class="details">
+                    <span class="price">€{{product.price}}</span>
+                    <span class="condition">{{product.condition}}</span>
+                </div>
+            </div>
+        </a>
+    </li>
+</ul> -->
+
+
+<!-- <div class="input-group mb-3">
+    <form class="d-flex">
+        <input [(ngModel)]="searchTerm" name="searchTerm" type="search" class="form-control me-5"
+            placeholder="Zoeken op product titel" aria-label="Search" aria-describedby="search-addon" />
+
+        <button class="btn btn-outline-primary" type="button" (click)="filterProducts()">Zoeken</button>
+    </form>
+    <button type="button"
+        class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+        [routerLink]="['/product/new']">Nieuw Product</button>
+</div> -->
+
+
+<form class="max-w-md mx-auto">
+    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+    <div class="relative">
+        <input [(ngModel)]="searchTerm" name="searchTerm" type="search"
+            class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Zoeken op product titel" aria-label="Search" aria-describedby="search-addon" />
+
+        <button class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button" (click)="filterProducts()">Zoeken</button>
+    </div>
+</form>
+
+<div class="max-w-md mx-auto mt-2 flex justify-center">
+    <button type="button"
+        class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+        [routerLink]="['/product/new']">Nieuw Product</button>
+</div>
+
+
+<ul class="product-list">
+    <li *ngFor="let product of filteredProducts">
+        <a routerLink="/product/{{product._id}}">
+            <img src="{{product.productImageUrl}}" alt="Product image">
+            <h2 class="name text-center">{{product.nameProduct}}</h2>
+            <div class="content">
+                <!-- <span class="favorite {{product.favorite ? '' : 'not'}}">♥</span> -->
                 <div class="description"></div>
                 <!-- <div class="description">
-          {{product.description}}
-        </div> -->
+                    {{product.description}}
+                </div> -->
                 <div class="details">
                     <span class="price">€{{product.price}}</span>
                     <span class="condition">{{product.condition}}</span>

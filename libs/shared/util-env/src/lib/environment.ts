@@ -6,4 +6,13 @@ export const environment: IEnvironment = {
   mongo:
     'mongodb+srv://davit:chDNvn5u7EpUeNo6@cluster0.w3n5jzg.mongodb.net/?retryWrites=true&w=majority',
   //mongo:'mongodb+srv://davit:chDNvn5u7EpUeNo6@cluster0.w3n5jzg.mongodb.net/?retryWrites=true&w=majority'  // originele naam, password erin gezet, acheter ? markt gezet omdat yt vid het zei
+
+  neo4j: {
+    schema: 'neo4j',
+    host: 'localhost',
+    port: 7687,
+    username: 'neo4j',
+    password: 'Markt123!',
+    database: 'neo4j',
+  },
 };

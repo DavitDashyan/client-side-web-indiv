@@ -1,4 +1,3 @@
-// product-detail.component.ts
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { IProduct, IShop, IUser } from '@avans-nx-workshop/shared/api';
 import { ProductService } from '../product.service';
@@ -14,6 +13,9 @@ import { UserService } from '../../user/user.service';
 export class ProductDetailComponent implements OnInit {
   showDeleteConfirmation = false;
   showProductStatus = false;
+  showCartFeedback: boolean = false;
+  showFavoriteFeedback: boolean = false;
+  creatorName: string = '';
 
   product = {} as IProduct;
   products: IProduct[] | null = null;
@@ -43,6 +45,16 @@ export class ProductDetailComponent implements OnInit {
               (result) => {
                 this.product = result;
                 this.showButton = this.isCurrentUserCreator();
+
+                // Haal de naam van de maker op
+                this.userService.read(this.product.creatorID).subscribe(
+                  (creator: IUser) => {
+                    this.creatorName = creator.name;
+                  },
+                  (error) => {
+                    console.error('Error getting creator details:', error);
+                  }
+                );
               },
               (error) => {
                 console.error('Error getting product details:', error);
@@ -107,11 +119,80 @@ export class ProductDetailComponent implements OnInit {
             console.error('Error updating user with added product:', error);
           },
         });
+        this.showCartFeedback = true;
+        setTimeout(() => {
+          this.showCartFeedback = false;
+        }, 2000);
       },
       error: (error) => {
         console.error('Error fetching user information:', error);
       },
     });
+  }
+
+  addToFavorite(): void {
+    if (!this.product) {
+      console.error('Product is not defined.');
+      return;
+    }
+
+    // // Controleer of de gebruiker is geladen
+    // if (!this.user) {
+    //   console.error('User is not defined.');
+    //   return;
+    // }
+
+    this.userService.read(this.userId).subscribe({
+      next: (user: IUser) => {
+        // Initialize cart property if it doesn't exist
+        // if (!user.cart) {
+        //   user.cart = [];
+        // }
+        console.log('user.cart BB', user, user._id);
+
+        console.log('user.bday before', user.bday);
+        // Add the product to the user's cart
+        console.log('Product._Id', this.product._id);
+        if (typeof user.bday === 'string') {
+          user.bday = new Date(user.bday);
+        }
+        // Check of het product al in de favorietenlijst staat
+        const isProductInFavorites = user.favorite.some(
+          (item) => item._id === this.product._id
+        );
+        if (isProductInFavorites) {
+          console.log('Product is already in favorites.');
+          return;
+        }
+
+        // Voeg het product toe aan de favorietenlijst van de gebruiker
+        user.favorite.push(this.product);
+
+        // Werk de gegevens van de gebruiker bij in de backend
+        this.userService.update(user).subscribe({
+          next: (updatedUser: IUser) => {
+            console.log('Product added to favorites:', this.product);
+            console.log('Updated user:', updatedUser);
+            // Optioneel: vernieuw de lijst met favoriete producten in de component
+          },
+          error: (error) => {
+            console.error(
+              'Error updating user with added product to favorites:',
+              error
+            );
+          },
+        });
+      },
+      error: (error) => {
+        console.error('Error fetching user information:', error);
+      },
+    });
+    this.showFavoriteFeedback = true;
+
+    // Verberg de feedback pop-up na een paar seconden
+    setTimeout(() => {
+      this.showFavoriteFeedback = false;
+    }, 2000);
   }
 
   deleteProduct(): void {

@@ -1,0 +1,17 @@
+.favorite {
+    position: absolute;
+    top: 1.5em; /* Pas dit aan om de exacte verticale positie aan te passen */
+    left: 3.2rem; /* Pas dit aan om de exacte horizontale positie aan te passen */
+    font-size: 2.5rem;
+    color: #b92c2c;
+    z-index: 1; /* Zorg ervoor dat het link bovenop andere inhoud ligt */
+}
+
+  
+  .favorite.not{
+    color: grey;
+  }
+
+  @tailwind base;
+@tailwind components;
+@tailwind utilities;

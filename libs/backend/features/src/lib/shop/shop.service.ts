@@ -22,27 +22,10 @@ export class ShopService {
   }
 
   async getOne(id: string): Promise<IShop | null> {
-    this.logger.log(`finding shop with id ${id}`);
+    this.logger.log(`finding product with id ${id}`);
 
-    // Check if id is null
-    if (id === null || id === 'null') {
-      this.logger.debug('ID is null or "null"');
-      return null;
-    }
-    const item = await this.shopModel.findOne({ id: id }).exec();
-    if (!item) {
-      this.logger.debug('Item not found');
-    }
-    return item;
-  }
-
-  async getOneByName(name: string): Promise<IShop | null> {
-    this.logger.log(`Finding shop by email ${name}`);
-    const item = this.shopModel
-      .findOne({ name: name })
-      .select('-password')
-      .exec();
-    return item;
+    Logger.log('Get one');
+    return await this.shopModel.findOne({ _id: id }).exec();
   }
 
   async create(shopDto: CreateShopDto): Promise<IShop> {
@@ -50,7 +33,7 @@ export class ShopService {
     this.logger.log(`ShopDtoName ${shopDto.name}`);
 
     // Sluit _id expliciet uit
-    const { id, ...shopWithoutId } = shopDto;
+    const { _id, ...shopWithoutId } = shopDto;
 
     const createdItem = await this.shopModel.create(shopWithoutId);
     return createdItem;

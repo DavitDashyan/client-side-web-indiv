@@ -87,16 +87,16 @@ export class ShopService {
   }
 
   public update(shop: IShop): Observable<IShop> {
-    console.log(`update shop ${this.endpoint}/${shop.id}`);
+    console.log(`update shop ${this.endpoint}/${shop._id}`);
     return this.http
-      .put<ApiResponse<IShop>>(`${this.endpoint}/${shop.id}`, shop)
+      .put<ApiResponse<IShop>>(`${this.endpoint}/${shop._id}`, shop)
       .pipe(tap(console.log), catchError(this.handleError));
   }
 
   public delete(shop: IShop): Observable<IShop> {
-    console.log(`delete ${this.endpoint}/${shop.id}`);
+    console.log(`delete ${this.endpoint}/${shop._id}`);
     return this.http
-      .delete<ApiResponse<IShop>>(`${this.endpoint}/${shop.id}`)
+      .delete<ApiResponse<IShop>>(`${this.endpoint}/${shop._id}`)
       .pipe(tap(console.log), catchError(this.handleError));
   }
 

@@ -120,7 +120,7 @@ export class ProductEditComponent implements OnInit {
       price: ['', [Validators.required, Validators.min(0)]],
       productImageUrl: ['', Validators.required],
       favorite: [false],
-      condition: [Conditie.Nieuw, Validators.required],
+      condition: [Conditie, Validators.required],
     });
 
     // Haal de product ID op uit de URL
@@ -147,6 +147,8 @@ export class ProductEditComponent implements OnInit {
 
     // Update het product met de waarden uit het formulier
     const updatedProduct: IProduct = { ...this.product, ...this.productForm.value };
+
+    updatedProduct.condition = Conditie[updatedProduct.condition as keyof typeof Conditie];
 
     this.productService.update(updatedProduct).subscribe({
       next: () => {

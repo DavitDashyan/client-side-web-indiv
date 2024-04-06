@@ -61,11 +61,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
       console.log('Form is valid', this.registerForm!.value);
       const user: IUser = this.registerForm!.value;
       user.cart = [];
+      user.favorite = []; //FAVORITE = [] QWERTY
       this.authService.register(user).subscribe({
         next: (newUser) => {
           console.log('User created:', newUser);
           console.log('User created:', newUser?.email);
-          this.router.navigate([`/dashboard`]);
+          this.router.navigate([`/login`]);
         },
         error: (error) => console.error('Error creating user:', error),
       });

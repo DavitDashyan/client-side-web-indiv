@@ -11,10 +11,14 @@ import {
 } from '@nestjs/common';
 import { IUser } from '@avans-nx-workshop/shared/api';
 import { CreateUserDto, UpdateUserDto } from '@avans-nx-workshop/backend/dto';
+import { RecommendationService } from '../recommendation/recommendation.service';
 
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private recommendationService: RecommendationService
+  ) {}
 
   @Get('')
   async getAll(): Promise<IUser[]> {
@@ -33,6 +37,12 @@ export class UserController {
     console.log('create', createUserDto.bday);
     // createUserDto.bday = new Date(createUserDto.bday);
     console.log('create after', createUserDto.bday);
+
+    const createdUser = await this.userService.create(userWithoutId);
+    console.log('createdUser', createdUser);
+    // Voeg de gebruiker toe aan Neo4j
+    await this.recommendationService.createOrUpdateUser(createdUser);
+
     return await this.userService.create(userWithoutId);
   }
 

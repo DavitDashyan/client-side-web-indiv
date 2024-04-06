@@ -1,5 +1,6 @@
 import { Id } from './id.type';
 import { ICartItem } from './cart-item.interface';
+import { IProduct } from './product.interface';
 
 export interface IUser {
   _id: Id;
@@ -10,8 +11,8 @@ export interface IUser {
   password: string;
   bday: Date;
   token?: string | null;
-  // cart: ICart[];
   cart: ICartItem[];
+ favorite: IProduct[];
 }
 
 export type ICreateUser = Pick<

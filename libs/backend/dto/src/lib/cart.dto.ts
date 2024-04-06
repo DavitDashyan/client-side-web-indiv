@@ -1,4 +1,4 @@
-import { ICartItem, ICart, Id } from '@avans-nx-workshop/shared/api';
+import { ICartItem, Id } from '@avans-nx-workshop/shared/api';
 import { IsString, IsInt, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class AddToCartDto implements ICartItem {

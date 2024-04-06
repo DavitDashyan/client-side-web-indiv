@@ -123,18 +123,6 @@ export class UserService {
     );
   }
 
-  public removeBookFromBoekenlijst(
-    userId: string,
-    boekId: string
-  ): Observable<IUser> {
-    const endpoint = `${environment.dataApiUrl}/api/book/${boekId}/${userId}/booklist`;
-
-    return this.http.delete<ApiResponse<IUser>>(endpoint).pipe(
-      tap(console.log),
-      map((response: any) => response.results as IUser),
-      catchError(this.handleError)
-    );
-  }
 
   public handleError(error: HttpErrorResponse): Observable<any> {
     console.log('handleError in UserService', error);

@@ -14,6 +14,7 @@ import { Product as ProductModel } from './product.schema';
 import { User as UserModel, UserDocument } from '../user/user.shema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { RecommendationService } from '../recommendation/recommendation.service';
 import {
   CreateProductDto,
   UpdateProductDto,
@@ -31,7 +32,8 @@ export class ProductService {
     private productModel: Model<ProductDocument>,
     private readonly shopService: ShopService,
 
-    @InjectModel(UserModel.name) private userModel: Model<UserDocument>
+    @InjectModel(UserModel.name) private userModel: Model<UserDocument>,
+    private readonly recommendationService: RecommendationService
   ) {}
 
   async getAll(): Promise<IProduct[]> {
@@ -63,6 +65,10 @@ export class ProductService {
     };
 
     const createdProduct = await this.productModel.create(productData);
+
+    //in neo4j de create doen
+    await this.recommendationService.createOrUpdateProduct(createdProduct);
+
     return createdProduct;
   }
 
@@ -81,6 +87,9 @@ export class ProductService {
 
     // Save the updated product
     const updatedProduct = await existingProduct.save();
+
+    //de update doen in neo4j
+    await this.recommendationService.createOrUpdateProduct(updatedProduct);
 
     return updatedProduct;
   }
@@ -114,7 +123,7 @@ export class ProductService {
     console.log('productId newProduct:', newProduct.productId);
 
     user.cart.push(newProduct);
-    console.log('user.cart AA:', user.cart);
+    console.log('user.cart QAQ:', user.cart);
     console.log('newProduct:', newProduct);
 
     const updatedUser = await user.save();
@@ -136,11 +145,54 @@ export class ProductService {
       );
     }
 
-    //verwijderen
+    //verwijderen in mongo
     user.cart.splice(productIndex, 1);
 
     const updatedUser = await user.save();
+    //verwijdern in neo4j
+    await this.recommendationService.deleteProductNeo(productId);
 
     return updatedUser;
+  }
+
+  // async generateProductRecommendations(productId: string): Promise<IProduct[]> {
+  //   // Stap 1: Haal alle gebruikers op
+  //   const users = await this.userModel.find();
+
+  //   // Stap 2: Zoek in elk winkelwagentje naar het geselecteerde product
+  //   const productCounts = new Map<string, number>();
+
+  //   for (const user of users) {
+  //     for (const cartItem of user.cart) {
+  //       if (cartItem.productId === productId) {
+  //         // Stap 3: Verhoog de telling van elk ander product in hetzelfde winkelwagentje
+  //         for (const item of user.cart) {
+  //           if (item.productId !== productId) {
+  //             const count = productCounts.get(item.productId) || 0;
+  //             productCounts.set(item.productId, count + 1);
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+
+  //   // Stap 4: Sorteer de producten op basis van hun tellingen
+  //   const sortedProductCounts = [...productCounts.entries()].sort(
+  //     (a, b) => b[1] - a[1]
+  //   );
+
+  //   // Haal de topaanbevelingen op (laatste stap van de sorteerde lijst)
+  //   const recommendedProductIds = sortedProductCounts.map((entry) => entry[0]);
+
+  //   // Haal de volledige productdetails op basis van de aanbevolen product-IDs
+  //   const recommendedProducts = await this.productModel.find({
+  //     _id: { $in: recommendedProductIds },
+  //   });
+
+  //   return recommendedProducts;
+  // }
+  async generateProductRecommendations(productId: string): Promise<IProduct[]> {
+    // Gebruik de RecommendationService om aanbevelingen te genereren op basis van het productId
+    return this.recommendationService.generateRecommendations(productId);
   }
 }

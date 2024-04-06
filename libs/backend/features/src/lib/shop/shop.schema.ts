@@ -6,8 +6,7 @@ export type ShopDocument = Shop & Document;
 
 @Schema()
 export class Shop implements IShop {
-
-  id!: string;
+  _id!: string;
 
   @Prop({
     required: true,
@@ -34,7 +33,7 @@ export class Shop implements IShop {
     ref: 'User', // Reference to the User model
     required: true,
   })
-creatorID!: string;
+  creatorID!: string;
 }
 
 export const ShopSchema = SchemaFactory.createForClass(Shop);

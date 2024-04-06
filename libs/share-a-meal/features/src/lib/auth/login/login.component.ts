@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   submitted = false;
   loginError = false;
   userId: string | null = null;
+  invalidCredentials: boolean = false;
 
   loginForm: FormGroup = new FormGroup({
     email: new FormControl(null, [
@@ -82,6 +83,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       );
     } else {
       this.submitted = false;
+      this.invalidCredentials = true;
       console.error('loginForm invalid');
     }
   }

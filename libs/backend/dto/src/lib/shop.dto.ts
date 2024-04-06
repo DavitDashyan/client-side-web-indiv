@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsEmail, IsInt } from 'class-validator';
+import { IsNotEmpty, IsString, IsEmail, IsInt, IsMongoId, IsOptional } from 'class-validator';
 import {
   ICreateShop,
   IUpdateShop,
@@ -17,7 +17,9 @@ export class CreateShopDto implements ICreateShop {
 
   // @IsString()
   // @IsNotEmpty()
-  id!: Id;
+  @IsMongoId()
+  @IsOptional()
+  _id!: Id;
 
   @IsInt()
   @IsNotEmpty()
@@ -41,9 +43,9 @@ export class UpsertShopDto implements IUpsertShop {
   @IsNotEmpty()
   name!: string;
 
-  @IsString()
+  @IsMongoId()
   @IsNotEmpty()
-  id!: Id;
+  _id!: Id;
 
   @IsInt()
   @IsNotEmpty()
@@ -67,9 +69,9 @@ export class UpdateShopDto implements IUpdateShop {
   @IsNotEmpty()
   name!: string;
 
-  @IsString()
+  @IsMongoId()
   @IsNotEmpty()
-  id!: Id;
+  _id!: Id;
 
   @IsInt()
   @IsNotEmpty()

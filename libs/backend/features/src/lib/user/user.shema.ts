@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import { ICart, ICartItem, IUser } from '@avans-nx-workshop/shared/api';
+import { ICartItem, IProduct, IUser } from '@avans-nx-workshop/shared/api';
+import { IPVersion } from 'net';
 
 export type UserDocument = User & Document;
 
@@ -56,6 +57,10 @@ export class User implements IUser {
 
   @Prop({ required: false })
   cart!: ICartItem[];
+
+  @Prop({ required: false })
+  favorite!: IProduct[];
 }
+
 
 export const UserSchema = SchemaFactory.createForClass(User);

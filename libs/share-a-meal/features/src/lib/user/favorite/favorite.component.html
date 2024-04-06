@@ -1,0 +1,25 @@
+<div class="flex flex-wrap p-6">
+    <div *ngFor="let item of favoriteProducts" class="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 p-3 flex flex-col">
+        <a routerLink="/product/{{item._id}}">
+            <div
+                class="flex-shrink-0 relative overflow-hidden bg-white-1000 rounded-lg max-w-xs border-4 border-pink-500">
+                <div class="relative pt-10 px-10 flex items-center justify-center">
+                    <img class="relative w-40" src="{{item.productImageUrl}}" alt="">
+                </div>
+                <div class="relative text-black px-6 pb-6 mt-6">
+                    <span class="block opacity-75 -mb-1">{{item.condition}}</span>
+                    <div class="flex justify-between">
+                        <span class="block font-semibold text-xl">{{item.nameProduct}}</span>
+                        <span
+                            class="bg-orange-500 rounded-full text-white font-bold px-3 py-2 leading-none flex items-center">€{{item.price}}</span>
+                    </div>
+                    <div class="button-container text-center mt-3">
+                        <button type="button"
+                            class="text-white bg-red-600 hover:bg-pink-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 mt-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                            (click)="removeFromFavorites(item._id)">Verwijder</button>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

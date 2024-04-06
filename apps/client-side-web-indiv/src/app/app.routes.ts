@@ -21,6 +21,7 @@ import { DashboardComponent } from 'libs/share-a-meal/features/src/lib/dashboard
 // import { LoginComponent } from 'libs/share-a-meal/features/src/lib/login/login.component';
 // import { CommonModule } from '@angular/common';
 import { CartListComponent } from 'libs/share-a-meal/features/src/lib/product/cart-list/cart-list.component';
+import{FavoriteComponent} from 'libs/share-a-meal/features/src/lib/user/favorite/favorite.component';
 
 export const appRoutes: Route[] = [
   //overig
@@ -119,7 +120,6 @@ export const appRoutes: Route[] = [
     component: ShopEditComponent,
   },
 
-
   //cart
   {
     path: 'cart',
@@ -127,9 +127,24 @@ export const appRoutes: Route[] = [
     component: CartListComponent,
   },
 
+  //favorite
+  {
+    path: 'favorite',
+    pathMatch: 'full',
+    component: FavoriteComponent,
+  },
+
   {
     path: '**',
     pathMatch: 'full',
     component: DashboardComponent,
   },
+
+  //recommendatie, aanbevelingen
+
+  // {
+  //   path: ':id/recommendations',
+  //   pathMatch: 'full',
+  //   component: ,
+  // },
 ];

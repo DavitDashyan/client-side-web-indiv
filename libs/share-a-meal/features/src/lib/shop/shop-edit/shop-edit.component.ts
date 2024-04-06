@@ -59,7 +59,7 @@ export class ShopEditComponent implements OnInit {
       this.shopService.update(this.shop).subscribe({
         next: (updatedShop) => {
           console.log('Shop updated successfully:', updatedShop);
-          this.router.navigate(['../../shops', this.shop.id]);
+          this.router.navigate(['../../shops', this.shop._id]);
         },
         error: (error) => {
           console.error('Error updating shop:', error);
@@ -69,7 +69,7 @@ export class ShopEditComponent implements OnInit {
     }
 
     goBack(): void {
-      this.router.navigate(['../../shops', this.shop.id]);
+      this.router.navigate(['../../shops', this.shop._id]);
     }
 }
 

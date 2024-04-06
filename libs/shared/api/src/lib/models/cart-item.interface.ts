@@ -1,5 +1,3 @@
-import { ICart } from './cart.interface';
-import { IProduct } from './product.interface';
 import { Id } from './id.type';
 
 export interface ICartItem {

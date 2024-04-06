@@ -32,6 +32,7 @@ import { ProductDetailComponent } from './product/product-detail/product-detail.
 import { ShopService } from './shop/shop.service';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { CartListComponent } from './product/cart-list/cart-list.component';
+ import { FavoriteComponent } from './user/favorite/favorite.component';
 
 @NgModule({
   imports: [
@@ -58,6 +59,7 @@ import { CartListComponent } from './product/cart-list/cart-list.component';
     //  CartListComponent,
     CartListComponent,
     ShopListComponent,
+     FavoriteComponent,
 
     // SearchComponent,
     LoginComponent,
@@ -91,6 +93,7 @@ import { CartListComponent } from './product/cart-list/cart-list.component';
     // CartListComponent,
     CartListComponent,
     ShopListComponent,
+     FavoriteComponent,
 
     LoginComponent,
     RegisterComponent,

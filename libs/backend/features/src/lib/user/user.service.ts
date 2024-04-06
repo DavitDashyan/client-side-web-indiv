@@ -6,13 +6,15 @@ import { IUser } from '@avans-nx-workshop/shared/api';
 // import { Meal, MealDocument } from '@avans-nx-workshop/backend/features';
 import { CreateUserDto, UpdateUserDto } from '@avans-nx-workshop/backend/dto';
 import * as bcrypt from 'bcrypt';
+import { RecommendationService } from '../recommendation/recommendation.service';
 
 @Injectable()
 export class UserService {
   private readonly logger: Logger = new Logger(UserService.name);
 
   constructor(
-    @InjectModel(UserModel.name) private userModel: Model<UserDocument>
+    @InjectModel(UserModel.name) private userModel: Model<UserDocument>,
+    private readonly recommendationService: RecommendationService
   ) {}
 
   async getAll(): Promise<IUser[]> {
@@ -24,12 +26,11 @@ export class UserService {
   async getOne(_id: string): Promise<IUser | null> {
     this.logger.log(`finding user with id ${_id}`);
 
-    // Check if id is null
     if (_id === null || _id === 'null') {
       this.logger.debug('ID is null or "null"');
       return null;
     }
-    const item = await this.userModel.findOne({ _id: _id }).exec(); // Gebruik '_id' in plaats van 'id' in de query
+    const item = await this.userModel.findOne({ _id: _id }).exec();
     if (!item) {
       this.logger.debug('id of the item not found', _id);
       this.logger.debug('Item not found');
@@ -59,6 +60,8 @@ export class UserService {
       password: hashedPassword, // Voeg het gehashte wachtwoord toe
     });
 
+    await this.recommendationService.createOrUpdateUser(createdItem);
+
     return createdItem;
   }
   async findOne(_id: string): Promise<IUser | null> {
@@ -69,14 +72,81 @@ export class UserService {
     }
     return item;
   }
+  // async update(_id: string, user: UpdateUserDto): Promise<IUser | null> {
+  //   const userTest = await this.findOne(_id);
+  //   if (!userTest) {
+  //     this.logger.debug(`User with ID ${_id} not found`);
+  //     return null;
+  //   }
+  //   //UpdateNEO4J
+  //   this.logger.log(`Update user ${userTest.name}`);
+
+  //   // Voer de standaard update uit in MongoDB
+  //   const updatedUser = await this.userModel.findByIdAndUpdate({ _id }, user, {
+  //     new: true,
+  //   });
+
+  //   // Controleer of er producten zijn toegevoegd aan de winkelwagen
+  //   if (user.cart && user.cart.length > 0) {
+  //     // Loop door de toegevoegde producten
+  //     for (const cartItem of user.cart) {
+  //       // Voeg elk product toe aan de winkelwagen van de gebruiker in Neo4j
+  //       await this.recommendationService.addProductToUserCart(
+  //         _id,
+  //         cartItem.productId
+  //       );
+  //     }
+  //   }
+
+  //   return updatedUser;
+  // }
+
   async update(_id: string, user: UpdateUserDto): Promise<IUser | null> {
     const userTest = await this.findOne(_id);
-    if (userTest) {
-      this.logger.log(`Update user ${userTest.name}`);
+    if (!userTest) {
+      this.logger.debug(`User with ID ${_id} not found`);
+      return null;
     }
-    console.log('bday:', user.bday);
-    return this.userModel.findByIdAndUpdate({ _id }, user);
+
+    // Voer de standaard update uit in MongoDB
+    const updatedUser = await this.userModel.findByIdAndUpdate(_id, user, {
+      new: true,
+    });
+
+    // Controleer of er producten zijn toegevoegd aan de winkelwagen
+    if (user.cart && user.cart.length > 0) {
+      // Loop door de toegevoegde producten
+      for (const cartItem of user.cart) {
+        // Voeg elk product toe aan de winkelwagen van de gebruiker in Neo4j
+        await this.recommendationService.addProductToUserCart(
+          _id,
+          cartItem.productId
+        );
+      }
+    }
+
+    // Controleer of er producten zijn verwijderd uit de winkelwagen
+    if (userTest.cart && userTest.cart.length > 0) {
+      // Loop door de oorspronkelijke winkelwagen van de gebruiker
+      for (const originalCartItem of userTest.cart) {
+        // Zoek het overeenkomende product in de bijgewerkte winkelwagen
+        const updatedCartItem = user.cart.find(
+          (cartItem) => cartItem.productId === originalCartItem.productId
+        );
+
+        // Als het product niet in de bijgewerkte winkelwagen staat, verwijder het dan uit Neo4j
+        if (!updatedCartItem) {
+          await this.recommendationService.deleteProductFromUserCart(
+            _id,
+            originalCartItem.productId
+          );
+        }
+      }
+    }
+
+    return updatedUser;
   }
+
 
   async deleteUser(id: string): Promise<void> {
     this.logger.log(`Deleting user with id ${id}`);
@@ -86,6 +156,8 @@ export class UserService {
       this.logger.debug('User not found for deletion');
       throw new NotFoundException(`User with id ${id} not found`);
     }
+
+    await this.recommendationService.deleteUserNeo(id);
 
     this.logger.log(`User deleted successfully`);
   }
