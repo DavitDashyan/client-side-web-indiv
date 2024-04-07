@@ -92,6 +92,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IProduct, Conditie } from '@avans-nx-workshop/shared/api';
 import { ProductService } from '../product.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'avans-nx-workshop-product-edit',
@@ -109,10 +110,16 @@ export class ProductEditComponent implements OnInit {
     private fb: FormBuilder,
     private productService: ProductService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    if (!this.authService.currentUser$.getValue()) {
+      // Gebruiker is niet ingelogd, navigeer naar de inlogpagina
+      this.router.navigate(['/login']);
+    }
+
     // Initializeer het formulier met FormBuilder
     this.productForm = this.fb.group({
       nameProduct: ['', Validators.required],
@@ -146,9 +153,13 @@ export class ProductEditComponent implements OnInit {
     }
 
     // Update het product met de waarden uit het formulier
-    const updatedProduct: IProduct = { ...this.product, ...this.productForm.value };
+    const updatedProduct: IProduct = {
+      ...this.product,
+      ...this.productForm.value,
+    };
 
-    updatedProduct.condition = Conditie[updatedProduct.condition as keyof typeof Conditie];
+    updatedProduct.condition =
+      Conditie[updatedProduct.condition as keyof typeof Conditie];
 
     this.productService.update(updatedProduct).subscribe({
       next: () => {

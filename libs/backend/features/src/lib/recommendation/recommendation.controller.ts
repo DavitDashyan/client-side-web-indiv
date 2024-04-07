@@ -31,11 +31,6 @@ console.log('RECOMMENDATIONS CONTROLLER');
 export class RecommendationController {
   constructor(private readonly recommendationService: RecommendationService) {}
 
-  // @Get(':id')
-  // async getRecommendationsForProduct( @Param('id') productId: string): Promise<IProduct[]> {
-  //   return await this.recommendationService.generateRecommendations(productId);
-  // }
-
   @Get(':id')
   async getRecommendationsForProduct(@Param('id') _id: string): Promise<IProduct[]> {
     console.log('RECOMMENDATIONS QWERTY ', _id);

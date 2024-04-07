@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IUser } from '@avans-nx-workshop/shared/api';
 import { UserService } from '../user.service';
 import { Subscription, delay, switchMap, tap } from 'rxjs';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { initModals } from 'flowbite';
 import { AuthService } from '../../auth/auth.service';
 
@@ -19,10 +19,16 @@ export class UserEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    if (!this.authService.currentUser$.getValue()) {
+      // Gebruiker is niet ingelogd, navigeer naar de inlogpagina
+      this.router.navigate(['/login']);
+    }
+
     this.route.paramMap.subscribe((params) => {
       this.userId = params.get('id');
 

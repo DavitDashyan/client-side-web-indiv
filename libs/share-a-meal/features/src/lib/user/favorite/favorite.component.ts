@@ -23,6 +23,12 @@ export class FavoriteComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+    if (!this.authService.currentUser$.getValue()) {
+      // Gebruiker is niet ingelogd, navigeer naar de inlogpagina
+      this.router.navigate(['/login']);
+    }
+    
     this.authService.currentUser$.subscribe({
       next: (user: IUser | null) => {
         if (user) {
@@ -60,7 +66,9 @@ export class FavoriteComponent implements OnInit {
     this.userService.read(this.user._id).subscribe({
       next: (user: IUser) => {
         // Find the index of the product in the favorite list
-        const index = user.favorite?.findIndex((product) => product._id === productId);
+        const index = user.favorite?.findIndex(
+          (product) => product._id === productId
+        );
 
         if (index !== undefined && index !== -1) {
           // Remove the product from the user's favorite list

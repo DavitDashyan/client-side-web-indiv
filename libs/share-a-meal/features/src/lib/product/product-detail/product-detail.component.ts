@@ -34,6 +34,12 @@ export class ProductDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+    if (!this.authService.currentUser$.getValue()) {
+      // Gebruiker is niet ingelogd, navigeer naar de inlogpagina
+      this.router.navigate(['/login']);
+    }
+    
     this.route.paramMap.subscribe((params) => {
       const productId = params.get('id');
 

@@ -93,7 +93,7 @@ import { Component, OnInit } from '@angular/core';
 import { IShop, IUser } from '@avans-nx-workshop/shared/api';
 import { ShopService } from '../shop.service';
 import { AuthService } from '../../auth/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../user/user.service';
 
 @Component({
@@ -113,10 +113,16 @@ export class ShopDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private shopService: ShopService,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    if (!this.authService.currentUser$.getValue()) {
+      // Gebruiker is niet ingelogd, navigeer naar de inlogpagina
+      this.router.navigate(['/login']);
+    }
+
     this.route.paramMap.subscribe((params) => {
       this.shopId = params.get('id');
 

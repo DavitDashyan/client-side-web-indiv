@@ -10,6 +10,6 @@ export class AboutComponent implements OnInit {
   imagePath?: string;
   ngOnInit(): void {
     // this.imagePath = '/assets/erd2.png';
-    this.imagePath = '/assets/erdClientSideFavor.png';
+    this.imagePath = '/assets/ErdMetShop.png';
   }
 }

@@ -26,6 +26,12 @@ export class ProductNewComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit(): void {
+    
+    if (!this.authService.currentUser$.getValue()) {
+      // Gebruiker is niet ingelogd, navigeer naar de inlogpagina
+      this.router.navigate(['/login']);
+    }
+    
     // Haal de lijst met gebruikers op
     this.userService.list().subscribe((users) => {
       this.users = users?.sort((a, b) => a.name.localeCompare(b.name)) ?? [];

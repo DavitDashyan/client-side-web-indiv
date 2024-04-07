@@ -1,66 +1,73 @@
-<div class="container-fluid">
+<div class="bg-gray-100 dark:bg-gray-800 py-8">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row -mx-4">
+      <div class="md:flex-1 px-4">
+        <div class="w-[280px] h-[280px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
+          <img class="w-full h-full object-cover" src="{{ shop.shopImageUrl}}" alt="Product Image">
+        </div>
 
-  <div class="row mt-5">
-    <!-- Left Column -->
-    <div class="column-left col-12 col-lg-5 align-items-center justify-content-center">
+        <div class="flex -mx-2 mb-4">
+          <div class="w-1/2 px-2">
+            <button
+              class="w-full bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700"
+              *ngIf="showButton" routerLink="/shop/{{shop._id}}/edit">Edit</button>
+          </div>
+        </div>
+        <div class="flex -mx-2 mb-4">
+          <div class="w-1/2 px-2">
+            <div *ngIf="showButton">
+              <!-- Show the "Verwijder Schrijver" button if the confirmation dialog is not shown -->
+              <ng-container *ngIf="!showDeleteConfirmation; else confirmationDialog">
 
-      <div class="img-container text-center">
-        <img src="{{ shop.shopImageUrl }}" alt="Profile Image" class="round-image">
+                <button
+                  class="w-full bg-red-900 dark:bg-red-600 text-white py-2 px-4 rounded-full font-bold hover:bg-red-800 dark:hover:bg-red-700"
+                  (click)="showDeleteConfirmation = true">Delete</button>
+
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="button-container text-center">
+          <ng-template #confirmationDialog>
+            <div class="confirmation-dialog mt-1">
+              <p>Weet u zeker dat u deze shop wilt verwijderen?</p>
+              <button type="button" (click)="deleteShop()"
+                class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Ja
+              </button>
+              <button type="button" (click)="showDeleteConfirmation = false"
+                class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Nee
+              </button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+
+      <div class="md:flex-1 px-4">
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">{{ shop.name}}</h2>
+        <div class="flex mb-4">
+          <div>
+            <span class="font-bold text-gray-700 dark:text-gray-300">Email: </span>
+            <span class="text-gray-600 dark:text-gray-300">{{shop.email}}</span>
+          </div>
+        </div>
+        <div class="flex mb-4">
+          <div class="mr-4">
+            <span class="font-bold text-gray-700 dark:text-gray-300">Tel. Number: </span>
+            <span class="text-gray-600 dark:text-gray-300">{{ shop.telNumber}}</span>
+          </div>
+        </div>
+        <div class="flex mb-4">
+          <div>
+            <span class="font-bold text-gray-700 dark:text-gray-300">Creator Name: </span>
+            <span class="text-gray-600 dark:text-gray-300">{{creatorName}}</span>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- Right Column -->
-    <div class="column-right col-12 col-lg-7 d-flex align-items-center justify-content-center pe-5">
-
-      <div class="title-container">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <h2 class="writer-name mb-3">{{shop.name}}</h2>
-          </li>
-          <li class="list-group-item">
-            <span class="fw-bold">Email:</span>
-            <p>{{shop.email}}</p>
-          </li>
-          <li class="list-group-item">
-            <span class="fw-bold">Telefoon number:</span>
-            <p>{{shop.telNumber }}</p>
-          </li>
-          <li class="list-group-item">
-            <span class="fw-bold">Creator:</span>
-            <p>{{creatorName}}</p>
-          </li>
-        </ul>
-      </div>
-
-    </div>
-
-
-    <div class="button-container text-center">
-      <button type="button" class="btn text-center me-4" (click)="goBack()">
-        <span class="text-dark text-decoration-none">Terug</span>
-      </button>
-
-      <button type="button" class="btn text-center" *ngIf="showButton" [routerLink]="['shop/edit']">
-        Edit
-      </button>
-    </div>
-
-    <div class="button-container text-center" *ngIf="showButton">
-      <!-- Show the "Verwijder Schrijver" button if the confirmation dialog is not shown -->
-      <ng-container *ngIf="!showDeleteConfirmation; else confirmationDialog">
-        <button type="button" class="btn text-center" (click)="showDeleteConfirmation = true">
-          <a class="text-dark text-decoration-none">Delete</a>
-        </button>
-      </ng-container>
-    </div>
-
-    <!-- To display the confirmation dialog when needed -->
-    <ng-template #confirmationDialog>
-      <div class="confirmation-dialog mt-1">
-        <p>Weet u zeker dat u deze shop wilt verwijderen?</p>
-        <button type="button" (click)="deleteShop()" class="btn text-center me-3">Yes, delete</button>
-        <button type="button" (click)="showDeleteConfirmation = false" class="btn text-center">No, Cancel</button>
-      </div>
-    </ng-template>
   </div>
+  <!-- <div class="button-container text-center">
+    <button type="button" class="btn text-center me-4" (click)="goBack()">
+      <span class="text-dark text-decoration-none">Terug</span>
+    </button>
+  </div> -->
 </div>

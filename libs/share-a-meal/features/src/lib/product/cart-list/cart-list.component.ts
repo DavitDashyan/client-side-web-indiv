@@ -9,7 +9,6 @@ import { IProduct, IUser, ICartItem } from '@avans-nx-workshop/shared/api';
   selector: 'avans-nx-workshop-cart-list',
   templateUrl: 'cart-list.component.html',
   styleUrls: ['cart-list.component.css'],
-  
 })
 export class CartListComponent implements OnInit {
   user: IUser | null = null;
@@ -25,6 +24,11 @@ export class CartListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (!this.authService.currentUser$.getValue()) {
+      // Gebruiker is niet ingelogd, navigeer naar de inlogpagina
+      this.router.navigate(['/login']);
+    }
+
     this.authService.currentUser$.subscribe({
       next: (user: IUser | null) => {
         if (user) {

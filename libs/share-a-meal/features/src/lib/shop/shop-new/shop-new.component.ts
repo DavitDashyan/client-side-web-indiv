@@ -23,6 +23,11 @@ export class ShopNewComponent implements OnInit {
       ) {}
 
     ngOnInit(): void {
+      
+      if (!this.authService.currentUser$.getValue()) {
+        // Gebruiker is niet ingelogd, navigeer naar de inlogpagina
+        this.router.navigate(['/login']);
+      }
         // Retrieve user ID from AuthService
         this.authService.currentUser$.subscribe({
           next: (user: IUser | null) => {
@@ -49,7 +54,7 @@ export class ShopNewComponent implements OnInit {
       this.shopService.create(this.shop).subscribe({
         next: (createdShop) => {
           console.log('Shop created successfully:', createdShop);
-          this.router.navigate(['../../shops']);
+          this.router.navigate(['../../shop']);
         },
         error: (error) => {
           console.error('Error creating shop:', error);
@@ -58,7 +63,7 @@ export class ShopNewComponent implements OnInit {
     }
     
     goBack(): void {
-      this.router.navigate(['../../shops']);
+      this.router.navigate(['../../shop']);
     }
 }
 

@@ -80,6 +80,8 @@ export class AuthService {
         })
       );
   }
+
+  //REGISTER VOOR USER
   register(userData: IUser): Observable<IUser | null> {
     console.log(`register at ${environment.dataApiUrl}user`);
     console.log(userData);

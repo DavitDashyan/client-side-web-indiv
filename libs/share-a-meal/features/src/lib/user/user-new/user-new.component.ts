@@ -22,6 +22,10 @@ export class UserNewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (!this.authService.currentUser$.getValue()) {
+      // Gebruiker is niet ingelogd, navigeer naar de inlogpagina
+      this.router.navigate(['/login']);
+    }
     // Retrieve user ID from AuthService
     this.authService.currentUser$.subscribe({
       next: (user: IUser | null) => {

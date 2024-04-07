@@ -118,6 +118,10 @@ export class UserDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (!this.authService.currentUser$.getValue()) {
+      // Gebruiker is niet ingelogd, navigeer naar de inlogpagina
+      this.router.navigate(['/login']);
+    }
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.userId = params.get('id');
 

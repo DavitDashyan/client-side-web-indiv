@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { IProduct } from '@avans-nx-workshop/shared/api';
 import { ProductService } from '../product.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router';
 //import { CartService } from '../../cart/cart.service';
 
 @Component({
@@ -16,9 +18,18 @@ export class ProductListComponent implements OnInit, OnDestroy {
   filteredProducts: IProduct[] | null = null;
   //cartService = inject(CartService);
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    if (!this.authService.currentUser$.getValue()) {
+      // Gebruiker is niet ingelogd, navigeer naar de inlogpagina
+      this.router.navigate(['/login']);
+    }
+
     this.subscription = this.productService.list().subscribe((results) => {
       console.log(`results: ${results}`);
       //   console.log(this.products);

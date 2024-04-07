@@ -8,10 +8,12 @@ import {
   Delete,
   Put,
   Body,
+  UseGuards,
 } from '@nestjs/common';
 import { IUser } from '@avans-nx-workshop/shared/api';
 import { CreateUserDto, UpdateUserDto } from '@avans-nx-workshop/backend/dto';
 import { RecommendationService } from '../recommendation/recommendation.service';
+import { UserExistGuard } from './auth.guards';
 
 @Controller('user')
 export class UserController {
@@ -31,6 +33,8 @@ export class UserController {
     return await this.userService.getOne(_id);
   }
 
+  
+  @UseGuards(UserExistGuard)
   @Post('')
   async create(@Body() createUserDto: CreateUserDto): Promise<IUser> {
     const { ...userWithoutId } = createUserDto;
