@@ -44,8 +44,9 @@ export class UserController {
 
     const createdUser = await this.userService.create(userWithoutId);
     console.log('createdUser', createdUser);
+
     // Voeg de gebruiker toe aan Neo4j
-    await this.recommendationService.createOrUpdateUser(createdUser);
+    //await this.recommendationService.createOrUpdateUser(createdUser);
 
     return await this.userService.create(userWithoutId);
   }

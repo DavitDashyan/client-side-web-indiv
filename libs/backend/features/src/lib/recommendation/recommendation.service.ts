@@ -143,8 +143,8 @@ export class RecommendationService {
     const result = await this.neo4jService.write(
       `
       MERGE (p:Product { _id: $id })
-      ON CREATE SET p.nameProduct = $nameProduct, p.description = $description, p.price = $price, p.condition = $condition
-      ON MATCH SET p.nameProduct = $nameProduct, p.description = $description, p.price = $price, p.condition = $condition
+      ON CREATE SET p.nameProduct = $nameProduct, p.description = $description, p.price = $price, p.condition = $condition, p.productImageUrl = $productImageUrl
+      ON MATCH SET p.nameProduct = $nameProduct, p.description = $description, p.price = $price, p.condition = $condition, p.productImageUrl = $productImageUrl
       RETURN p
     `,
       {
@@ -153,6 +153,7 @@ export class RecommendationService {
         description: product.description,
         price: product.price,
         condition: product.condition,
+        productImageUrl: product.productImageUrl,
       }
     );
 

@@ -15,13 +15,13 @@ import { ProductNewComponent } from 'libs/share-a-meal/features/src/lib/product/
 import { ShopNewComponent } from 'libs/share-a-meal/features/src/lib/shop/shop-new/shop-new.component';
 import { ShopDetailComponent } from 'libs/share-a-meal/features/src/lib/shop/shop-detail/shop-detail.component';
 import { ShopEditComponent } from 'libs/share-a-meal/features/src/lib/shop/shop-edit/shop-edit.component';
-import { UserNewComponent } from 'libs/share-a-meal/features/src/lib/user/user-new/user-new.component';
+// import { UserNewComponent } from 'libs/share-a-meal/features/src/lib/user/user-new/user-new.component';
 import { DashboardComponent } from 'libs/share-a-meal/features/src/lib/dashboard/dashboard/dashboard.component';
 //import { CartListComponent } from 'libs/share-a-meal/features/src/lib/cart/cart-list/cart-list.component';
 // import { LoginComponent } from 'libs/share-a-meal/features/src/lib/login/login.component';
 // import { CommonModule } from '@angular/common';
 import { CartListComponent } from 'libs/share-a-meal/features/src/lib/product/cart-list/cart-list.component';
-import{FavoriteComponent} from 'libs/share-a-meal/features/src/lib/user/favorite/favorite.component';
+import { FavoriteComponent } from 'libs/share-a-meal/features/src/lib/user/favorite/favorite.component';
 
 export const appRoutes: Route[] = [
   //overig
@@ -50,11 +50,11 @@ export const appRoutes: Route[] = [
   },
 
   //search
-  {
-    path: 'product/search/:searchTerm',
-    pathMatch: 'full',
-    component: ProductListComponent,
-  },
+  // {
+  //   path: 'product/search/:searchTerm',
+  //   pathMatch: 'full',
+  //   component: ProductListComponent,
+  // },
 
   //users
   {
@@ -63,12 +63,16 @@ export const appRoutes: Route[] = [
     component: UserComponent,
   },
 
-  {
-    path: 'user/new',
-    pathMatch: 'full',
-    component: UserNewComponent,
-  },
-  { path: 'user/:id', pathMatch: 'full', component: UserDetailComponent },
+  // {
+  //   path: 'user/new',
+  //   pathMatch: 'full',
+  //   component: UserNewComponent,
+  // },
+
+  { path: 'user/:id',
+   pathMatch: 'full',
+    component: UserDetailComponent },
+
   {
     path: 'user/:id/edit',
     pathMatch: 'full',

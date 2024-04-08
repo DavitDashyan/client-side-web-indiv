@@ -11,16 +11,11 @@ import { Injectable } from '@angular/core';
 import { environment } from '@avans-nx-workshop/shared/util-env';
 import { HttpHeaders } from '@angular/common/http';
 
-/**
- * See https://angular.io/guide/http#requesting-data-from-a-server
- */
 export const httpOptions = {
   observe: 'body',
   responseType: 'json',
 };
 
-/**
- */
 @Injectable()
 export class ShopService {
   //endpoint = 'http://localhost:3000/api/shop';
@@ -49,10 +44,6 @@ export class ShopService {
       );
   }
 
-  /**
-   * Get a single item from the service.
-   *
-   */
   public read(_id: string | null, options?: any): Observable<IShop> {
     console.log(`read ${this.endpoint}/${_id}`);
     return this.http

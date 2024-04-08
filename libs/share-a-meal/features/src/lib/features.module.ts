@@ -17,7 +17,7 @@ import { StarRatingModule } from 'angular-star-rating';
 //import { CartListComponent } from './cart/cart-list/cart-list.component';
 import { ShopListComponent } from './shop/shop-list/shop-list.component';
 import { FormsModule } from '@angular/forms';
-//import { SearchComponent } from '../../../ui/src/lib/search/search.component'; // Zorg ervoor dat het juiste pad wordt gebruikt
+//import { SearchComponent } from '../../../ui/src/lib/search/search.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
@@ -25,14 +25,17 @@ import { AuthService } from './auth/auth.service';
 import { ShopDetailComponent } from './shop/shop-detail/shop-detail.component';
 import { ShopNewComponent } from './shop/shop-new/shop-new.component';
 import { ShopEditComponent } from './shop/shop-edit/shop-edit.component';
-import { UserNewComponent } from './user/user-new/user-new.component';
+//import { UserNewComponent } from './user/user-new/user-new.component';
 //import { NgSelectModule } from '@ng-select/ng-select';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ShopService } from './shop/shop.service';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { CartListComponent } from './product/cart-list/cart-list.component';
- import { FavoriteComponent } from './user/favorite/favorite.component';
+import { FavoriteComponent } from './user/favorite/favorite.component';
+
+// Alle nodige dingen importeren,exporteren,...
+// Angular-module die de functionaliteit van je applicatie organiseert
 
 @NgModule({
   imports: [
@@ -59,7 +62,7 @@ import { CartListComponent } from './product/cart-list/cart-list.component';
     //  CartListComponent,
     CartListComponent,
     ShopListComponent,
-     FavoriteComponent,
+    FavoriteComponent,
 
     // SearchComponent,
     LoginComponent,
@@ -68,7 +71,7 @@ import { CartListComponent } from './product/cart-list/cart-list.component';
     ShopDetailComponent,
     ShopNewComponent,
     ShopEditComponent,
-    UserNewComponent,
+   // UserNewComponent,
     UserEditComponent,
     DashboardComponent,
   ],
@@ -83,7 +86,7 @@ import { CartListComponent } from './product/cart-list/cart-list.component';
     UserComponent,
     UserDetailComponent,
     UserEditComponent,
-    UserNewComponent,
+   // UserNewComponent,
 
     ProductDetailComponent,
     ProductListComponent,
@@ -93,7 +96,7 @@ import { CartListComponent } from './product/cart-list/cart-list.component';
     // CartListComponent,
     CartListComponent,
     ShopListComponent,
-     FavoriteComponent,
+    FavoriteComponent,
 
     LoginComponent,
     RegisterComponent,

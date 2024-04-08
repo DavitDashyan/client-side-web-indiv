@@ -1,106 +1,3 @@
-<!-- <div id="flex-container">
-    <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <img class="w-full h-40 object-cover object-center" src={{product?.productImageUrl}}
-                    alt="No Image Found">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ product?.nameProduct }}</h5>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ product?.description }}</p>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ product?.price }}</p>
-        
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ product?.favorite }}</p>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ product?.condition }}</p>
-        
-
-
-
-        <a href="#" routerLink="/product/{{ product?.id }}"
-            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-">
-            Add To Cart
-            <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                fill="none" viewBox="0 0 14 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M1 5h12m0 0L9 1m4 4L9 9" />
-            </svg>
-        </a>
-
-        ᅟ
-        <a href="#" routerLink="/product/{{ product?.id }}/edit"
-            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Edit
-            <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                fill="none" viewBox="0 0 14 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M1 5h12m0 0L9 1m4 4L9 9" />
-            </svg>
-        </a>
-
-
-
-
-    </div>
-</div> -->
-
-
-<!-- <div class="container">
-  <div class="row">
-
-    <div class="column-left col-12 col-lg-3 align-items-center justify-content-center">
-
-      <div class="img-container text-center">
-        <img src="{{ product.productImageUrl }}" class="img-fluid" alt="Product Image">
-      </div>
-
-      <div class="button-container text-center mt-3" *ngIf="showButton">
-        <button type="button" class="btn text-center" routerLink="/product/{{ product._id }}/edit">Edit</button>
-        <button type="button" class="btn text-center" routerLink="/product/">Edit</button>
-      </div>
-
-
-
-      <div class="button-container text-center mt-3" *ngIf="showButton">
-
-        <ng-container *ngIf="!showDeleteConfirmation; else confirmationDialog">
-          <button type="button" class="btn text-center" (click)="showDeleteConfirmation = true">
-            <a class="text-dark text-decoration-none">Delete</a>
-          </button>
-        </ng-container>
-      </div>
-
-
-      <ng-template #confirmationDialog>
-        <div class="confirmation-dialog text-center mt-3">
-          <p>Weet u zeker dat u dit product wilt verwijderen?</p>
-          <button type="button" (click)="deleteProduct()" class="btn text-center mb-3">Ja, verwijder product</button>
-          <button type="button" (click)="showDeleteConfirmation = false" class="btn text-center">Nee, annuleer</button>
-        </div>
-      </ng-template>
-    </div>
-
-
-    <div class="column-right col-12 col-lg-9 align-items-center justify-content-center">
-      <div class="title-container">
-        <h5> {{product.nameProduct }} </h5>
-        <p class="shop"><a class="text-dark">{{product.shopId}}</a></p>
-
-        <p class="description"> {{product.description}}</p>
-
-        <p><span>Prijs: </span>{{product.price}}</p>
-        <p><span>Conditie: </span>{{product.condition}}</p>
-        <p><span>Favorite: </span>{{product.favorite}}</p>
-        <p><span>Naam winkel: </span>{{product.shopId}}</p>
-        <p><span>ID van product: </span>{{product._id}}</p>
-
-        <div class="button-container text-center mt-3">
-          <button type="button" class="btn text-center" (click)="addToCart()">Voeg toe aan winkelwagen</button>
-        </div>
-
-
-
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
 <section class="bg-white dark:bg-gray-900">
   <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
     <!-- <img class="w-full dark:hidden" class= "" src="{{ product.productImageUrl }}" alt="img"> -->
@@ -223,6 +120,28 @@
         annuleer</button>
     </div>
   </ng-template>
-
-
 </section>
+
+<div class="bg-white">
+  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <h2 class="text-2xl font-bold tracking-tight text-gray-900">Customers also purchased</h2>
+
+    <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+      <div *ngFor="let recommendation of recommendations"
+        class=" overflow-hidden rounded-2xl px-8 pb-8 max-w-sm mx-auto">
+        <div [routerLink]="['/product', recommendation._id]" class="w-48 h-auto object-fit-contain mx-auto mr-13">
+          <img src="{{ recommendation.productImageUrl }}" [alt]="recommendation.productImageUrl"
+            class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+        </div>
+        <div class="mt-4 flex justify-between">
+          <div>
+            <h3 class="text-sm text-gray-700">
+              <a> {{ recommendation.nameProduct }} </a>
+            </h3>
+          </div>
+          <p class="text-sm font-medium text-gray-900">{{ recommendation.price }} €</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

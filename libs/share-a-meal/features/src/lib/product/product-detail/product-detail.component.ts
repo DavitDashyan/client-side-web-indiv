@@ -24,6 +24,7 @@ export class ProductDetailComponent implements OnInit {
   userId: string | null = null;
   user: IUser | null = null;
   showButton: boolean | undefined;
+  recommendations: IProduct[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -33,13 +34,52 @@ export class ProductDetailComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  // ngOnInit(): void {
+  //   if (!this.authService.currentUser$.getValue()) {
+  //     // Gebruiker is niet ingelogd, navigeer naar de inlogpagina
+  //     this.router.navigate(['/login']);
+  //   }
 
+  //   this.route.paramMap.subscribe((params) => {
+  //     const productId = params.get('id');
+
+  //     this.authService.currentUser$.subscribe({
+  //       next: (user: IUser | null) => {
+  //         if (user) {
+  //           this.userId = user._id;
+  //           this.productService.read(productId).subscribe(
+  //             (result) => {
+  //               this.product = result;
+  //               this.showButton = this.isCurrentUserCreator();
+
+  //               this.userService.read(this.product.creatorID).subscribe(
+  //                 (creator: IUser) => {
+  //                   this.creatorName = creator.name;
+  //                 },
+  //                 (error) => {
+  //                   console.error('Error getting creator details:', error);
+  //                 }
+  //               );
+  //             },
+  //             (error) => {
+  //               console.error('Error getting product details:', error);
+  //             }
+  //           );
+  //         }
+  //       },
+  //       error: (error) => {
+  //         console.error('Error getting user information:', error);
+  //       },
+  //     });
+  //   });
+  // }
+
+  ngOnInit(): void {
     if (!this.authService.currentUser$.getValue()) {
       // Gebruiker is niet ingelogd, navigeer naar de inlogpagina
       this.router.navigate(['/login']);
     }
-    
+
     this.route.paramMap.subscribe((params) => {
       const productId = params.get('id');
 
@@ -47,12 +87,13 @@ export class ProductDetailComponent implements OnInit {
         next: (user: IUser | null) => {
           if (user) {
             this.userId = user._id;
+            // Haal productdetails op
             this.productService.read(productId).subscribe(
               (result) => {
                 this.product = result;
                 this.showButton = this.isCurrentUserCreator();
 
-                // Haal de naam van de maker op
+                // Haal de details op van de maker van het product
                 this.userService.read(this.product.creatorID).subscribe(
                   (creator: IUser) => {
                     this.creatorName = creator.name;
@@ -61,6 +102,21 @@ export class ProductDetailComponent implements OnInit {
                     console.error('Error getting creator details:', error);
                   }
                 );
+
+                // Haal aanbevelingen op voor het product
+                this.productService
+                  .getRecommendations(productId ?? '')
+                  .subscribe(
+                    (recommendations) => {
+                      this.recommendations = recommendations;
+                    },
+                    (error) => {
+                      console.error(
+                        'Error getting product recommendations:',
+                        error
+                      );
+                    }
+                  );
               },
               (error) => {
                 console.error('Error getting product details:', error);
@@ -102,12 +158,12 @@ export class ProductDetailComponent implements OnInit {
         }
 
         user.cart.push({
-          _id: this.product._id, // or generate a unique ID for the cart item
-          productId: this.product._id, // Assuming productId is the ID of the product
-          quantity: 1, // Assuming a default quantity of 1
-          nameProduct: this.product.nameProduct, // Assuming nameProduct is the name of the product
-          price: this.product.price, // Assuming price is the price of the product
-          productImageUrl: this.product.productImageUrl, // Assuming productImageUrl is the image URL of the product
+          _id: this.product._id,
+          productId: this.product._id,
+          quantity: 1,
+          nameProduct: this.product.nameProduct,
+          price: this.product.price,
+          productImageUrl: this.product.productImageUrl,
         });
         console.log('user.cart AA', user.cart);
         console.log('USER BDAY', user.bday);
@@ -138,15 +194,9 @@ export class ProductDetailComponent implements OnInit {
 
   addToFavorite(): void {
     if (!this.product) {
-      console.error('Product is not defined.');
+      console.error('user is not defined.');
       return;
     }
-
-    // // Controleer of de gebruiker is geladen
-    // if (!this.user) {
-    //   console.error('User is not defined.');
-    //   return;
-    // }
 
     this.userService.read(this.userId).subscribe({
       next: (user: IUser) => {

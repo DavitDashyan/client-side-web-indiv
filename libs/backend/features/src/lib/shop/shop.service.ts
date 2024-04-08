@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ICreateShop, IShop } from '@avans-nx-workshop/shared/api';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { IShop } from '@avans-nx-workshop/shared/api';
 import { Logger } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
@@ -32,7 +31,7 @@ export class ShopService {
     this.logger.log(`Create shop ${shopDto.name}`);
     this.logger.log(`ShopDtoName ${shopDto.name}`);
 
-    // Sluit _id expliciet uit
+    // Sluit _id uit
     const { _id, ...shopWithoutId } = shopDto;
 
     const createdItem = await this.shopModel.create(shopWithoutId);

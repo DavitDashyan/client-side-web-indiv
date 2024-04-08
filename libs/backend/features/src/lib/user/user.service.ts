@@ -38,15 +38,6 @@ export class UserService {
     return item;
   }
 
-  async findOneByEmail(email: string): Promise<IUser | null> {
-    this.logger.log(`Finding user by email ${email}`);
-    const item = this.userModel
-      .findOne({ emailAddress: email })
-      .select('-password')
-      .exec();
-    return item;
-  }
-
   async create(userDto: CreateUserDto): Promise<IUser> {
     this.logger.log(`Create user ${userDto.name}`);
 
@@ -72,34 +63,6 @@ export class UserService {
     }
     return item;
   }
-  // async update(_id: string, user: UpdateUserDto): Promise<IUser | null> {
-  //   const userTest = await this.findOne(_id);
-  //   if (!userTest) {
-  //     this.logger.debug(`User with ID ${_id} not found`);
-  //     return null;
-  //   }
-  //   //UpdateNEO4J
-  //   this.logger.log(`Update user ${userTest.name}`);
-
-  //   // Voer de standaard update uit in MongoDB
-  //   const updatedUser = await this.userModel.findByIdAndUpdate({ _id }, user, {
-  //     new: true,
-  //   });
-
-  //   // Controleer of er producten zijn toegevoegd aan de winkelwagen
-  //   if (user.cart && user.cart.length > 0) {
-  //     // Loop door de toegevoegde producten
-  //     for (const cartItem of user.cart) {
-  //       // Voeg elk product toe aan de winkelwagen van de gebruiker in Neo4j
-  //       await this.recommendationService.addProductToUserCart(
-  //         _id,
-  //         cartItem.productId
-  //       );
-  //     }
-  //   }
-
-  //   return updatedUser;
-  // }
 
   async update(_id: string, user: UpdateUserDto): Promise<IUser | null> {
     const userTest = await this.findOne(_id);
@@ -112,6 +75,8 @@ export class UserService {
     const updatedUser = await this.userModel.findByIdAndUpdate(_id, user, {
       new: true,
     });
+
+    await this.recommendationService.createOrUpdateUser(user);
 
     // Controleer of er producten zijn toegevoegd aan de winkelwagen
     if (user.cart && user.cart.length > 0) {
@@ -146,7 +111,6 @@ export class UserService {
 
     return updatedUser;
   }
-
 
   async deleteUser(id: string): Promise<void> {
     this.logger.log(`Deleting user with id ${id}`);

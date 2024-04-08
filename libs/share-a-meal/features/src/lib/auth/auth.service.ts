@@ -26,17 +26,15 @@ export class AuthService {
     private router: Router
   ) {
     // Check of we al een ingelogde user hebben
-    // Zo ja, check dan op de backend of het token nog valid is.
-    // Het token kan namelijk verlopen zijn. Indien verlopen
-    // retourneren we meteen een nieuw token.
     this.getUserFromLocalStorage()
       .pipe(
         // switchMap is overbodig als we validateToken() niet gebruiken...
         switchMap((user: any) => {
           if (user) {
-            const user1 = user.results;
+            const user1 = user; // const user1 = user.result; result weggehaald want was steeds undefined
+            console.log('User Result', user.result, user);
             console.log('User found in local storage', user1);
-           // console.log('UserID found in local storage', user1._id);
+            // console.log('UserID found in local storage', user1._id);
             this.currentUser$.next(user1);
             // return this.validateToken(user);
             return of(user1);
@@ -108,36 +106,6 @@ export class AuthService {
         })
       );
   }
-  
-  /**
-   * Validate het token bij de backend API. Als er geen HTTP error
-   * als response komt is het token nog valid. We doen dan verder niets.
-   * Als het token niet valid is loggen we de user uit.
-   */
-  validateToken(userData: IUser): Observable<IUser | null> {
-    const url = `${environment.dataApiUrl}/api/auth/profile`;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + userData.token,
-      }),
-    };
-
-    console.log(`validateToken at ${url}`);
-    return this.http.get<any>(url, httpOptions).pipe(
-      map((response) => {
-        console.log('token is valid');
-        return response;
-      }),
-      // catchError((error: any) => {
-      catchError(() => {
-        console.log('Validate token Failed');
-        //this.logout();
-        this.currentUser$.next(null);
-        return of(null);
-      })
-    );
-  }
 
   logout(): void {
     this.router
@@ -173,13 +141,13 @@ export class AuthService {
     localStorage.setItem(this.CURRENT_USER, JSON.stringify(user));
   }
 
-  userMayEdit(itemUserId: string): Observable<boolean> {
-    return this.currentUser$.pipe(
-      map((user: IUser | null) => (user ? user._id === itemUserId : false))
-    );
-  }
+  // userMayEdit(itemUserId: string): Observable<boolean> {
+  //   return this.currentUser$.pipe(
+  //     map((user: IUser | null) => (user ? user._id === itemUserId : false))
+  //   );
+  // }
   updateUser(user: IUser | null): void {
-    console.log('HURAAAAA update User:', user);
+    console.log('HURAAAAA User:', user);
     this.currentUser$.next(user);
   }
 }

@@ -8,6 +8,7 @@ export type ProductDocument = Product & Document;
 @Schema()
 export class Product implements IProduct {
   id!: string;
+  
   @IsMongoId()
   _id!: string;
 
@@ -43,8 +44,8 @@ export class Product implements IProduct {
 
   @Prop({
     required: true,
-    type: String, // Specificeer hier het type voor het 'condition' veld
-    enum: Object.values(Conditie), // Zorg ervoor dat het enum-type correct wordt toegepast
+    type: String, 
+    enum: Object.values(Conditie), 
   })
   condition!: Conditie;
 

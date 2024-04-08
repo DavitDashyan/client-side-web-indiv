@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           if (user) {
             console.log('Logged in');
             console.log('User logged in', user._id, this.userId, user.email);
-            this.router.navigate([`${this.userId}/dashboard`]);
+            this.router.navigate([`/dashboard`]);
           } else {
             // Inloggen mislukt
             this.loginError = true;

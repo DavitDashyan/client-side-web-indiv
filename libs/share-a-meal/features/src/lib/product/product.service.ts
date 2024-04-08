@@ -24,6 +24,7 @@ export const httpOptions = {
 export class ProductService {
   [x: string]: any;
   endpoint = `${environment.dataApiUrl}/api/product`;
+  private readonly recommendationEndpoint = `${environment.dataApiUrl}/api/recommendations`;
 
   //endpoint = ' https://demonodeapp42.azurewebsites.net/api/product';
   constructor(private readonly http: HttpClient) {}
@@ -112,5 +113,16 @@ export class ProductService {
     console.log('handleError in ProductService', error);
 
     return throwError(() => new Error(error.message));
+  }
+
+  public getRecommendations(productId: string): Observable<IProduct[]> {
+    return this.http
+      .get<ApiResponse<IProduct[]>>(
+        `${this.recommendationEndpoint}/${productId}`
+      )
+      .pipe(
+        map((response: any) => response.results as IProduct[]),
+        catchError(this.handleError)
+      );
   }
 }

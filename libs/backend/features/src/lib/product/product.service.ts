@@ -1,12 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import {
-  Conditie,
-  ICartItem,
-  ICreateProduct,
-  IProduct,
-  IUser,
-} from '@avans-nx-workshop/shared/api';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { ICartItem, IProduct, IUser } from '@avans-nx-workshop/shared/api';
 import { Logger } from '@nestjs/common';
 import { Product, ProductDocument } from './product.schema';
 import { ShopService } from '../shop/shop.service';
@@ -25,22 +18,20 @@ export class ProductService {
   // TAG = 'ProductService';
   // private product$ = new BehaviorSubject<IProduct[]>([ testdata ]);
 
+  //LOGICA VOOR PRODUCTEN en Cart
+
   private readonly logger: Logger = new Logger(ProductService.name);
 
   constructor(
     @InjectModel(ProductModel.name)
     private productModel: Model<ProductDocument>,
-    private readonly shopService: ShopService,
 
     @InjectModel(UserModel.name) private userModel: Model<UserDocument>,
     private readonly recommendationService: RecommendationService
   ) {}
 
   async getAll(): Promise<IProduct[]> {
-    this.logger.log(`Finding all items with full writer data`);
-
-    const items = await this.productModel.find().populate('shopId');
-
+    const items = await this.productModel.find().populate('shopId'); // haal ook de shopid op
     return items;
   }
 
@@ -51,6 +42,7 @@ export class ProductService {
     return await this.productModel.findOne({ _id: id }).exec();
   }
 
+  //zoeken voor de api, niet gebruikt in de ui
   async getAllProductsBySearchTerm(searchTerm: string) {
     return (await this.getAll()).filter((product) =>
       product.nameProduct.toLowerCase().includes(searchTerm.toLowerCase())
@@ -58,13 +50,13 @@ export class ProductService {
   }
 
   async createProduct(productDto: CreateProductDto): Promise<IProduct> {
-    const { _id, ...productWithoutShop } = productDto;
+    const { _id, ...product } = productDto;
 
     const productData = {
-      ...productWithoutShop,
+      ...product,
     };
 
-    const createdProduct = await this.productModel.create(productData);
+    const createdProduct = await this.productModel.create(productData); //product aanamken op basisi van de productData
 
     //in neo4j de create doen
     await this.recommendationService.createOrUpdateProduct(createdProduct);
@@ -103,94 +95,62 @@ export class ProductService {
       throw new NotFoundException(`Product with id ${id} not found`);
     }
 
+    await this.recommendationService.deleteProductNeo(id);
+
     this.logger.log(`Product deleted successfully`);
   }
 
-  async addProduct(userId: string, productId: IProduct): Promise<IUser> {
-    const user = await this.userModel.findById(userId).exec();
+  // async addProduct(userId: string, productId: IProduct): Promise<IUser> {
+  //   const user = await this.userModel.findById(userId).exec();
 
-    if (!user) {
-      throw new NotFoundException(`User with id ${userId} not found`);
-    }
-    const newProduct: ICartItem = {
-      _id: '',
-      productId: String(productId),
-      quantity: 1,
-      nameProduct: '',
-      price: 0,
-      productImageUrl: '',
-    };
-    console.log('productId newProduct:', newProduct.productId);
+  //   if (!user) {
+  //     throw new NotFoundException(`User with id ${userId} not found`);
+  //   }
+  //   const newProduct: ICartItem = {
+  //     _id: '',
+  //     productId: String(productId),
+  //     quantity: 1,
+  //     nameProduct: '',
+  //     price: 0,
+  //     productImageUrl: '',
+  //   };
+  //   console.log('productId newProduct:', newProduct.productId);
 
-    user.cart.push(newProduct);
-    console.log('user.cart QAQ:', user.cart);
-    console.log('newProduct:', newProduct);
+  //   user.cart.push(newProduct);
+  //   console.log('user.cart QAQ:', user.cart);
+  //   console.log('newProduct:', newProduct);
 
-    const updatedUser = await user.save();
+  //   const updatedUser = await user.save();
 
-    return updatedUser;
-  }
-  async removeProduct(userId: string, productId: string): Promise<IUser> {
-    const user = await this.userModel.findById(userId).exec();
+  //   return updatedUser;
+  // }
 
-    if (!user) {
-      throw new NotFoundException(`User with id ${userId} not found`);
-    }
-    const productIndex = user.cart.findIndex(
-      (product) => String(product.productId) === productId
-    );
-    if (productIndex === -1) {
-      throw new NotFoundException(
-        `Product with id ${productId} not found in user's cartLIst`
-      );
-    }
+  //uit cart verwijderen
+  // async removeProduct(userId: string, productId: string): Promise<IUser> {
+  //   const user = await this.userModel.findById(userId).exec();
 
-    //verwijderen in mongo
-    user.cart.splice(productIndex, 1);
-
-    const updatedUser = await user.save();
-    //verwijdern in neo4j
-    await this.recommendationService.deleteProductNeo(productId);
-
-    return updatedUser;
-  }
-
-  // async generateProductRecommendations(productId: string): Promise<IProduct[]> {
-  //   // Stap 1: Haal alle gebruikers op
-  //   const users = await this.userModel.find();
-
-  //   // Stap 2: Zoek in elk winkelwagentje naar het geselecteerde product
-  //   const productCounts = new Map<string, number>();
-
-  //   for (const user of users) {
-  //     for (const cartItem of user.cart) {
-  //       if (cartItem.productId === productId) {
-  //         // Stap 3: Verhoog de telling van elk ander product in hetzelfde winkelwagentje
-  //         for (const item of user.cart) {
-  //           if (item.productId !== productId) {
-  //             const count = productCounts.get(item.productId) || 0;
-  //             productCounts.set(item.productId, count + 1);
-  //           }
-  //         }
-  //       }
-  //     }
+  //   if (!user) {
+  //     throw new NotFoundException(`User with id ${userId} not found`);
+  //   }
+  //   const productIndex = user.cart.findIndex(
+  //     (product) => String(product.productId) === productId
+  //   );
+  //   if (productIndex === -1) {
+  //     throw new NotFoundException(
+  //       `Product with id ${productId} not found in user's cartLIst`
+  //     );
   //   }
 
-  //   // Stap 4: Sorteer de producten op basis van hun tellingen
-  //   const sortedProductCounts = [...productCounts.entries()].sort(
-  //     (a, b) => b[1] - a[1]
-  //   );
+  //   //verwijderen in mongo
+  //   user.cart.splice(productIndex, 1);
 
-  //   // Haal de topaanbevelingen op (laatste stap van de sorteerde lijst)
-  //   const recommendedProductIds = sortedProductCounts.map((entry) => entry[0]);
+  //   const updatedUser = await user.save();
+  //   //verwijdern in neo4j
+  //   await this.recommendationService.deleteProductNeo(productId);
 
-  //   // Haal de volledige productdetails op basis van de aanbevolen product-IDs
-  //   const recommendedProducts = await this.productModel.find({
-  //     _id: { $in: recommendedProductIds },
-  //   });
-
-  //   return recommendedProducts;
+  //   return updatedUser;
   // }
+
   async generateProductRecommendations(productId: string): Promise<IProduct[]> {
     // Gebruik de RecommendationService om aanbevelingen te genereren op basis van het productId
     return this.recommendationService.generateRecommendations(productId);
