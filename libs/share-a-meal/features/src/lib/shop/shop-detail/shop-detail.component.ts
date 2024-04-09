@@ -35,10 +35,11 @@ export class ShopDetailComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       this.shopId = params.get('id');
 
-      this.authService.currentUser$.subscribe({
+      // zelfe als product-detail.component.ts
+      this.authService.currentUser$.subscribe({  //luisteren naar de currentUser$ observable
         next: (user: IUser | null) => {
           if (user) {
-            this.userId = user._id;
+            this.userId = user._id; 
 
             this.shopService.read(this.shopId).subscribe(
               (shop: IShop) => {
@@ -85,8 +86,8 @@ export class ShopDetailComponent implements OnInit {
         next: () => {
           console.log('Shop deleted successfully');
 
-          // Sluit de dialog
           this.showDeleteConfirmation = false;
+          this.router.navigate(['/shop']);
         },
         error: (error) => {
           console.error('Error deleting shop:', error);

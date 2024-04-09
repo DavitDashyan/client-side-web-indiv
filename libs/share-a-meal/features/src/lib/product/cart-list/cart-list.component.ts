@@ -29,11 +29,11 @@ export class CartListComponent implements OnInit {
       this.router.navigate(['/login']);
     }
 
-    this.authService.currentUser$.subscribe({
+    this.authService.currentUser$.subscribe({  //subscribe to the currentUser$ observable
       next: (user: IUser | null) => {
         if (user) {
           this.user = user;
-          this.loadCartItems(user._id);
+          this.loadCartItems(user._id); //load the cart items for the user
         } else {
           console.log('No user found');
         }
@@ -45,14 +45,11 @@ export class CartListComponent implements OnInit {
   }
 
   loadCartItems(userId: string): void {
-    console.log(
-      'Loading cart items for user:',
-      userId,
-      this.userService.findOneInCartlist(userId)
-    );
+    console.log('Loading cart items for user:', userId, this.userService.findOneInCartlist(userId));
+
     this.userService.findOneInCartlist(userId).subscribe({
-      next: (userWithCartlist: IUser) => {
-        this.cartItems = userWithCartlist.cart;
+      next: (userWithCartlist: IUser) => { //data opvangen in de next-functie
+        this.cartItems = userWithCartlist.cart; //beschikbaar maken van items in de component
         this.calculateTotalPrice();
       },
       error: (error) => {
@@ -60,6 +57,7 @@ export class CartListComponent implements OnInit {
       },
     });
   }
+
   removeFromCart(productId: string): void {
     if (!this.user) {
       console.error('User is not defined.');
@@ -69,7 +67,7 @@ export class CartListComponent implements OnInit {
     // Fetch the current user from the API based on this.userId
     this.userService.read(this.user._id).subscribe({
       next: (user: IUser) => {
-        // Find the index of the first item with the specified productId
+        // Find the index of the first item with the specified productId in de lijst
         const index = user.cart.findIndex(
           (item) => item.productId === productId
         );
@@ -83,7 +81,7 @@ export class CartListComponent implements OnInit {
             next: (updatedUser: IUser) => {
               console.log('Product removed from cart:', productId);
               console.log('Updated user:', updatedUser);
-              // Optionally, you can refresh the cart items on the component
+        
               if (this.user) {
                 this.loadCartItems(this.user._id);
               }
@@ -101,6 +99,7 @@ export class CartListComponent implements OnInit {
       },
     });
   }
+
   calculateTotalPrice(): void {
     this.totalPrice = this.cartItems.reduce((acc, item) => acc + item.price, 0);
   }

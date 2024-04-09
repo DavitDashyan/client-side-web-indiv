@@ -26,11 +26,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (!this.authService.currentUser$.getValue()) {
-      // Gebruiker is niet ingelogd, navigeer naar de inlogpagina
       this.router.navigate(['/login']);
     }
 
-    this.subscription = this.productService.list().subscribe((results) => {
+    this.subscription = this.productService.list().subscribe((results) => { //subscribe to the list() observable, haal de producten op
       console.log(`results: ${results}`);
       //   console.log(this.products);
       this.products = results;

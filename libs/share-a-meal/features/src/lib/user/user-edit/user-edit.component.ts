@@ -29,12 +29,12 @@ export class UserEditComponent implements OnInit {
       this.router.navigate(['/login']);
     }
 
-    this.route.paramMap.subscribe((params) => {
-      this.userId = params.get('id');
+    this.route.paramMap.subscribe((params) => { //luisteren naar de paramMap observable
+      this.userId = params.get('id'); // haal de id op
 
       // Bestaande user
       this.userService
-        .read(this.userId)
+        .read(this.userId) // gegegevens ophalen
         .subscribe((observable) => (this.user = observable));
     });
 
@@ -64,7 +64,7 @@ export class UserEditComponent implements OnInit {
     this.userService.update(this.user).subscribe({
       next: (updatedUser) => {
         console.log('User updated successfully:', updatedUser);
-        window.history.back();
+        window.history.back(); // terug naar vorige pagina
       },
       error: (error) => {
         console.error('Error updating user:', error);

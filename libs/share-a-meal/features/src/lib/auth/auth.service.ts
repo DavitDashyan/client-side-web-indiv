@@ -51,29 +51,30 @@ export class AuthService {
     return this.currentUser$.asObservable();
   }
 
+  //LOGIN VOOR USER
   login(email: string, password: string): Observable<IUser | null> {
     console.log(`login at ${environment.dataApiUrl}/api/user/login`);
 
     return this.http
+    //posten naar de api/user/login endpoint in backend met email en ww
       .post<{ results: IUser }>(
         `${environment.dataApiUrl}/api/user/login`,
         { email: email, password: password },
         { headers: this.headers }
       )
       .pipe(
-        map((response) => {
+        map((response) => { //transformatie van data
           const user = response.results;
           user && user._id && this.updateUser({ ...user, _id: user._id });
           this.saveUserToLocalStorage(user);
-          this.currentUser$.next(user);
-          //this.alertService.success('You have been logged in');
+          this.currentUser$.next(user); //user sturen naar de obeservabels, subscribties krijgen de user
           return user;
         }),
         catchError((error: any) => {
           console.log('error:', error);
           console.log('error.message:', error.message);
           console.log('error.error.message:', error.error.message);
-          //this.alertService.error(error.error.message || error.message);
+
           return of(null);
         })
       );
@@ -91,17 +92,15 @@ export class AuthService {
         map((user) => {
           // const user = new User(response);
           console.dir(user);
-          // Deze regel moet worden verwijderd, zodat de gebruiker niet automatisch wordt ingelogd
           // this.saveUserToLocalStorage(user);
           // this.currentUser$.next(user);
-          //this.alertService.success('You have been registered');
           return user;
         }),
         catchError((error: any) => {
           console.log('error:', error);
           console.log('error.message:', error.message);
           console.log('error.error.message:', error.error.message);
-          //this.alertService.error(error.error.message || error.message);
+
           return of(null);
         })
       );
@@ -111,13 +110,12 @@ export class AuthService {
     this.router
       .navigate(['/'])
       .then((success) => {
-        // true when canDeactivate allows us to leave the page.
         if (success) {
           console.log('logout - removing local user info');
           console.log('logout user:', this.currentUser$.getValue());
+
           localStorage.removeItem(this.CURRENT_USER);
           this.currentUser$.next(null);
-          //  this.alertService.success('You have been logged out.');
         } else {
           console.log('navigate result:', success);
         }
@@ -130,7 +128,7 @@ export class AuthService {
     if (itemFromStorage === null) {
       return of(null);
     } else {
-      const localUser = JSON.parse(itemFromStorage);
+      const localUser = JSON.parse(itemFromStorage);  //parse van string naar object, JSON->javascript object
       console.log('getUserFromLocalStorage:', localUser);
       return of(localUser);
     }
@@ -138,14 +136,9 @@ export class AuthService {
 
   private saveUserToLocalStorage(user: IUser): void {
     console.log('saveUserToLocalStorage:', user);
-    localStorage.setItem(this.CURRENT_USER, JSON.stringify(user));
+    localStorage.setItem(this.CURRENT_USER, JSON.stringify(user)); //opslaan in debrowser, naar javascript object dan opslaan met de key CURRENT_USER
   }
 
-  // userMayEdit(itemUserId: string): Observable<boolean> {
-  //   return this.currentUser$.pipe(
-  //     map((user: IUser | null) => (user ? user._id === itemUserId : false))
-  //   );
-  // }
   updateUser(user: IUser | null): void {
     console.log('HURAAAAA User:', user);
     this.currentUser$.next(user);

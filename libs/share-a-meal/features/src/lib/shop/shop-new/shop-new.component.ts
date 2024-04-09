@@ -48,7 +48,7 @@ export class ShopNewComponent implements OnInit {
         return;
       }
     
-      // Zet de creatorID (userID) in het schrijver object
+      // Zet de creatorID = (userID) 
       this.shop.creatorID = this.userId;
     
       this.shopService.create(this.shop).subscribe({

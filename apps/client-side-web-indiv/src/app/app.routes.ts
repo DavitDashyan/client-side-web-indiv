@@ -1,7 +1,5 @@
 import { Route } from '@angular/router';
 import { AboutComponent } from 'libs/share-a-meal/features/src/lib/about/about.component';
-//import { MealDetailComponent } from 'libs/share-a-meal/features/src/lib/meal/meal-detail/meal-detail.component';
-//import { MealListComponent } from 'libs/share-a-meal/features/src/lib/meal/meal-list/meal-list.component';
 import { UserComponent } from 'libs/share-a-meal/features/src/lib/user/user-list/user.component';
 import { UserEditComponent } from 'libs/share-a-meal/features/src/lib/user/user-edit/user-edit.component';
 import { UserDetailComponent } from 'libs/share-a-meal/features/src/lib/user/user-detail/user-detail.component';
@@ -15,16 +13,11 @@ import { ProductNewComponent } from 'libs/share-a-meal/features/src/lib/product/
 import { ShopNewComponent } from 'libs/share-a-meal/features/src/lib/shop/shop-new/shop-new.component';
 import { ShopDetailComponent } from 'libs/share-a-meal/features/src/lib/shop/shop-detail/shop-detail.component';
 import { ShopEditComponent } from 'libs/share-a-meal/features/src/lib/shop/shop-edit/shop-edit.component';
-// import { UserNewComponent } from 'libs/share-a-meal/features/src/lib/user/user-new/user-new.component';
 import { DashboardComponent } from 'libs/share-a-meal/features/src/lib/dashboard/dashboard/dashboard.component';
-//import { CartListComponent } from 'libs/share-a-meal/features/src/lib/cart/cart-list/cart-list.component';
-// import { LoginComponent } from 'libs/share-a-meal/features/src/lib/login/login.component';
-// import { CommonModule } from '@angular/common';
 import { CartListComponent } from 'libs/share-a-meal/features/src/lib/product/cart-list/cart-list.component';
 import { FavoriteComponent } from 'libs/share-a-meal/features/src/lib/user/favorite/favorite.component';
 
 export const appRoutes: Route[] = [
-  //overig
   {
     path: '',
     redirectTo: 'dashboard',
@@ -48,13 +41,6 @@ export const appRoutes: Route[] = [
     pathMatch: 'full',
     component: RegisterComponent,
   },
-
-  //search
-  // {
-  //   path: 'product/search/:searchTerm',
-  //   pathMatch: 'full',
-  //   component: ProductListComponent,
-  // },
 
   //users
   {

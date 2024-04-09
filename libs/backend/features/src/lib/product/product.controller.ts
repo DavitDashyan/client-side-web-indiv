@@ -9,7 +9,7 @@ import { UpdateProductDto } from '@avans-nx-workshop/backend/dto';
 export class ProductController {
   constructor(private productService: ProductService) {}
 
-  //allee endpoints voor producten-API
+  //alle endpoints voor producten-API
 
   @Get('')
   async getAll(): Promise<IProduct[]> {
@@ -54,23 +54,6 @@ export class ProductController {
   async delete(@Param('id') id: string): Promise<void> {
     await this.productService.deleteProduct(id);
   }
-
-  // @Post('/:productId/:userId/cartList')
-  // async addCartlist(
-  //   @Param('userId') userId: string,
-  //   @Body() { productId }: { productId: IProduct }
-  // ): Promise<void> {
-  //   const productID: IProduct = productId;
-  //   await this.productService.addProduct(userId, productID);
-  // }
-
-  // @Delete('/:productId/:userId/cartList')
-  // async removeProduct(
-  //   @Param('productId') boekId: string,
-  //   @Param('userId') userId: string
-  // ): Promise<void> {
-  //   await this.productService.removeProduct(userId, boekId);
-  // }
 
   @Get(':id/recommendations')
   async getRecommendations(@Param('id') productId: string) {

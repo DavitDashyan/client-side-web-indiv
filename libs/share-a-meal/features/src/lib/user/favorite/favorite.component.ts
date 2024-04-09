@@ -29,7 +29,7 @@ export class FavoriteComponent implements OnInit {
       this.router.navigate(['/login']);
     }
     
-    this.authService.currentUser$.subscribe({
+    this.authService.currentUser$.subscribe({ // luisteren naar de user uit de authService
       next: (user: IUser | null) => {
         if (user) {
           this.user = user;
@@ -46,9 +46,10 @@ export class FavoriteComponent implements OnInit {
 
   loadFavoriteProducts(userId: string): void {
     console.log('Loading favorite products for user:', userId);
-    this.userService.read(userId).subscribe({
+
+    this.userService.read(userId).subscribe({ // read met id van de user
       next: (user: IUser) => {
-        this.favoriteProducts = user.favorite || [];
+        this.favoriteProducts = user.favorite || []; // als er geen favorieten zijn, dan lege array
       },
       error: (error) => {
         console.error('Error loading favorite products:', error);
@@ -79,7 +80,7 @@ export class FavoriteComponent implements OnInit {
             next: (updatedUser: IUser) => {
               console.log('Product removed from favorites:', productId);
               console.log('Updated user:', updatedUser);
-              // Optionally, you can refresh the favorite products list on the component
+             
               if (this.user) {
                 this.loadFavoriteProducts(this.user._id);
               }

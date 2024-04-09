@@ -44,7 +44,6 @@ export class ProductNewComponent implements OnInit {
         console.log('User ID:', this.userId);
       } else {
         console.error('No user logged in.');
-        // Je kunt ervoor kiezen om hier verdere acties te ondernemen, bijvoorbeeld om de gebruiker naar de inlogpagina te leiden
       }
     });
   }
@@ -57,6 +56,7 @@ export class ProductNewComponent implements OnInit {
     }
 
     // Stel "favorite" standaard in op false als er geen waarde is geselecteerd
+    // ik gebruik dit niet meer, heb het vervangen door een lijst !
     if (!this.product.favorite) {
       console.log('favorite', this.product.favorite);
       this.product.favorite = false;

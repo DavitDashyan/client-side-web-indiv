@@ -33,6 +33,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private router: Router,
   ) {}
 
+  // component aamaken
   ngOnInit(): void {
     this.registerForm = new FormGroup({
       name: new FormControl(null, [Validators.required]),
@@ -58,10 +59,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     if (this.registerForm!.valid) {
       console.log('Form is valid', this.registerForm!.value);
+
+      // user aanmaken met de lege cart en favorite lijst.
       const user: IUser = this.registerForm!.value;
       user.cart = [];
       user.favorite = []; //FAVORITE = [] QWERTY
-      this.authService.register(user).subscribe({
+      // user sturen naar register functie in authservice.ts
+      this.authService.register(user).subscribe({ //subscrib eom te luisteren naar de response van register
         next: (newUser) => {
           console.log('User created:', newUser);
           console.log('User created:', newUser?.email);

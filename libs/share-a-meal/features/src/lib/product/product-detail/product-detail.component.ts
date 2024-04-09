@@ -34,47 +34,7 @@ export class ProductDetailComponent implements OnInit {
     private router: Router
   ) {}
 
-  // ngOnInit(): void {
-  //   if (!this.authService.currentUser$.getValue()) {
-  //     // Gebruiker is niet ingelogd, navigeer naar de inlogpagina
-  //     this.router.navigate(['/login']);
-  //   }
-
-  //   this.route.paramMap.subscribe((params) => {
-  //     const productId = params.get('id');
-
-  //     this.authService.currentUser$.subscribe({
-  //       next: (user: IUser | null) => {
-  //         if (user) {
-  //           this.userId = user._id;
-  //           this.productService.read(productId).subscribe(
-  //             (result) => {
-  //               this.product = result;
-  //               this.showButton = this.isCurrentUserCreator();
-
-  //               this.userService.read(this.product.creatorID).subscribe(
-  //                 (creator: IUser) => {
-  //                   this.creatorName = creator.name;
-  //                 },
-  //                 (error) => {
-  //                   console.error('Error getting creator details:', error);
-  //                 }
-  //               );
-  //             },
-  //             (error) => {
-  //               console.error('Error getting product details:', error);
-  //             }
-  //           );
-  //         }
-  //       },
-  //       error: (error) => {
-  //         console.error('Error getting user information:', error);
-  //       },
-  //     });
-  //   });
-  // }
-
-  ngOnInit(): void {
+   ngOnInit(): void {
     if (!this.authService.currentUser$.getValue()) {
       // Gebruiker is niet ingelogd, navigeer naar de inlogpagina
       this.router.navigate(['/login']);
@@ -91,7 +51,7 @@ export class ProductDetailComponent implements OnInit {
             this.productService.read(productId).subscribe(
               (result) => {
                 this.product = result;
-                this.showButton = this.isCurrentUserCreator();
+                this.showButton = this.isCurrentUserCreator(); // true of false
 
                 // Haal de details op van de maker van het product
                 this.userService.read(this.product.creatorID).subscribe(
@@ -142,21 +102,17 @@ export class ProductDetailComponent implements OnInit {
     }
 
     // Fetch the current user from the API based on this.userId
-    this.userService.read(this.userId).subscribe({
+    this.userService.read(this.userId).subscribe({ //user ophalen via de id
       next: (user: IUser) => {
-        // Initialize cart property if it doesn't exist
-        // if (!user.cart) {
-        //   user.cart = [];
-        // }
         console.log('user.cart BB', user, user._id);
-
         console.log('user.bday before', user.bday);
-        // Add the product to the user's cart
         console.log('Product._Id', this.product._id);
+
         if (typeof user.bday === 'string') {
           user.bday = new Date(user.bday);
         }
 
+        //de cart updaten
         user.cart.push({
           _id: this.product._id,
           productId: this.product._id,
@@ -168,12 +124,11 @@ export class ProductDetailComponent implements OnInit {
         console.log('user.cart AA', user.cart);
         console.log('USER BDAY', user.bday);
 
-        // Update the user's cart in the backend
+        // Update the user's cart in the backend, opslaan de user in de backend
         this.userService.update(user).subscribe({
           next: (updatedUser: IUser) => {
             console.log('Product added to cart:', this.product);
             console.log('Updated user:', updatedUser);
-            // Optionally, you can redirect the user to the cart page
             // this.router.navigate([`${this.userId}/cart`]);
           },
           error: (error) => {
@@ -200,15 +155,11 @@ export class ProductDetailComponent implements OnInit {
 
     this.userService.read(this.userId).subscribe({
       next: (user: IUser) => {
-        // Initialize cart property if it doesn't exist
-        // if (!user.cart) {
-        //   user.cart = [];
-        // }
-        console.log('user.cart BB', user, user._id);
 
+        console.log('user.cart BB', user, user._id);
         console.log('user.bday before', user.bday);
-        // Add the product to the user's cart
         console.log('Product._Id', this.product._id);
+        
         if (typeof user.bday === 'string') {
           user.bday = new Date(user.bday);
         }
@@ -229,7 +180,6 @@ export class ProductDetailComponent implements OnInit {
           next: (updatedUser: IUser) => {
             console.log('Product added to favorites:', this.product);
             console.log('Updated user:', updatedUser);
-            // Optioneel: vernieuw de lijst met favoriete producten in de component
           },
           error: (error) => {
             console.error(

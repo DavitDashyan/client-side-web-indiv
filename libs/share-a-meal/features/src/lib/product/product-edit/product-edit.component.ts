@@ -58,7 +58,7 @@ export class ProductEditComponent implements OnInit {
 
   // Methode om het product bij te werken
   updateProduct() {
-    // Als het formulier niet geldig is, stoppen we hier
+    // formulier niet geldig?
     if (this.productForm.invalid) {
       return;
     }
@@ -70,7 +70,7 @@ export class ProductEditComponent implements OnInit {
     };
 
     updatedProduct.condition =
-      Conditie[updatedProduct.condition as keyof typeof Conditie];
+      Conditie[updatedProduct.condition as keyof typeof Conditie]; // Conditie enum overeenkomt
 
     this.productService.update(updatedProduct).subscribe({
       next: () => {
@@ -84,7 +84,6 @@ export class ProductEditComponent implements OnInit {
     });
   }
 
-  // Methode om terug te gaan naar de productdetails zonder op te slaan
   goBack(): void {
     this.router.navigate(['../../product', this.productId]);
   }

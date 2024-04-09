@@ -27,6 +27,7 @@ export class UserDetailComponent implements OnInit {
       // Gebruiker is niet ingelogd, navigeer naar de inlogpagina
       this.router.navigate(['/login']);
     }
+
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.userId = params.get('id');
 
@@ -52,7 +53,7 @@ export class UserDetailComponent implements OnInit {
   // Methode om te controleren of de huidige gebruiker dezelfde is als de gebruiker wiens gegevens worden bekeken
   private checkIsCurrentUser(): void {
     if (this.userId && this.user) {
-      this.isCurrentUser = this.userId === this.user._id;
+      this.isCurrentUser = this.userId === this.user._id;  // boolean
     }
   }
 

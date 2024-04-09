@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup = new FormGroup({
     email: new FormControl(null, [
       Validators.required,
+      //this voor asynchrone task, this vast leggen in de validEmail
       this.validEmail.bind(this),
     ]),
     password: new FormControl(null, [
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subs = this.authService
       .getUserFromLocalStorage()
+      //als er een user is, ga naar dashboard
       .subscribe((user: IUser | null) => {
         if (user) {
           console.log('User already logged in > to dashboard', user.email);
@@ -43,6 +45,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService.currentUser$.subscribe({
       next: (user: IUser | null) => {
         if (user) {
+          //_id van user opslaan in userId
           this.userId = user._id;
         }
       },
@@ -58,13 +61,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
+  // bij formulier verzenden
   onSubmit(): void {
+    //form goed ?
     if (this.loginForm.valid) {
       this.submitted = true;
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
       this.authService.login(email, password).subscribe(
         (user: IUser | null) => {
+          //inloggen en sturen naar dashboard
           if (user) {
             console.log('Logged in');
             console.log('User logged in', user._id, this.userId, user.email);

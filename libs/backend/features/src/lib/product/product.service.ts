@@ -56,7 +56,7 @@ export class ProductService {
       ...product,
     };
 
-    const createdProduct = await this.productModel.create(productData); //product aanamken op basisi van de productData
+    const createdProduct = await this.productModel.create(productData); //product aanamken op basis van de productData
 
     //in neo4j de create doen
     await this.recommendationService.createOrUpdateProduct(createdProduct);
@@ -99,57 +99,6 @@ export class ProductService {
 
     this.logger.log(`Product deleted successfully`);
   }
-
-  // async addProduct(userId: string, productId: IProduct): Promise<IUser> {
-  //   const user = await this.userModel.findById(userId).exec();
-
-  //   if (!user) {
-  //     throw new NotFoundException(`User with id ${userId} not found`);
-  //   }
-  //   const newProduct: ICartItem = {
-  //     _id: '',
-  //     productId: String(productId),
-  //     quantity: 1,
-  //     nameProduct: '',
-  //     price: 0,
-  //     productImageUrl: '',
-  //   };
-  //   console.log('productId newProduct:', newProduct.productId);
-
-  //   user.cart.push(newProduct);
-  //   console.log('user.cart QAQ:', user.cart);
-  //   console.log('newProduct:', newProduct);
-
-  //   const updatedUser = await user.save();
-
-  //   return updatedUser;
-  // }
-
-  //uit cart verwijderen
-  // async removeProduct(userId: string, productId: string): Promise<IUser> {
-  //   const user = await this.userModel.findById(userId).exec();
-
-  //   if (!user) {
-  //     throw new NotFoundException(`User with id ${userId} not found`);
-  //   }
-  //   const productIndex = user.cart.findIndex(
-  //     (product) => String(product.productId) === productId
-  //   );
-  //   if (productIndex === -1) {
-  //     throw new NotFoundException(
-  //       `Product with id ${productId} not found in user's cartLIst`
-  //     );
-  //   }
-
-  //   //verwijderen in mongo
-  //   user.cart.splice(productIndex, 1);
-
-  //   const updatedUser = await user.save();
-  //   //verwijdern in neo4j
-  //   await this.recommendationService.deleteProductNeo(productId);
-
-  //   return updatedUser;
-  // }
 
   async generateProductRecommendations(productId: string): Promise<IProduct[]> {
     // Gebruik de RecommendationService om aanbevelingen te genereren op basis van het productId

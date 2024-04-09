@@ -16,10 +16,6 @@ import {
   IShop,
 } from '@avans-nx-workshop/shared/api';
 
-/**
- * Use the `Pick` utility type to extract only the properties we want for
- * new to-do items
- */
 export class CreateProductDto implements ICreateProduct {
   @IsString()
   @IsNotEmpty()

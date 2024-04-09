@@ -30,30 +30,34 @@ export class UserService {
   ) {}
 
   public list(options?: any): Observable<IUser[] | null> {
+    //lijst van users
     console.log(`list ${this.endpoint}`);
 
     return this.http
       .get<ApiResponse<IUser[]>>(this.endpoint, {
+        //get request naar de endpoint
         ...options,
         ...httpOptions,
       })
       .pipe(
-        map((response: any) => response.results as IUser[]),
+        map((response: any) => response.results as IUser[]), // map de response naar een array van users
         tap(console.log),
         catchError(this.handleError)
       );
   }
 
   public read(id: string | null, options?: any): Observable<IUser> {
-    console.log(`read user id ${this.endpoint}/${id}`); // Log de URL van het verzoek
+    console.log(`read user id ${this.endpoint}/${id}`);
+
     return this.http
       .get<ApiResponse<IUser>>(`${this.endpoint}/${id}`, {
+        //get request naar de endpoint met het id
         ...options,
         ...httpOptions,
       })
       .pipe(
         tap((response) => console.log('Received user data:', response)), // Log de ontvangen gebruikersgegevens
-        map((response: any) => response.results as IUser),
+        map((response: any) => response.results as IUser), // map de response naar een user
         catchError(this.handleError)
       );
   }
@@ -68,10 +72,10 @@ export class UserService {
     };
 
     return this.http
-      .post<ApiResponse<IUser>>(this.endpoint, user, httpOptions)
+      .post<ApiResponse<IUser>>(this.endpoint, user, httpOptions) // post request naar de endpoint met de user
       .pipe(
         tap(console.log),
-        map((response: any) => response.results as IUser),
+        map((response: any) => response.results as IUser), // map de response naar een user
         catchError(this.handleError)
       );
   }
@@ -83,7 +87,7 @@ export class UserService {
 
     console.log(`update userCC ${this.endpoint}/${user._id}`);
     return this.http
-      .put<ApiResponse<IUser>>(`${this.endpoint}/${user._id}`, user)
+      .put<ApiResponse<IUser>>(`${this.endpoint}/${user._id}`, user) // put request naar de endpoint met de user
       .pipe(
         tap(console.log),
         catchError((error) => {
@@ -96,24 +100,24 @@ export class UserService {
   public delete(user: IUser): Observable<IUser> {
     console.log(`delete ${this.endpoint}/${user._id}`);
     return this.http
-      .delete<ApiResponse<IUser>>(`${this.endpoint}/${user._id}`)
+      .delete<ApiResponse<IUser>>(`${this.endpoint}/${user._id}`) // delete request naar de endpoint met id
       .pipe(tap(console.log), catchError(this.handleError));
   }
 
   public findOneInCartlist(_id: string | null): Observable<IUser> {
     console.log(`findOneInCartlist ${this.endpoint}/${_id}`);
-    return this.http.get<ApiResponse<IUser>>(`${this.endpoint}/${_id}`).pipe(
+
+    return this.http.get<ApiResponse<IUser>>(`${this.endpoint}/${_id}`).pipe( //get request naar de endpoint met id
       tap(console.log),
       map((response: any) => {
         console.log('response:', response);
-        const userWithCartlist: IUser = response.results as IUser;
 
-        // Assuming there's a cartList property in IUser
-        userWithCartlist.cart = userWithCartlist.cart.map((cartItem: any) => {
+        const userWithCartlist: IUser = response.results as IUser; // response toewijzen
+
+        userWithCartlist.cart = userWithCartlist.cart.map((cartItem: any) => { // door elke item in de cart loopen
           return {
-            ...cartItem,
-            // Assuming each cart item has a productId property
-            productId: cartItem.productId?._id || '', // or whatever your product ID property is
+            ...cartItem, // alle cartItems eigenschappen kopieren naar nieuw object
+            productId: cartItem.productId?._id || '', // productId toewijzen
           };
         });
 
@@ -122,7 +126,6 @@ export class UserService {
       catchError(this.handleError)
     );
   }
-
 
   public handleError(error: HttpErrorResponse): Observable<any> {
     console.log('handleError in UserService', error);

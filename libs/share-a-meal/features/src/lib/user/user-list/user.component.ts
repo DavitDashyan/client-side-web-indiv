@@ -26,13 +26,13 @@ export class UserComponent implements OnInit, OnDestroy {
       this.router.navigate(['/login']);
     }
 
-    this.subscription = this.userService.list().subscribe((results) => {
+    this.subscription = this.userService.list().subscribe((results) => { //subscribe to the list() observable, haal de users op
       console.log(`results: ${results}`);
       this.users = results;
     });
   }
 
   ngOnDestroy(): void {
-    if (this.subscription) this.subscription.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe(); //unsubscribe from the observable 
   }
 }

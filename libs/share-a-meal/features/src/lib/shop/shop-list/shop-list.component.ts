@@ -27,7 +27,7 @@ export class ShopListComponent implements OnInit, OnDestroy {
       this.router.navigate(['/login']);
     }
 
-      this.subscription = this.shopService.list().subscribe((results) => {
+      this.subscription = this.shopService.list().subscribe((results) => { //subscribe to the list() observable, haal de shop op
           console.log(`results: ${results}`);
           this.shops = results;
       });
