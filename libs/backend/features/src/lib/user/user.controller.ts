@@ -34,7 +34,7 @@ export class UserController {
   }
 
   
-  @UseGuards(UserExistGuard)
+  @UseGuards(UserExistGuard) // gebruiker bestaat al? zo niet, dan kan de gebruiker worden aangemaakt
   @Post('')
   async create(@Body() createUserDto: CreateUserDto): Promise<IUser> {
     const { ...userWithoutId } = createUserDto;

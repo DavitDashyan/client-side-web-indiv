@@ -45,12 +45,13 @@ export class ProductService {
   //zoeken voor de api, niet gebruikt in de ui
   async getAllProductsBySearchTerm(searchTerm: string) {
     return (await this.getAll()).filter((product) =>
-      product.nameProduct.toLowerCase().includes(searchTerm.toLowerCase())
+      product.nameProduct.toLowerCase().includes(searchTerm.toLowerCase()) //filteren op basis van de naam van het product
     );
   }
 
   async createProduct(productDto: CreateProductDto): Promise<IProduct> {
-    const { _id, ...product } = productDto;
+     // Sluit _id uit
+    const { _id, ...product } = productDto; 
 
     const productData = {
       ...product,

@@ -9,6 +9,8 @@ import { Shop, ShopSchema } from '../shop/shop.schema';
 import { User, UserSchema } from '../user/user.shema';
 import { RecommendationService } from '../recommendation/recommendation.service';
 
+//represents a collection in the MongoDB database, and it allows us to perform CRUD operations on the data
+
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -22,3 +24,6 @@ import { RecommendationService } from '../recommendation/recommendation.service'
   exports: [ProductService],
 })
 export class ProductModule {}
+
+// doos waar je alles wat bij elkaar hoort voor een specifiek stuk van je app in stopt,
+// zoals alle spullen voor de 'product' pagina. Zo'n doos maakt je app netjes en georganiseerd.

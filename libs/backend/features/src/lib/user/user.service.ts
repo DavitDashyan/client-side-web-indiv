@@ -43,7 +43,7 @@ export class UserService {
 
     const { _id, ...userWithoutId } = userDto;
 
-    // wachtwoord hasken
+    // wachtwoord hashen
     const hashedPassword = await bcrypt.hash(userDto.password, 10);
 
     const createdItem = await this.userModel.create({
@@ -55,27 +55,32 @@ export class UserService {
 
     return createdItem;
   }
+
   async findOne(_id: string): Promise<IUser | null> {
     this.logger.log(`finding user with id ${_id}`);
+
     const item = await this.userModel.findOne({ _id }).exec();
     if (!item) {
       this.logger.debug('Item not found');
     }
+
     return item;
   }
 
   async update(_id: string, user: UpdateUserDto): Promise<IUser | null> {
     const userTest = await this.findOne(_id);
+
     if (!userTest) {
       this.logger.debug(`User with ID ${_id} not found`);
       return null;
     }
 
-    // Voer de standaard update uit in MongoDB
+    // Voer de update uit in MongoDB
     const updatedUser = await this.userModel.findByIdAndUpdate(_id, user, {
       new: true,
     });
 
+    //in neo4j de update doen
     await this.recommendationService.createOrUpdateUser(user);
 
     // Controleer of er producten zijn toegevoegd aan de winkelwagen
@@ -114,6 +119,8 @@ export class UserService {
 
   async deleteUser(id: string): Promise<void> {
     this.logger.log(`Deleting user with id ${id}`);
+
+    // Zoek de gebruiker op basis van het ID en verwijder deze
     const deletedItem = await this.userModel.findByIdAndDelete(id).exec();
 
     if (!deletedItem) {
@@ -121,6 +128,7 @@ export class UserService {
       throw new NotFoundException(`User with id ${id} not found`);
     }
 
+    // delete in neo
     await this.recommendationService.deleteUserNeo(id);
 
     this.logger.log(`User deleted successfully`);

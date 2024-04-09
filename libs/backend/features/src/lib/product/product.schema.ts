@@ -4,7 +4,7 @@ import { Conditie, IProduct, IShop } from '@avans-nx-workshop/shared/api';
 import { IsMongoId } from 'class-validator';
 
 export type ProductDocument = Product & Document;
-
+//database schema
 @Schema()
 export class Product implements IProduct {
   id!: string;

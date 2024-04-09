@@ -11,6 +11,8 @@ import { ShopService } from './shop.service';
 import { IShop } from '@avans-nx-workshop/shared/api';
 import { CreateShopDto, UpdateShopDto } from '@avans-nx-workshop/backend/dto';
 
+//ontvangen alle HTTP verzoeken en sturen van response
+
 @Controller('shop')
 export class ShopController {
   constructor(private shopService: ShopService) {}

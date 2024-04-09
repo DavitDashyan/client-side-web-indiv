@@ -10,10 +10,11 @@ export class ProductController {
   constructor(private productService: ProductService) {}
 
   //alle endpoints voor producten-API
+  //ontvangen alle HTTP verzoeken en sturen van response
 
   @Get('')
   async getAll(): Promise<IProduct[]> {
-    return await this.productService.getAll();
+    return await this.productService.getAll(); 
   }
 
   @Get(':id')
@@ -32,7 +33,7 @@ export class ProductController {
 
   @Post('')
   async create(@Body() createProductDto: CreateProductDto): Promise<IProduct> {
-    const createdProduct = await this.productService.createProduct(
+    const createdProduct = await this.productService.createProduct( 
       createProductDto
     );
     return createdProduct;
