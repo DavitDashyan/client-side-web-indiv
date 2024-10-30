@@ -8,7 +8,7 @@
 ## Start the app
 
 To start the development server run `nx serve client_side_web_indiv`. Open your browser and navigate to http://localhost:4200/. Happy coding!
-nx run-many --target=serve --all
+
 
 ## Generate code
 
@@ -26,6 +26,7 @@ To execute tasks with Nx use the following syntax:
 nx <target> <project> <...options>
 ```
 nx run-many --target=serve --all
+
 ```
 You can also run multiple targets:
 
