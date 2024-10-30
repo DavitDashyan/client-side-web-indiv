@@ -25,7 +25,8 @@ To execute tasks with Nx use the following syntax:
 ```
 nx <target> <project> <...options>
 ```
-
+nx run-many --target=serve --all
+```
 You can also run multiple targets:
 
 ```
