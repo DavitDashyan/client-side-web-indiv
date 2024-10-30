@@ -8,7 +8,7 @@
 ## Start the app
 
 To start the development server run `nx serve client_side_web_indiv`. Open your browser and navigate to http://localhost:4200/. Happy coding!
-
+nx run-many --target=serve --all
 
 ## Generate code
 
